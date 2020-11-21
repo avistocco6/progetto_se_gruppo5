@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/progetto_se_gruppo5",
+  "description": "progettoSE",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "avistocco6",
+      "email": "a.vistocco6@studenti.unisa.it"
+    }
+  ],
+  "require": {
+    "phpunit/phpunit": "9.4.3"
+  }
+}
