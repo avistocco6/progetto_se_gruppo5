@@ -78,7 +78,7 @@ create table MainProcedure (
 
 create table Skill(
 	skid smallint,
-	skillname varchar(30),
+	skillname varchar(100),
 	constraint pk_Skill primary key(skid)
 );
 
