@@ -8,6 +8,7 @@ drop table if exists Skill cascade;
 drop table if exists DailyAvailability cascade;
 drop table if exists Holding cascade;
 drop table if exists SPAssignment cascade;
+drop role if exists gruppo5;
 
 create table Client (
 	username varchar(20),
