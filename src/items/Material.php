@@ -37,7 +37,7 @@ class Material {
         return $this->activity;
     }
 
-    public static function save_from_json($file) {
+    public static function save($json) {
         $conn = new PgConnection();
         $conn = $conn->connect();
 
@@ -45,7 +45,7 @@ class Material {
             //echo '<p style="color:rgb(255,0,0);">Error saving material</p>';
             return false;
         }
-        $json_data = file_get_contents($file);
+        $json_data = file_get_contents($json);
         $material = json_decode($json_data, true);
 
         if($material == null)
@@ -55,7 +55,7 @@ class Material {
         $name = $material['name'];
         $activity = $material['activity'];
 
-        $res = Material::db_insert($conn, $id, $name, $activity);
+        $res = self::db_insert($conn, $id, $name, $activity);
 
         pg_close($conn);
 
@@ -70,11 +70,8 @@ class Material {
             $sql = "INSERT INTO Material(mid, name)
                     VALUES(" . $id . "," . "'" . $name . "'" . ")";
 
-        $insert_query = pg_query($conn, $sql);
-
-        if(!$insert_query)
-            return false;
-        else
-            return true;
+        return $conn->query($sql);
     }
+
+
 }

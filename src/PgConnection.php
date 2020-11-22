@@ -57,5 +57,9 @@ class PgConnection
     public function get_port() {
         return $this->port;
     }
+
+    public function query($sql_string) {
+        return pg_query($sql_string);
+    }
 }
 ?>

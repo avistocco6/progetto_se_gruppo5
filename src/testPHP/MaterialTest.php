@@ -47,7 +47,7 @@ class MaterialTest extends TestCase {
     }
 
     public function test_save_from_json() {
-        $res = Material::save_from_json('..\..\json_templates\material.json');
+        $res = Material::save('..\..\json_templates\material.json');
         $this->assertEquals($res, true);
     }
 }

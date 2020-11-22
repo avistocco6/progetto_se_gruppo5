@@ -37,7 +37,7 @@ class Site {
         $this->branch = $branch;
     }
 
-    public static function save_from_json($file) {
+    public static function save($json) {
         $conn = new PgConnection();
         $conn = $conn->connect();
 
@@ -45,7 +45,7 @@ class Site {
             //echo '<p style="color:rgb(255,0,0);">Error saving site</p>';
             return false;
         }
-        $json_data = file_get_contents($file);
+        $json_data = file_get_contents($json);
         $site = json_decode($json_data, true);
 
         if($site == null)
@@ -55,22 +55,20 @@ class Site {
         $branch = $site['branch'];
         $department = $site['department'];
 
-        $res = Site::db_insert($conn, $id, $department, $branch);
+        $res = self::db_insert($conn, $id, $department, $branch);
 
         pg_close($conn);
 
         return $res;
     }
 
+    public static function upload($json) {
+
+    }
     private static function db_insert($conn, $id, $department, $branch) {
         $sql = "INSERT INTO Site(sid, branch, departement)
                 VALUES(" . $id . "," . "'" . $branch . "'" . "," . "'" . $department . "'" . ")";
 
-        $insert_query = pg_query($conn, $sql);
-
-        if(!$insert_query)
-            return false;
-        else
-            return true;
+        return $conn->query($sql);
     }
 }

@@ -27,7 +27,7 @@ class Typology {
         $this->description = $description;
     }
 
-    public static function save_from_json($file) {
+    public static function save($json) {
         $conn = new PgConnection();
         $conn = $conn->connect();
 
@@ -35,7 +35,7 @@ class Typology {
             //echo '<p style="color:rgb(255,0,0);">Error saving typology</p>';
             return false;
         }
-        $json_data = file_get_contents($file);
+        $json_data = file_get_contents($json);
         $typology = json_decode($json_data, true);
 
         if($typology == null)
@@ -44,7 +44,7 @@ class Typology {
         $id = $typology['id'];
         $description = $typology['description'];
 
-        $res = Typology::db_insert($conn, $id, $description);
+        $res = self::db_insert($conn, $id, $description);
 
         pg_close($conn);
 
@@ -55,11 +55,6 @@ class Typology {
         $sql = "INSERT INTO Typology(tid, description)
                 VALUES(" . $id . "," . "'" . $description . "'" . ")";
 
-        $insert_query = pg_query($conn, $sql);
-
-        if(!$insert_query)
-            return false;
-        else
-            return true;
+        return $conn->query($sql);
     }
 }
