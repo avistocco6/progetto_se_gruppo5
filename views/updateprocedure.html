@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-    	<title> Add Site </title>
+    	<title> Update Procedure </title>
     	<meta charset="utf-8"/>
     	<meta name="author" content="Team 5"/>
     	<meta name="description" content="Web application for maintenance activies."/>
@@ -16,8 +16,16 @@
             a:visited{
               color: black;
             }
-            input{
-              width: 200px;
+            textarea {
+              width: 100%;
+              height: 150px;
+              padding: 12px 20px;
+              box-sizing: border-box;
+              border: 2px solid #ccc;
+              border-radius: 4px;
+              background-color: #f8f8f8;
+              font-size: 16px;
+              resize: none;
             }
         </style>    
     </head>
@@ -29,37 +37,41 @@
                 </p>
             </div>
             <div class="header" >
-                <h1> Sites Management </h1>
+                <h1> Procedures Management </h1>
             </div> 
             <div class="header">
               <p>
                 <a href="index.html"><img border="0" src="exit.png" width="70" height="70"> </a>
               </p>  
             </div> 
-        </div> 
+        </div>    
         <div class="column" style="text-align: center;">
-            <form method="post" name="addsite" >
+            <form method="post" name="updateprocedure" >
             <fieldset>
-              <legend><h2>Add site</h2></legend>
-             <p> 
-                <label for="site">
-                  Site: <input type="text" name="site" required/>
+              <legend><h2>Update procedure</h2></legend>
+              <p>
+                <label for="current">
+                  Old Procedure Name: <input type="text" name="oldprocedure" required/>
                 </label>
               </p>
-              <br>
-              <p> 
-                <label for="factory">
-                  Factory: <input type="text" name="factory" required/>
+              <p>
+                <label for="current">
+                  Old Procedure Description: <textarea></textarea>
                 </label>
               </p>
-              <br>
-              <p> 
-                <label for="area">
-                  Area: <input type="text" name="area" required/>
+              <p>
+                <label for="current">
+                  New Procedure Name: <input type="text" name="newprocedure" required/>
                 </label>
               </p>
-              <br>
-
+              <p>
+                <label for="new">
+                  New Procedure Description: <textarea></textarea>
+                </label>
+              </p>
+              <input type="file" id="myFile" name="filename">
+              <input type="submit" value="Upload SMP">
+            </fieldset>
         </div>
         <div class="footer">
           <h2>Team 5</h2>

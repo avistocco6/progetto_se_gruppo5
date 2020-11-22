@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-    	<title> Add Skill </title>
+    	<title> Update Site </title>
     	<meta charset="utf-8"/>
     	<meta name="author" content="Team 5"/>
     	<meta name="description" content="Web application for maintenance activies."/>
@@ -16,16 +16,8 @@
             a:visited{
               color: black;
             }
-            textarea {
-              width: 100%;
-              height: 150px;
-              padding: 12px 20px;
-              box-sizing: border-box;
-              border: 2px solid #ccc;
-              border-radius: 4px;
-              background-color: #f8f8f8;
-              font-size: 16px;
-              resize: none;
+            input{
+              width: 200px;
             }
         </style>    
     </head>
@@ -37,23 +29,53 @@
                 </p>
             </div>
             <div class="header" >
-                <h1> Skills Management </h1>
+                <h1> Sites Management </h1>
             </div> 
             <div class="header">
               <p>
                 <a href="index.html"><img border="0" src="exit.png" width="70" height="70"> </a>
               </p>  
             </div> 
-        </div>  
+        </div> 
         <div class="column" style="text-align: center;">
-            <form method="post" name="addskill" >
+            <form method="post" name="addsite" >
             <fieldset>
-              <legend><h2>Add skill</h2></legend>
-              <p>
-                <label for="insert">
-                  <textarea></textarea>
+              <legend><h2>Update site</h2></legend>
+                <p> 
+                <label for="currentsite">
+                  Old Site: <input type="text" name="site" required/>
                 </label>
               </p>
+              <p> 
+                <label for="newsite">
+                  New Site: <input type="text" name="site" required/>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="currentfactory">
+                  Old Factory: <input type="text" name="factory" required/>
+                </label>
+              </p>
+              <p> 
+                <label for="newfactory">
+                  New Factory: <input type="text" name="factory" required/>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="currentarea">
+                  Old Area: <input type="text" name="area" required/>
+                </label>
+              </p>
+              <p> 
+                <label for="newarea">
+                  New Area: <input type="text" name="area" required/>
+                </label>
+              </p>
+              <br>
+            </fieldset>
+
         </div>
         <div class="footer">
           <h2>Team 5</h2>
