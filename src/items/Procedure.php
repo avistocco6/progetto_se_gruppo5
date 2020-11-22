@@ -76,4 +76,19 @@ class Procedure {
 
         return new Procedure($description, $activity);
     }
+
+    public static function addSkill($json) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $assign = json_decode($json, true);
+
+        $skill_id = $assign['skill_id'];
+        $procedure_id = $assign['procedure_id'];
+
+        $sql = "INSERT INTO SPAssignment(ids, idp) VALUES(" . "'" . $skill_id . "'," . $procedure_id . ")";
+        return $connector->query($sql) ? true : false;
+
+        pg_close($conn);
+    }
 }

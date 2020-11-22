@@ -57,4 +57,9 @@ class ProcedureTest extends TestCase
         $this->assertEquals($res, true);
     }
 
+    public function test_addSkill() {
+        $json_data = file_get_contents('..\..\json_templates\skill_assignation_procedure.json');
+        $res = Client::assignSkill($json_data);
+        $this->assertEquals($res, true);
+    }
 }

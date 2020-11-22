@@ -82,7 +82,7 @@ class ClientTest extends TestCase
     }
 
     public function test_assignSkill() {
-        $json_data = file_get_contents('..\..\json_templates\skill_assignation.json');
+        $json_data = file_get_contents('..\..\json_templates\skill_assignation_maintainer.json');
         $res = Client::assignSkill($json_data);
         $this->assertEquals($res, true);
     }
