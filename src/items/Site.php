@@ -32,7 +32,7 @@ class Site {
         $conn = $connector->connect();
 
         if($conn == null) {
-            //echo '<p style="color:rgb(255,0,0);">Error saving site</p>';
+            //echo '<p style="color:rgb(255,0,0);">Error saving views</p>';
             return false;
         }
 
