@@ -58,8 +58,7 @@ class Site {
     }
 
     private static function create_from_json($json) {
-        $json_data = file_get_contents($json);
-        $site = json_decode($json_data, true);
+        $site = json_decode($json, true);
 
         if($site == null)
             return null;

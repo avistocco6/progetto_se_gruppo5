@@ -69,8 +69,7 @@ class Material {
     }
 
     private static function create_from_json($json) {
-        $json_data = file_get_contents($json);
-        $material = json_decode($json_data, true);
+        $material = json_decode($json, true);
 
         if($material == null)
             return null;

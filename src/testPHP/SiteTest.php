@@ -49,7 +49,8 @@ class SiteTest extends TestCase {
     }
 
     public function test_save_from_json() {
-        $res = Site::save('..\..\json_templates\site.json');
+        $json_data = file_get_contents('..\..\json_templates\site.json');
+        $res = Site::save($json_data);
         $this->assertEquals($res, true);
     }
 }

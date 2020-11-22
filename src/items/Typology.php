@@ -55,8 +55,7 @@ class Typology {
     }
 
     private static function create_from_json($json) {
-        $json_data = file_get_contents($json);
-        $typology = json_decode($json_data, true);
+        $typology = json_decode($json, true);
 
         if($typology == null)
             return null;
