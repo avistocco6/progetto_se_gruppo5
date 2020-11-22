@@ -35,7 +35,7 @@ create table Site(
 create table MainActivity (
 	maid SERIAL,
 	description varchar(10000),
-	estimatedtime time,
+	estimatedtime interval,
 	interruptible bool,
 	mtype varchar(30) not null,
 	week smallint,
