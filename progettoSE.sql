@@ -20,20 +20,20 @@ create table Client (
 );
 
 create table Typology (
-	tid smallint,
+	tid SERIAL,
 	description varchar(30) not null,
 	constraint pk_Typology primary key(tid)	
 );
 
 create table Site(
-	sid smallint,
+	sid SERIAL,
 	branch varchar(20) not null,
 	departement varchar(20) not null,
 	constraint pk_Site primary key(sid)
 );
 
 create table MainActivity (
-	maid smallint,
+	maid SERIAL,
 	description varchar(10000),
 	estimatedtime time,
 	interruptible bool,
@@ -56,7 +56,7 @@ create table MainActivity (
 	
 );
 create table Material (
-	mid smallint not null,
+	mid SERIAL not null,
 	name varchar(100),
 	idactivity smallint,
 	constraint pk_Material primary key(mid),
@@ -66,7 +66,7 @@ create table Material (
 );
 
 create table MainProcedure (
-	mpid smallint,
+	mpid SERIAL,
 	description varchar(2000),
 	smp bytea,
 	idactivity smallint,
@@ -77,7 +77,7 @@ create table MainProcedure (
 );
 
 create table Skill(
-	skid smallint,
+	skid SERIAL,
 	skillname varchar(100),
 	constraint pk_Skill primary key(skid)
 );
