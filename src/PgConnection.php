@@ -3,11 +3,11 @@
 
 class PgConnection
 {
-    private $host = '';
-    private $db = '';
-    private $username = '';
-    private $password = '';
-    private $port = '';
+    private $host = 'localhost';
+    private $db = 'ProgettoSE';
+    private $username = 'gruppo5';
+    private $password = 'progettoSE2020';
+    private $port = '5432';
 
     public function connect(){
         // host=host db=DB user=user password=password
@@ -18,7 +18,7 @@ class PgConnection
 
         if (!$connection) return null;
 
-        echo "Opened database successfully<br/>";
+        //echo "Opened database successfully<br/>";
         return $connection;
     }
 
@@ -51,7 +51,7 @@ class PgConnection
     }
 
     public function  get_host() {
-        return $this.$this->host;
+        return $this->host;
     }
 
     public function get_port() {

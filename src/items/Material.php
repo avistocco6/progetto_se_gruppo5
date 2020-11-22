@@ -1,5 +1,6 @@
 <?php
 
+include '..\PgConnection.php';
 
 class Material {
     private $id;
@@ -62,8 +63,12 @@ class Material {
     }
 
     private static function db_insert($conn, $id, $name, $activity) {
-        $sql = "INSERT INTO Material(mid, name, idactivity)
-                VALUES(" . $id . "," . $name . "," . $activity . ")";
+        if($activity != null)
+            $sql = "INSERT INTO Material(mid, name, idactivity)
+                    VALUES(" . $id . "," . "'" . $name . "'" . "," . $activity . ")";
+        else
+            $sql = "INSERT INTO Material(mid, name)
+                    VALUES(" . $id . "," . "'" . $name . "'" . ")";
 
         $insert_query = pg_query($conn, $sql);
 
