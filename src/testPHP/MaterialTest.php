@@ -7,13 +7,7 @@ include_once '..\items\Material.php';
 
 class MaterialTest extends TestCase {
     private function testMaterial() {
-        return new Material(4, "Cuscinetto", 2);
-    }
-
-    public function test_get_id() {
-        $material = $this->testMaterial();
-
-        $this->assertEquals($material->get_id(), 4);
+        return new Material( "Cuscinetto", 2);
     }
 
     public function test_get_name() {
@@ -26,12 +20,6 @@ class MaterialTest extends TestCase {
         $material = $this->testMaterial();
 
         $this->assertEquals($material->get_activity(), 2);
-    }
-
-    public function test_set_id() {
-        $material = $this->testMaterial();
-        $material->set_id(23);
-        $this->assertEquals($material->get_id(), 23);
     }
 
     public function test_set_activity() {

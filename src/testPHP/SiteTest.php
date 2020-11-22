@@ -6,14 +6,9 @@ include '..\items\Site.php';
 
 class SiteTest extends TestCase {
     private function testSite() {
-        return new Site(5, "Nusco", "Carpentry");
+        return new Site("Nusco", "Carpentry");
     }
 
-    public function test_get_id() {
-        $site = $this->testSite();
-
-        $this->assertEquals($site->get_id(), 5);
-    }
 
     public function test_get_branch() {
         $site = $this->testSite();
@@ -25,13 +20,6 @@ class SiteTest extends TestCase {
         $site = $this->testSite();
 
         $this->assertEquals($site->get_department(), "Carpentry");
-    }
-
-    public function test_set_id() {
-        $site = $this->testSite();
-
-        $site->set_id(2);
-        $this->assertEquals($site->get_id(), 2);
     }
 
     public function test_set_branch() {

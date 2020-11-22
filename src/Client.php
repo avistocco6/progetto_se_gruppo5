@@ -122,5 +122,7 @@ class Client {
 
         $sql = "INSERT INTO Holding(username, idskill) VALUES(" . "'" . $user . "'," . $skill_id . ")";
         return $connector->query($sql) ? true : false;
+
+        pg_close($conn);
     }
 }

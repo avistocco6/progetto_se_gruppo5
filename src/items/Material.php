@@ -3,18 +3,12 @@
 include_once '..\PgConnection.php';
 
 class Material {
-    private $id;
     private $name;
     private $activity;
 
-    public function __construct($id, $name, $activity) {
-        $this->id = $id;
+    public function __construct($name, $activity) {
         $this->name = $name;
         $this->activity = $activity;
-    }
-
-    public function set_id($id) {
-        $this->id = $id;
     }
 
     public function set_name($name) {
@@ -23,10 +17,6 @@ class Material {
 
     public function set_activity($activity) {
         $this->activity = $activity;
-    }
-
-    public function get_id() {
-        return $this->id;
     }
 
     public function get_name() {
@@ -59,11 +49,11 @@ class Material {
 
     private static function db_insert($conn, $material) {
         if($material->activity != null)
-            $sql = "INSERT INTO Material(mid, name, idactivity)
-                    VALUES(" . $material->id . "," . "'" . $material->name . "'" . "," . $material->activity . ")";
+            $sql = "INSERT INTO Material(name, idactivity)
+                    VALUES(" . "'" . $material->name . "'," . $material->activity . ")";
         else
-            $sql = "INSERT INTO Material(mid, name)
-                    VALUES(" . $material->id . "," . "'" . $material->name . "'" . ")";
+            $sql = "INSERT INTO Material(name)
+                    VALUES(" . "'" . $material->name . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
@@ -74,10 +64,9 @@ class Material {
         if($material == null)
             return null;
 
-        $id = $material['id'];
         $name = $material['name'];
         $activity = $material['activity'];
 
-        return new Material($id, $name, $activity);
+        return new Material($name, $activity);
     }
 }

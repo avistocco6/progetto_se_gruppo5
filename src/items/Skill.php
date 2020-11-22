@@ -3,20 +3,10 @@
 include_once '..\PgConnection.php';
 
 class Skill {
-    private $id;
     private $name;
 
-    public function __construct($id, $name) {
-        $this->id = $id;
+    public function __construct($name) {
         $this->name = $name;
-    }
-
-    public function get_id() {
-        return $this->id;
-    }
-
-    public function set_id($id) {
-        $this->id = $id;
     }
 
     public function get_name() {
@@ -48,8 +38,8 @@ class Skill {
     }
 
     private static function db_insert($conn, $skill) {
-        $sql = "INSERT INTO Skill(skid, skillname)
-                VALUES(" . $skill->id . "," . "'" . $skill->name . "'" . ")";
+        $sql = "INSERT INTO Skill(skillname)
+                VALUES(" . "'" . $skill->name . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
@@ -60,9 +50,8 @@ class Skill {
         if($skill == null)
             return null;
 
-        $id = $skill['id'];
         $name = $skill['name'];
 
-        return new Skill($id, $name);
+        return new Skill($name);
     }
 }

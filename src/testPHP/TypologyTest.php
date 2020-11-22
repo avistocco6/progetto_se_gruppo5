@@ -6,26 +6,13 @@ include_once '..\items\Typology.php';
 
 class TypologyTest extends TestCase {
     private function testTypology() {
-        return new Typology(5, "Electrical");
-    }
-
-    public function test_get_id() {
-        $typology = $this->testTypology();
-
-        $this->assertEquals($typology->get_id(), 5);
+        return new Typology("Electrical");
     }
 
     public function test_get_description() {
         $typology = $this->testTypology();
 
         $this->assertEquals($typology->get_description(), "Electrical");
-    }
-
-    public function test_set_id() {
-        $typology = $this->testTypology();
-
-        $typology->set_id(10);
-        $this->assertEquals($typology->get_id(), 10);
     }
 
     public function test_set_description() {

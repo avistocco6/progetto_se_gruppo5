@@ -75,7 +75,7 @@ class ClientTest extends TestCase
         $this->assertEquals($client->getRole(), "Planner");
     }
 
-    public function test_save_from_json() {
+    public function test_save() {
         $json_data = file_get_contents('..\..\json_templates\client.json');
         $res = Client::save($json_data);
         $this->assertEquals($res, true);

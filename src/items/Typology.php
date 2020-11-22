@@ -3,24 +3,14 @@
 include_once '..\PgConnection.php';
 
 class Typology {
-    private $id;
     private $description;
 
-    public function __construct($id, $description) {
-        $this->id = $id;
+    public function __construct($description) {
         $this->description = $description;
-    }
-
-    public function get_id() {
-        return $this->id;
     }
 
     public function get_description() {
         return $this->description;
-    }
-
-    public function set_id($id) {
-        $this->id = $id;
     }
 
     public function set_description($description) {
@@ -48,8 +38,8 @@ class Typology {
     }
 
     private static function db_insert($conn, $typology) {
-        $sql = "INSERT INTO Typology(tid, description)
-                VALUES(" . $typology->id . "," . "'" . $typology->description . "'" . ")";
+        $sql = "INSERT INTO Typology(description)
+                VALUES(". "'". $typology->description . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
@@ -60,9 +50,8 @@ class Typology {
         if($typology == null)
             return null;
 
-        $id = $typology['id'];
         $description = $typology['description'];
 
-        return new Typology($id, $description);
+        return new Typology($description);
     }
 }

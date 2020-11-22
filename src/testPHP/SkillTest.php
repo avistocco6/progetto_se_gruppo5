@@ -7,13 +7,7 @@ include_once '..\items\Skill.php';
 class SkillTest extends TestCase
 {
     private function testSkill() {
-        return new Skill(31, "Knowledge of cable types");
-    }
-
-    public function test_get_id() {
-        $skill = $this->testSkill();
-
-        $this->assertEquals($skill->get_id(), 31);
+        return new Skill( "Knowledge of cable types");
     }
 
     public function test_get_name() {
@@ -22,12 +16,6 @@ class SkillTest extends TestCase
         $this->assertEquals($skill->get_name(), "Knowledge of cable types");
     }
 
-    public function test_set_id() {
-        $skill = $this->testSkill();
-
-        $skill->set_id(1);
-        $this->assertEquals($skill->get_id(), 1);
-    }
 
     public function test_set_name() {
         $skill = $this->testSkill();

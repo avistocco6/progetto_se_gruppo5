@@ -3,18 +3,12 @@
 include_once '..\PgConnection.php';
 
 class Site {
-    private $id;
     private $branch;
     private $department;
 
-    public function __construct($id, $branch, $department) {
-        $this->id = $id;
+    public function __construct($branch, $department) {
         $this->department = $department;
         $this->branch = $branch;
-    }
-
-    public function get_id() {
-        return $this->id;
     }
 
     public function get_branch() {
@@ -23,10 +17,6 @@ class Site {
 
     public function get_department() {
         return $this->department;
-    }
-
-    public function set_id($id) {
-        $this->id = $id;
     }
 
     public function set_department($department) {
@@ -63,16 +53,15 @@ class Site {
         if($site == null)
             return null;
 
-        $id = $site['id'];
         $branch = $site['branch'];
         $department = $site['department'];
 
-        return new Site($id, $branch, $department);
+        return new Site($branch, $department);
     }
 
     private static function db_insert($conn, $site) {
-        $sql = "INSERT INTO Site(sid, branch, departement)
-                VALUES(" . $site->id . "," . "'" . $site->branch . "'" . "," . "'" . $site->department . "'" . ")";
+        $sql = "INSERT INTO Site(branch, departement)
+                VALUES(" . "'" . $site->branch . "'" . "," . "'" . $site->department . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
