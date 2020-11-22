@@ -38,40 +38,47 @@ class Material {
     }
 
     public static function save($json) {
-        $conn = new PgConnection();
-        $conn = $conn->connect();
+        $connector = new PgConnection();
+        $conn = $connector->connect();
 
         if($conn == null) {
             //echo '<p style="color:rgb(255,0,0);">Error saving material</p>';
             return false;
         }
-        $json_data = file_get_contents($json);
-        $material = json_decode($json_data, true);
 
-        if($material == null)
-            return false;
+        $material = self::create_from_json($json);
 
-        $id = $material['id'];
-        $name = $material['name'];
-        $activity = $material['activity'];
+        if($material == null) return false;
 
-        $res = self::db_insert($conn, $id, $name, $activity);
+        $res = self::db_insert($connector, $material);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $id, $name, $activity) {
-        if($activity != null)
+    private static function db_insert($conn, $material) {
+        if($material->activity != null)
             $sql = "INSERT INTO Material(mid, name, idactivity)
-                    VALUES(" . $id . "," . "'" . $name . "'" . "," . $activity . ")";
+                    VALUES(" . $material->id . "," . "'" . $material->name . "'" . "," . $material->activity . ")";
         else
             $sql = "INSERT INTO Material(mid, name)
-                    VALUES(" . $id . "," . "'" . $name . "'" . ")";
+                    VALUES(" . $material->id . "," . "'" . $material->name . "'" . ")";
 
-        return $conn->query($sql);
+        return $conn->query($sql) ? true : false;
     }
 
+    private static function create_from_json($json) {
+        $json_data = file_get_contents($json);
+        $material = json_decode($json_data, true);
 
+        if($material == null)
+            return null;
+
+        $id = $material['id'];
+        $name = $material['name'];
+        $activity = $material['activity'];
+
+        return new Material($id, $name, $activity);
+    }
 }

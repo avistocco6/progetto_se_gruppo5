@@ -38,37 +38,43 @@ class Site {
     }
 
     public static function save($json) {
-        $conn = new PgConnection();
-        $conn = $conn->connect();
+        $connector = new PgConnection();
+        $conn = $connector->connect();
 
         if($conn == null) {
             //echo '<p style="color:rgb(255,0,0);">Error saving site</p>';
             return false;
         }
-        $json_data = file_get_contents($json);
-        $site = json_decode($json_data, true);
 
-        if($site == null)
-            return false;
+        $site = self::create_from_json($json);
 
-        $id = $site['id'];
-        $branch = $site['branch'];
-        $department = $site['department'];
+        if($site == null) return false;
 
-        $res = self::db_insert($conn, $id, $department, $branch);
+        $res = self::db_insert($connector, $site);
 
         pg_close($conn);
 
         return $res;
     }
 
-    public static function upload($json) {
+    private static function create_from_json($json) {
+        $json_data = file_get_contents($json);
+        $site = json_decode($json_data, true);
 
+        if($site == null)
+            return null;
+
+        $id = $site['id'];
+        $branch = $site['branch'];
+        $department = $site['department'];
+
+        return new Site($id, $branch, $department);
     }
-    private static function db_insert($conn, $id, $department, $branch) {
-        $sql = "INSERT INTO Site(sid, branch, departement)
-                VALUES(" . $id . "," . "'" . $branch . "'" . "," . "'" . $department . "'" . ")";
 
-        return $conn->query($sql);
+    private static function db_insert($conn, $site) {
+        $sql = "INSERT INTO Site(sid, branch, departement)
+                VALUES(" . $site->id . "," . "'" . $site->branch . "'" . "," . "'" . $site->department . "'" . ")";
+
+        return $conn->query($sql) ? true : false;
     }
 }

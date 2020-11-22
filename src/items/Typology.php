@@ -28,33 +28,42 @@ class Typology {
     }
 
     public static function save($json) {
-        $conn = new PgConnection();
-        $conn = $conn->connect();
+        $connector = new PgConnection();
+        $conn = $connector->connect();
 
         if($conn == null) {
             //echo '<p style="color:rgb(255,0,0);">Error saving typology</p>';
             return false;
         }
-        $json_data = file_get_contents($json);
-        $typology = json_decode($json_data, true);
 
-        if($typology == null)
-            return false;
+        $typology = self::create_from_json($json);
 
-        $id = $typology['id'];
-        $description = $typology['description'];
+        if($typology == null) return false;
 
-        $res = self::db_insert($conn, $id, $description);
+        $res = self::db_insert($connector, $typology);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $id, $description) {
+    private static function db_insert($conn, $typology) {
         $sql = "INSERT INTO Typology(tid, description)
-                VALUES(" . $id . "," . "'" . $description . "'" . ")";
+                VALUES(" . $typology->id . "," . "'" . $typology->description . "'" . ")";
 
-        return $conn->query($sql);
+        return $conn->query($sql) ? true : false;
+    }
+
+    private static function create_from_json($json) {
+        $json_data = file_get_contents($json);
+        $typology = json_decode($json_data, true);
+
+        if($typology == null)
+            return null;
+
+        $id = $typology['id'];
+        $description = $typology['description'];
+
+        return new Typology($id, $description);
     }
 }
