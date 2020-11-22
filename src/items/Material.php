@@ -1,13 +1,13 @@
 <?php
 
-include '..\PgConnection.php';
+include_once '..\PgConnection.php';
 
 class Material {
     private $id;
     private $name;
     private $activity;
 
-    function __construct($id, $name, $activity) {
+    public function __construct($id, $name, $activity) {
         $this->id = $id;
         $this->name = $name;
         $this->activity = $activity;

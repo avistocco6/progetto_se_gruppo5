@@ -3,7 +3,7 @@
 
 use PHPUnit\Framework\TestCase;
 //include '..\..\json_templates\material.json';
-include '..\items\Material.php';
+include_once '..\items\Material.php';
 
 class MaterialTest extends TestCase {
     private function testMaterial() {
