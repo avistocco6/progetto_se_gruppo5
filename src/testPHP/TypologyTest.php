@@ -27,4 +27,10 @@ class TypologyTest extends TestCase {
         $res = Typology::save($json_data);
         $this->assertEquals($res, true);
     }
+
+    function test_get_typologies() {
+        $json_string = Typology::get_typologies();
+        $expected = file_get_contents('test_files\typologies.json');
+        $this->assertEquals($expected, $json_string);
+    }
 }

@@ -65,4 +65,26 @@ class Site {
 
         return $conn->query($sql) ? true : false;
     }
+
+    public static function get_sites() {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = pg_query("SELECT * FROM Site");
+
+        if(!$res) return false;
+
+        $json_string = "[";
+        while($row = pg_fetch_row($res)) {
+            $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"factory":' .
+                '"' . $row[1] . '"' . ",\n" . '"factory":' .
+                '"' . $row[2] . '"' . "\n}" . ",\n";
+        }
+        $json_string = substr($json_string, 0, strlen($json_string)-2);
+        $json_string = $json_string . "]";
+
+        pg_close($conn);
+
+        return $json_string;
+    }
 }

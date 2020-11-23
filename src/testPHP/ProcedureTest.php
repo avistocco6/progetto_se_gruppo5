@@ -8,20 +8,20 @@ class ProcedureTest extends TestCase
 {
 
     private function testProcedure() {
-        return new Procedure("desc", 1, );
+        return new Procedure("desc", 1 );
     }
 
     public function testGetActivity() {
         $proc = $this->testProcedure();
 
-        $this->assertEquals(1, $proc->getDescription());
+        $this->assertEquals(1, $proc->getActivity());
     }
 
     public function testSetSmp() {
         $proc = $this->testProcedure();
 
         $proc->setSmp("test_procedure.txt");
-        $this->assertEquals("test_procedure.txt", $proc->getSmp());
+        $this->assertEquals("TEST", $proc->getSmp());
     }
 
     public function testGetSmp() {
@@ -59,7 +59,7 @@ class ProcedureTest extends TestCase
 
     public function test_addSkill() {
         $json_data = file_get_contents('..\..\json_templates\skill_assignation_procedure.json');
-        $res = Client::assignSkill($json_data);
+        $res = Procedure::addSkill($json_data);
         $this->assertEquals($res, true);
     }
 }

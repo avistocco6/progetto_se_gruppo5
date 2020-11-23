@@ -59,8 +59,8 @@ class Procedure {
 
     private static function db_insert($conn, $procedure) {
         $sql = "INSERT INTO MainProcedure(description, idactivity)
-                VALUES(" . "," . "'" . $procedure->description . "'" .
-                "'" . $procedure->activity . "'" . ")";
+                VALUES(" . "'" . $procedure->description . "'," .
+                 $procedure->activity . ")";
 
         return $conn->query($sql) ? true : false;
     }
