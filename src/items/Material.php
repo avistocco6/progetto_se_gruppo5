@@ -83,9 +83,10 @@ class Material {
             $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"name":' .
                 '"' . $row[1] . '"' . "\n}" . ",\n";
         }
-        $json_string = substr($json_string, 0, strlen($json_string)-2);
-        $json_string = $json_string . "]";
-
+        if(strlen($json_string) > 1) {
+            $json_string = substr($json_string, 0, strlen($json_string) - 2);
+            $json_string = $json_string . "]";
+        } else $json_string = null;
         pg_close($conn);
 
         return $json_string;

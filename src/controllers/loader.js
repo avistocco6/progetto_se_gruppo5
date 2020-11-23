@@ -18,9 +18,11 @@ function loadMaterials() {
                 });
 
                 /* When empty material */
-                if (data.length === 0) {
-                    $("tfoot :first-child").hide();
-                    $("tfoot").html('<tr><th>No records</th></tr>');
+                if (data === null) {
+                    console.log("THERE")
+                    let row = staticHtml;
+                    row = row.replace(/{Material}/ig, "There are no materials");
+                    $('#materials-rows').append(row);
                 }
             }
             else {
