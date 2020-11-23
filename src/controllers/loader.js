@@ -1,7 +1,7 @@
 function loadMaterials() {
     jQuery.ajax({
         type: "POST",
-        url: '../src/models/loader.php',
+        url: '../models/loader.php',
         dataType: 'json',
         data: {functionname: "loadModels", arguments: []},
 

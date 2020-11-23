@@ -2,7 +2,7 @@
 
 
 use PHPUnit\Framework\TestCase;
-//include '..\..\json_templates\material.json';
+//include '..\..\json_templates\materials.json';
 include_once '..\items\Material.php';
 
 class MaterialTest extends TestCase {

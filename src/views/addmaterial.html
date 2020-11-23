@@ -1,5 +1,11 @@
 <!DOCTYPE HTML>
 <html>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../controllers/saver.js"></script>
+
     <head>
     	<title> Add Material </title>
     	<meta charset="utf-8"/>
@@ -35,12 +41,12 @@
             </div> 
         </div>    
         <div class="column" style="text-align: center;">
-          <form method="post" name="addmaterial" >
+          <form method="post" name="addmaterial" onsubmit="addMaterial()">
             <fieldset>
               <legend><h2>Add material</h2></legend>
               <p> 
                 <label for="material">
-                  Material: <input type="text" name="material" required/>
+                  Material: <input id=material-name type="text" name="material" required/>
                 </label>
               </p>
             </fieldset>
