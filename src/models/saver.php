@@ -21,6 +21,24 @@ if( !isset($aResult['error']) ) {
             }
             $aResult['result'] = Material::save($_POST['arguments'][0]);
             break;
+        case 'saveSkill':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $aResult['result'] = Skill::save($_POST['arguments'][0]);
+            break;
+        case 'saveTypology':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $aResult['result'] = Typology::save($_POST['arguments'][0]);
+            break;
+        case 'saveSite':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $aResult['result'] = Site::save($_POST['arguments'][0]);
+            break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;
