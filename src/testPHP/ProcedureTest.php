@@ -62,4 +62,10 @@ class ProcedureTest extends TestCase
         $res = Procedure::addSkill($json_data);
         $this->assertEquals($res, true);
     }
+
+    function test_get_materials() {
+        $json_string = Procedure::get_procedures();
+        $expected = file_get_contents("test_files\procedures.json");
+        $this->assertEquals($expected, $json_string);
+    }
 }

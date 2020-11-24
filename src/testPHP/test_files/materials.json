@@ -1,16 +1,20 @@
 [{
 "id":1,
-"name":"cuscinetto"
+"name":"cables"
 },
 {
 "id":2,
-"name":"pinza"
+"name":"welding machine"
 },
 {
 "id":3,
-"name":"Cuscinetto"
+"name":"wheel"
 },
 {
 "id":4,
-"name":"test"
+"name":"work keys"
+},
+{
+"id":5,
+"name":"cuscinetto"
 }]

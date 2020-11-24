@@ -33,7 +33,6 @@ class SkillTest extends TestCase
     function test_get_skills() {
         $json_string = Skill::get_skills();
         $expected = file_get_contents("test_files\skills.json");
-
         $this->assertEquals($expected, $json_string);
     }
 }
