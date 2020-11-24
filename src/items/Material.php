@@ -49,10 +49,10 @@ class Material {
 
     private static function db_insert($conn, $material) {
         if($material->activity != null)
-            $sql = "INSERT INTO Material(name, idactivity)
+            $sql = "INSERT INTO Material(matname, idactivity)
                     VALUES(" . "'" . $material->name . "'," . $material->activity . ")";
         else
-            $sql = "INSERT INTO Material(name)
+            $sql = "INSERT INTO Material(matname)
                     VALUES(" . "'" . $material->name . "'" . ")";
 
         return $conn->query($sql) ? true : false;
@@ -74,7 +74,7 @@ class Material {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT mid, name FROM Material");
+        $res = pg_query("SELECT mid, matname FROM Material");
 
         if(!$res) return false;
 

@@ -3,7 +3,7 @@ function loadMaterials() {
         type: "POST",
         url: '../models/loader.php',
         dataType: 'json',
-        data: {functionname: "loadModels", arguments: []},
+        data: {functionname: "loadMaterials", arguments: []},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
@@ -12,7 +12,6 @@ function loadMaterials() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
-                  console.log(obj.name);
                   row = row.replace(/{Material}/ig, obj.name);
                   $('#materials-rows').append(row);
                 });
@@ -46,7 +45,6 @@ function loadSkills() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
-                  console.log(obj.name);
                   row = row.replace(/{Skill}/ig, obj.name);
                   $('#skills-rows').append(row);
                 });

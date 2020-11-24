@@ -13,7 +13,7 @@ if( !isset($_POST['functionname']) ) { $aResult['error'] = 'No function name!'; 
 if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
-        case 'loadModels':
+        case 'loadMaterials':
             $aResult['result'] = Material::get_materials();
             break;
         case 'loadSkills':
@@ -23,7 +23,7 @@ if( !isset($aResult['error']) ) {
             $aResult['result'] = Typology::get_typologies();
             break;
         case 'loadSites':
-            $aResult['result'] = Material::get_materials();
+            $aResult['result'] = Site::get_materials();
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
