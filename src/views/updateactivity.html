@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    	<title> Update Activity </title>
+    	<meta charset="utf-8"/>
+    	<meta name="author" content="Team 5"/>
+    	<meta name="description" content="Web application for maintenance activies."/>
+    	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+        <style>
+            a{
+              text-decoration: none;
+              color: black;
+            }
+            a:visited{
+              color: black;
+            }
+            input{
+              width: 200px;
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="row">
+            <div class="header" >
+                <p>
+                  <a href="plannerview.html"><img border="0" src="return.png" width="70" height="70"> </a>
+                </p>
+            </div>
+            <div class="header" >
+                <h1> Activity Management </h1>
+            </div> 
+            <div class="header">
+              <p>
+                <a href="index.html"><img border="0" src="exit.png" width="70" height="70"> </a>
+              </p>  
+            </div> 
+        </div> 
+        <div class="column" style="text-align: center;">
+            <form method="post" name="addsite" >
+            <fieldset>
+              <legend><h2>Update Activity</h2></legend>
+             <p> 
+                <label for="id">
+                  Activity ID: <input type="text" name="id" required/>
+                </label>
+              </p>
+              <br>
+              <fieldset>
+              <p> 
+                <label for="site">
+                  Site: <select name="site">
+                    <option value="site1">Site one</option>
+                    <option value="site2">Site two</option>
+                    <option value="site3">Site three</option>
+                  </select>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="factory">
+                  Factory: <select id="factory" name="factory">
+                    <option value="factory1">Factory one</option>
+                    <option value="factory2">Factory two</option>
+                    <option value="factory3">Factory three</option>
+                  </select>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="area">
+                  Area: <select name="area">
+                    <option value="area1">Area one</option>
+                    <option value="area2">Area two</option>
+                    <option value="area3">Area three</option>
+                  </select>
+                </label>
+              </p>
+              </fieldset>
+              <br>
+              <p> 
+                <label for="type">
+                  Type: <select name="type">
+                    <option value="type1">Type one</option>
+                    <option value="type1">Type two</option>
+                    <option value="type1">Type three</option>
+                  </select>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="description">
+                  Description: <textarea></textarea>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="time">
+                  Estimated Intervention Time: <input type="text" name="time" required/>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="material">
+                  Materials:  <select name="material" multiple>
+                    <option value="material1">Material one</option>
+                    <option value="material2">Material two</option>
+                    <option value="material3">Material three</option>
+                  </select>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="interruption">
+                  Interruptible Activity: 
+                  <input type="radio" name="yes_no" checked>Yes</input>
+                  <input type="radio" name="yes_no">No</input>
+                  </p>
+                </label>
+              </p>
+              <br>
+              <p> 
+                <label for="type">
+                  Week: <select name="week">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                    <option value="47">47</option>
+                    <option value="48">48</option>
+                    <option value="49">49</option>
+                    <option value="50">50</option>
+                    <option value="51">51</option>
+                    <option value="52">52</option>
+                  </select>
+                </label>
+              </p>
+              <br>
+        </div>
+        <div class="footer">
+          <h2>Team 5</h2>
+        </div>  
+    </body>
+</html>

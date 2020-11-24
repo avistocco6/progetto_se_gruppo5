@@ -1,20 +1,40 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-    	<title> Planner Area </title>
+    	<title> Maintenance Activities </title>
     	<meta charset="utf-8"/>
     	<meta name="author" content="Team 5"/>
     	<meta name="description" content="Web application for maintenance activies."/>
     	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+      <style>
+            a{
+              text-decoration: none;
+              color: black;
+            }
+            a:visited{
+              color: black;
+            }
+            textarea {
+              width: 100%;
+              height: 150px;
+              padding: 12px 20px;
+              box-sizing: border-box;
+              border: 2px solid #ccc;
+              border-radius: 4px;
+              background-color: #f8f8f8;
+              font-size: 16px;
+              resize: none;
+            }
+        </style> 
     </head>
     <body>
       <div class="row">
         <div class="header">
         </div>
         <div class="header">
-            <h1> Planner Area </h1>
+          <h1> Maintenance Activities </h1>
         </div> 
         <div class="header">
           <p>
@@ -22,5 +42,24 @@
           </p> 
         </div> 
       </div> 
+      <div class="column" style="text-align: center;">
+        <table>
+          <tr>
+            <th><h3>Maintenance Activities</h3></th>
+          </tr>
+          <tr>
+            <td><a href="plannedactivities.html">Planned Activities</a></td>
+          </tr>
+          <tr>
+            <td><a href="unplannedactivities.html">Un-Planned Activities</a></td>
+          </tr>
+          <tr>
+            <td><a href="extra.html">Extra Activities</a></td>
+          </tr>
+        </table>
+      </div>  
+      <div class="footer">
+        <h2>Team 5</h2>
+      </div>
     </body>
 </html>      
