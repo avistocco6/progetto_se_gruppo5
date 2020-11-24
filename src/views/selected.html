@@ -112,14 +112,38 @@
                       <tr>
                         <th>Workspace Notes</th>
                       </tr>
+
+                        <template id="workspace-row-template">
+                            <tr>
+                                <td>{Workspace Notes}</td>
+                            </tr>
+                        </template>
+                        </thead>
+
+                        <tbody id="workspace-rows">
+
+                        </tbody>
                       <tr>
                         <td contenteditable="true" style="overflow: scroll;max-width: 1000px;">The plant is closed from 00/00/20 to 00/00/20. On the remaining days, it's possible to intervene only after 15:00 ddddddddddsdkjadhchjasjssdjhhgdahsgjahsgadshghsdhjsdjhgsdjhgsdfhjgsdhgjsdfhjgsdfhjgsdfhjgsdfhjgsdfhjgsdfhjgsfdhgsfhhjgsfhjgsfhcihsbdkhjbcaskhbdjdjdjjdjdjdjdcjksbdckhjsbdxhjavjh</td>
                       </tr>
                     </table>
+
                     <table class="tab2">
                       <tr>
                         <th>Intervention Description</th>
                       </tr>
+
+                        <template id="intervDescription-row-template">
+                            <tr>
+                                <td>{Intervention Description}</td>
+                            </tr>
+                        </template>
+                        </thead>
+
+                        <tbody id="intervDescription-rows">
+
+                        </tbody>
+
                       <tr>
                         <td style="overflow: scroll;">Description one</td>
                       </tr>
@@ -135,6 +159,18 @@
                           <tr>  
                             <td>Skill three</td>
                           </tr>
+
+                        <template id="skillsNeeded-row-template">
+                            <tr>
+                                <td>{Skills Needed}</td>
+                            </tr>
+                        </template>
+                        </thead>
+
+                        <tbody id="skillsNeeded-rows">
+
+                        </tbody>
+
                     </table> 
                 </div>     
             </div>    
