@@ -89,10 +89,10 @@ function loadSelected() {
                     row2 = row2.replace(/{Intervention Description}/ig, obj.name);
                     $('#intervDescription-rows').append(row2);
 
-                /* Intervention Description */
+                /* Skills Needed */
                     let row3 = staticHtml3;
                     row3 = row3.replace(/{Skills Needed}/ig, obj.name);
-                    $('#skillsNeeded-rows').append(row2);
+                    $('#skillsNeeded-rows').append(row3);
                 });
 
                 /* When empty workspace notes, intervention description or  */
