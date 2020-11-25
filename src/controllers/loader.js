@@ -120,12 +120,12 @@ function loadSelected() {
 }
 
 
-function loadActivities() {
+function loadPlanned() {
     jQuery.ajax({
         type: "POST",
         url: '../models/loader.php',
         dataType: 'json',
-        data: {functionname: "loadActivities", arguments: []},
+        data: {functionname: "loadPlanned", arguments: []},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
@@ -134,7 +134,10 @@ function loadActivities() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
-                  row = row.replace(/{Activity}/ig, obj.name);
+                  row = row.replace(/{ID}/ig, obj.id);
+                  row = row.replace(/{Area}/ig, obj.area);
+                  row = row.replace(/{Type}/ig, obj.type);
+                  row = row.replace(/{EstimatedTime}/ig, obj.estimated_time);
                   $('#activities-rows').append(row);
                 });
 

@@ -5,6 +5,7 @@ foreach (glob("..\items\*.php") as $filename)
 }
 
 header('Content-Type: application\json');
+header("Access-Control-Allow-Origin: *");
 
 $aResult = array();
 
@@ -24,6 +25,9 @@ if( !isset($aResult['error']) ) {
             break;
         case 'loadSites':
             $aResult['result'] = Site::get_materials();
+            break;
+        case 'loadPlanned':
+            $aResult['result'] = Maintenance::getByWeek();
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';

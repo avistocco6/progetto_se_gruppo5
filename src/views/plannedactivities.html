@@ -16,7 +16,7 @@
             a:visited{
               color: black;
             }
-        </style>    
+        </style>
     </head>
     <body>
       <div class="row">
@@ -27,13 +27,13 @@
         </div>
         <div class="header">
           <h1> Planned Activities </h1>
-        </div> 
+        </div>
         <div class="header">
           <p>
             <a href="index.html"><img border="0" src="exit.png" width="70" height="70"> </a>
-          </p> 
-        </div> 
-      </div> 
+          </p>
+        </div>
+      </div>
       <div class="column" style="text-align: center;">
         <table id="activities">
           <thead>
@@ -48,7 +48,7 @@
               <td>{ID}</td>
               <td>{Area}</td>
               <td>{Type}</td>
-              <td>{Estimated Intervention Time}</td>
+              <td>{EstimatedTime}</td>
               <td><a href="selected.html"><input style="width: 100%;"type="button" name="select" value="select"></a></td>
             </tr>
             </template>
@@ -60,7 +60,7 @@
             <td colspan="4" style="background-color: #7A858C; color: white;"><b><a href="addactivity.html">+ Add</a></b></td>
           </tr>
         </table>
-      </div>  
+      </div>
       <div class="footer">
         <h2>Team 5</h2>
       </div>
@@ -71,7 +71,7 @@
     <script type="text/javascript" src="../controllers/loader.js"></script>
 
     <script type="application/javascript">
-      $(document).ready(loadActivities());
+      $(document).ready(loadPlanned());
     </script>
     </body>
 </html>

@@ -73,7 +73,6 @@ class Client {
         $conn = $connector->connect();
 
         if($conn == null) {
-            //echo '<p style="color:rgb(255,0,0);">Error saving material</p>';
             return false;
         }
 
