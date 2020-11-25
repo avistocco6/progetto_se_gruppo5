@@ -95,7 +95,7 @@ function loadSelected() {
                     $('#skillsNeeded-rows').append(row3);
                 });
 
-                /* When empty workspace notes, intervention description or  */
+                /* When empty workspace notes, intervention description or skills neeeded */
                 if (data === null) {
                     let row1 = staticHtml1;
                     row1 = row1.replace(/{Workspace Notes}/ig, "There are no workspace notes");
