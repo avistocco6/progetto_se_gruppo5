@@ -24,13 +24,15 @@ class Maintenance {
       $this->site = $site;
     }
 
-    public function getByWeek($json) {
+    public static  function getByWeek($json) {
       $connector = new PgConnection();
       $conn = $connector->connect();
 
-      $res = pg_query("SELECT mid, branch, department, Typology.description, estimatedtime
-                      FROM Material, Site, Typology
-                      WHERE idtypology = tid and idsite = sid and mtype = 'planned activity';");
+      $week = json_decode($json);
+      $res = pg_query("SELECT maid, branch, department, Typology.description, estimatedtime
+                      FROM MainActivity, Site, Typology
+                      WHERE idtypology = tid AND idsite = sid AND mtype = 'planned activity'
+                      AND week = week;");
 
       if(!$res) return false;
 

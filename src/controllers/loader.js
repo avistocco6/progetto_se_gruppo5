@@ -120,12 +120,13 @@ function loadSelected() {
 }
 
 
-function loadPlanned() {
+function loadPlanned(week) {
+    let json = '{ "week":' + week + "}";
     jQuery.ajax({
         type: "POST",
         url: '../models/loader.php',
         dataType: 'json',
-        data: {functionname: "loadPlanned", arguments: []},
+        data: {functionname: "loadPlanned", arguments: [json]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {

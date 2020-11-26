@@ -27,7 +27,10 @@ if( !isset($aResult['error']) ) {
             $aResult['result'] = Site::get_materials();
             break;
         case 'loadPlanned':
-            $aResult['result'] = Maintenance::getByWeek();
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $aResult['result'] = Maintenance::getByWeek($_POST['arguments'][0]);
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
