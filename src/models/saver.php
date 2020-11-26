@@ -15,7 +15,7 @@ if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'
 if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
-        case 'saveModel':
+        case 'saveMaterial':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }

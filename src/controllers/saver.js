@@ -5,7 +5,7 @@ function addMaterial() {
         type: "POST",
         url: '../models/saver.php',
         dataType: 'json',
-        data: {functionname: "saveModel", arguments: [material]},
+        data: {functionname: "saveMaterial", arguments: [material]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {

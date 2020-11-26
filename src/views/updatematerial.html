@@ -39,14 +39,12 @@
             <fieldset>
               <legend><h2>Update material</h2></legend>
               <p> 
-                <label for="current">
-                  Old Material: <input type="text" name="material" required/>
+                <label for="new">
+                  New Material: <input id = "new-material" type="text" name="material" required/>
                 </label>
               </p>
-              <p> 
-                <label for="new">
-                  New Material: <input type="text" name="material" required/>
-                </label>
+              <p>
+                <button onclick="updateMaterial(localStorage.getItem('id'), document.getElementById('new-material'))">Update</button>
               </p>
             </fieldset>
           </form>  
@@ -55,4 +53,11 @@
           <h2>Team 5</h2>
         </div>  
     </body>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../controllers/updater.js.js"></script>
+
 </html>

@@ -91,4 +91,18 @@ class Material {
 
         return $json_string;
     }
+
+    public static function update_material($json) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $material = json_decode($json, true);
+        $name = $material['name'];
+        $id = $material['id'];
+
+        $res = pg_query("UPDATE Material SET matname =" .
+                        "'" . $name . "' WHERE mid = " . $id);
+
+        return $res ? true : false;
+    }
 }
