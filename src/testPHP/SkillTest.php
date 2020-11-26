@@ -25,7 +25,7 @@ class SkillTest extends TestCase
     }
 
     public function test_save_from_json() {
-        $json_data = file_get_contents('..\..\json_templates\skill.json');
+        $json_data = file_get_contents('..\..\json_save_templates\skill.json');
         $res = Skill::save($json_data);
         $this->assertEquals($res, true);
     }

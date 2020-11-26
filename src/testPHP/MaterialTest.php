@@ -2,7 +2,7 @@
 
 
 use PHPUnit\Framework\TestCase;
-//include '..\..\json_templates\materials.json';
+//include '..\..\json_save_templates\materials.json';
 include_once '..\items\Material.php';
 
 class MaterialTest extends TestCase {
@@ -35,7 +35,7 @@ class MaterialTest extends TestCase {
     }
 
     public function test_save_from_json() {
-        $json_data = file_get_contents('..\..\json_templates\material.json');
+        $json_data = file_get_contents('..\..\json_save_templates\material.json');
         $res = Material::save($json_data);
         $this->assertEquals($res, true);
     }
