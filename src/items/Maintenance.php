@@ -30,7 +30,7 @@ class Maintenance {
 
       $res = pg_query("SELECT mid, branch, department, Typology.description, estimatedtime
                       FROM Material, Site, Typology
-                      WHERE idtypology = tid and idsite = sid;");
+                      WHERE idtypology = tid and idsite = sid and mtype = 'planned activity';");
 
       if(!$res) return false;
 
