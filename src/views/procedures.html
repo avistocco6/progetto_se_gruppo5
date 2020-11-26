@@ -35,14 +35,18 @@
         </div> 
       </div> 
         <div class="column" style="text-align: center;">
-            <table>
+            <table id="procedure">
               <tr>
                 <th style="text-align: center;"><h3>Procedures</h3></th>
+                <th style="text-align: center;"><h3>Edit</h3></th>
               </tr>
 
               <template id="procedures-row-template">
                 <tr>
                   <td>{Description}</td>
+                  <td style="text-align:center;">
+                    <a href="updateprocedure.html" class="btn btn-primary" onclick="passId()">Edit</a>
+                   </td>
                 </tr>
               </template>
               </thead>
@@ -51,10 +55,7 @@
               </tbody>
 
               <tr>
-                <td style="background-color: #7A858C; color: white;"><b><a href="addprocedure.html">+ Add</a></b></td>
-              </tr>
-              <tr>
-                <td style="background-color: #7A858C; color: white;"><b><a href="updateprocedure.html">Update</a></b></td>
+                <td colspan="2" style="background-color: #7A858C; color: white;"><b><a href="addprocedure.html">+ Add</a></b></td>
               </tr>
             </table>
         </div>  
@@ -70,6 +71,12 @@
 
       <script type="application/javascript">
         $(document).ready(loadProcedures());
+
+        function passId() {
+        $('#procedure').find('tr').click( function(){
+          localStorage.setItem("id",$(this).index()+1);
+        });
+      };
       </script>
 
     </body>
