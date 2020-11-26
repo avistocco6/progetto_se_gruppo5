@@ -24,7 +24,7 @@ if( !isset($aResult['error']) ) {
             $aResult['result'] = Typology::get_typologies();
             break;
         case 'loadSites':
-            $aResult['result'] = Site::get_materials();
+            $aResult['result'] = Site::get_sites();
             break;
         case 'loadPlanned':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {

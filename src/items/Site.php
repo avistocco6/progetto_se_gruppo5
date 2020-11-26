@@ -77,7 +77,7 @@ class Site {
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"factory":' .
-                '"' . $row[1] . '"' . ",\n" . '"factory":' .
+                '"' . $row[1] . '"' . ",\n" . '"area":' .
                 '"' . $row[2] . '"' . "\n}" . ",\n";
         }
         if(strlen($json_string) > 1) {

@@ -79,9 +79,10 @@ function loadSites() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
-                  row = row.replace(/{Branch}/ig, obj.branch);
-                   row = row.replace(/{Department}/ig, obj.department);
-                  $('#sites-rows').append(row);
+                    row = row.replace(/{Id}/ig, obj.id);
+                    row = row.replace(/{Branch}/ig, obj.factory);
+                    row = row.replace(/{Department}/ig, obj.area);
+                    $('#sites-rows').append(row);
                 });
 
                 /* When empty sites */
@@ -105,7 +106,7 @@ function loadTypology() {
         type: "POST",
         url: '../models/loader.php',
         dataType: 'json',
-        data: {functionname: "loadTypology", arguments: []},
+        data: {functionname: "loadTypologies", arguments: []},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
