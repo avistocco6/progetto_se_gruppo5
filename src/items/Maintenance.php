@@ -48,5 +48,4 @@ class Maintenance {
 
       return $json_string;
   }
-    }
 }
