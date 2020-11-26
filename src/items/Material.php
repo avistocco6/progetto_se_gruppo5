@@ -74,7 +74,7 @@ class Material {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT maid,  FROM Material");
+        $res = pg_query("SELECT mid, matname FROM Material");
 
         if(!$res) return false;
 
