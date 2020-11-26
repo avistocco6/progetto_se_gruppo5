@@ -39,23 +39,10 @@
               <tr>
                 <th style="text-align: center;"><h3>Procedures</h3></th>
               </tr>
-              <tr>
-                <td>Procedure one</td>
-              </tr>
-              <tr>
-                <td>Procedure two</td>
-              </tr>
-              <tr>
-                <td>Procedure three</td>
-              </tr>
-              <tr>
-                <td>Procedure four</td>
-              </tr>
 
               <template id="procedures-row-template">
                 <tr>
                   <td>{Description}</td>
-                  <td>{ID}</td>
                 </tr>
               </template>
               </thead>
@@ -82,8 +69,8 @@
       <script type="text/javascript" src="../controllers/loader.js"></script>
 
       <script type="application/javascript">
-      $(document).ready(loadProcedures());
-    </script>
+        $(document).ready(loadProcedures());
+      </script>
 
     </body>
 </html>

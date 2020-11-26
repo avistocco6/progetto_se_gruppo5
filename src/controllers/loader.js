@@ -148,11 +148,10 @@ function loadProcedures() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
-                  row = row.replace(/{Description}/ig, obj.description);
-                  row = row.replace(/{ID}/ig, obj.activity_id);
+                  let name = obj.name.replace(/;/ig, "<br>");
+                  row = row.replace(/{Description}/ig, name);
                   $('#procedures-rows').append(row);
                 });
-
                 /* When empty sites */
                 if (data === null) {
                     let row = staticHtml;

@@ -96,14 +96,14 @@ class Procedure {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT mpid, description, idactivity FROM Mainprocedure");
+        $res = pg_query("SELECT mpid, description FROM Mainprocedure");
 
         if(!$res) return false;
 
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"name":' .
-                '"' . $row[1] . '",' . '"' . $row[2] . '"' . "\n}" . ",\n";
+                '"' . $row[1] . '"' . "\n}" . ",\n";
         }
         if(strlen($json_string) > 1) {
             $json_string = substr($json_string, 0, strlen($json_string) - 2);
