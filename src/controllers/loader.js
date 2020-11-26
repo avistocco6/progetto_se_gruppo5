@@ -64,6 +64,109 @@ function loadSkills() {
     });
 }
 
+
+function loadSites() {
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadSites", arguments: []},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                let data = JSON.parse(obj.result);
+                let staticHtml = $("#sites-row-template").html();
+
+                $.each(data, function (index, obj) {
+                  let row = staticHtml;
+                  row = row.replace(/{Branch}/ig, obj.branch);
+                   row = row.replace(/{Department}/ig, obj.department);
+                  $('#sites-rows').append(row);
+                });
+
+                /* When empty sites */
+                if (data === null) {
+                    let row = staticHtml;
+                    row = row.replace(/{Sites}/ig, "There are no sites");
+                    $('#sites-rows').append(row);
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load sites");
+            }
+        }
+    });
+}
+
+
+function loadTypology() {
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadTypology", arguments: []},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                let data = JSON.parse(obj.result);
+                let staticHtml = $("#typology-row-template").html();
+
+                $.each(data, function (index, obj) {
+                  let row = staticHtml;
+                  row = row.replace(/{Description}/ig, obj.description);
+                  $('#typology-rows').append(row);
+                });
+
+                /* When empty sites */
+                if (data === null) {
+                    let row = staticHtml;
+                    row = row.replace(/{Typology}/ig, "There are no typology");
+                    $('#typology-rows').append(row);
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load typology");
+            }
+        }
+    });
+}
+
+function loadProcedures() {
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadProcedures", arguments: []},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                let data = JSON.parse(obj.result);
+                let staticHtml = $("#procedures-row-template").html();
+
+                $.each(data, function (index, obj) {
+                  let row = staticHtml;
+                  row = row.replace(/{Description}/ig, obj.description);
+                  row = row.replace(/{ID}/ig, obj.activity_id);
+                  $('#procedures-rows').append(row);
+                });
+
+                /* When empty sites */
+                if (data === null) {
+                    let row = staticHtml;
+                    row = row.replace(/{Typology}/ig, "There are no procedures");
+                    $('#procedures-rows').append(row);
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load procedures");
+            }
+        }
+    });
+}
+
 function loadSelected() {
     jQuery.ajax({
         type: "POST",
