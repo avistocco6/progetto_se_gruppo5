@@ -9,8 +9,7 @@ function addMaterial() {
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully saved!")
                 }
                 else{
@@ -18,7 +17,6 @@ function addMaterial() {
                 }
             }
             else {
-                console.log(obj.error);
                 alert("Impossible to save material!");
             }
         }
@@ -26,18 +24,17 @@ function addMaterial() {
 }
 
 function addSkill() {
-    let name = document.getElementById("skill-name").value;
+    let name = document.getElementById("new-skill").value;
     let skill = '{"name":' + '"' + name + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/saver.php',
         dataType: 'json',
-        data: {functionname: "saveModel", arguments: [skill]},
+        data: {functionname: "saveSkill", arguments: [skill]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully saved!")
                 }
                 else{
@@ -45,39 +42,12 @@ function addSkill() {
                 }
             }
             else {
-                console.log(obj.error);
                 alert("Impossible to save skill!");
             }
         }
     });
 }
 
-function addSelected() {
-    let name = document.getElementById("skill-name").value;
-    let skill = '{"name":' + '"' + name + '"}';
-    jQuery.ajax({
-        type: "POST",
-        url: '../models/saver.php',
-        dataType: 'json',
-        data: {functionname: "saveModel", arguments: [skill]},
-
-        success: function (obj, textstatus) {
-            if( !('error' in obj) ) {
-                console.log(obj);
-                if(obj == true){
-                    alert("Successfully saved!")
-                }
-                else{
-                    alert("Error during saving!")
-                }
-            }
-            else {
-                console.log(obj.error);
-                alert("Impossible to save skill!");
-            }
-        }
-    });
-}
 function addActivity() {
     let name = document.getElementById("activity-name").value;
     let activity = '{"name":' + '"' + name + '"}';
@@ -89,8 +59,7 @@ function addActivity() {
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully saved!")
                 }
                 else{
@@ -98,7 +67,6 @@ function addActivity() {
                 }
             }
             else {
-                console.log(obj.error);
                 alert("Impossible to save activity!");
             }
         }
@@ -106,18 +74,19 @@ function addActivity() {
 }
 
 function addSite() {
-    let name = document.getElementById("site-name").value;
-    let site = '{"name":' + '"' + name + '"}';
+    let factory = document.getElementById("factory").value;
+    let area = document.getElementById("area").value;
+    let site = '{"branch":' + '"' + factory + '", "department":' + '"'+
+                area + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/saver.php',
         dataType: 'json',
-        data: {functionname: "saveModel", arguments: [site]},
+        data: {functionname: "saveSite", arguments: [site]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully saved!")
                 }
                 else{
@@ -125,7 +94,6 @@ function addSite() {
                 }
             }
             else {
-                console.log(obj.error);
                 alert("Impossible to save site!");
             }
         }
@@ -143,8 +111,7 @@ function addProcedure() {
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully saved!")
                 }
                 else{
@@ -152,7 +119,6 @@ function addProcedure() {
                 }
             }
             else {
-                console.log(obj.error);
                 alert("Impossible to save procedure!");
             }
         }
@@ -170,8 +136,7 @@ function addTypology() {
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully saved!")
                 }
                 else{
@@ -179,7 +144,6 @@ function addTypology() {
                 }
             }
             else {
-                console.log(obj.error);
                 alert("Impossible to save typology!");
             }
         }

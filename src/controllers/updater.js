@@ -8,7 +8,6 @@ function updateMaterial(id, name) {
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
                 if(obj == true){
                     alert("Successfully updated!")
                 }

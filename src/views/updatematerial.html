@@ -35,11 +35,10 @@
             </div> 
         </div>    
         <div class="column" style="text-align: center;">
-          <form method="post" name="addmaterial" >
             <fieldset>
               <legend><h2>Update material</h2></legend>
               <p> 
-                <label for="new">
+                <label for="new-material">
                   New Material: <input id = "new-material" type="text" name="material" required/>
                 </label>
               </p>
@@ -47,7 +46,6 @@
                 <button onclick="updateMaterial(localStorage.getItem('id'), document.getElementById('new-material'))">Update</button>
               </p>
             </fieldset>
-          </form>  
         </div>
         <div class="footer">
           <h2>Team 5</h2>

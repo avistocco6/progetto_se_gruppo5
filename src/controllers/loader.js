@@ -79,7 +79,6 @@ function loadSites() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
-                    row = row.replace(/{Id}/ig, obj.id);
                     row = row.replace(/{Branch}/ig, obj.factory);
                     row = row.replace(/{Department}/ig, obj.area);
                     $('#sites-rows').append(row);

@@ -60,7 +60,7 @@ class Site {
     }
 
     private static function db_insert($conn, $site) {
-        $sql = "INSERT INTO Site(branch, departement)
+        $sql = "INSERT INTO Site(branch, department)
                 VALUES(" . "'" . $site->branch . "'" . "," . "'" . $site->department . "'" . ")";
 
         return $conn->query($sql) ? true : false;
