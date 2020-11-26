@@ -121,7 +121,7 @@ function loadSelected() {
 
 
 function loadPlanned(week) {
-    let json = '{ "week":' + week + "}";
+    let json = '{ "week":' + week + ', "type": "planned activity"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/loader.php',

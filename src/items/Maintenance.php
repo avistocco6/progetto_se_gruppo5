@@ -28,11 +28,14 @@ class Maintenance {
       $connector = new PgConnection();
       $conn = $connector->connect();
 
-      $week = json_decode($json);
+      $item = json_decode($json, true);
+      $week = $item['week'];
+      $type = $item['type'];
+
       $res = pg_query("SELECT maid, branch, department, Typology.description, estimatedtime
                       FROM MainActivity, Site, Typology
-                      WHERE idtypology = tid AND idsite = sid AND mtype = 'planned activity'
-                      AND week = week;");
+                      WHERE idtypology = tid AND idsite = sid AND mtype = '" . $type .
+                      "' AND week = " . $week . ";");
 
       if(!$res) return false;
 
