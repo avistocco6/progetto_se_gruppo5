@@ -38,42 +38,21 @@
             </div> 
         </div> 
         <div class="column" style="text-align: center;">
-            <form method="post" name="addsite" >
             <fieldset>
-              <legend><h2>Update site</h2></legend>
-                <p> 
-                <label for="currentsite">
-                  Old Site: <input type="text" name="site" required/>
-                </label>
-              </p>
-              <p> 
-                <label for="newsite">
-                  New Site: <input type="text" name="site" required/>
-                </label>
-              </p>
-              <br>
-              <p> 
-                <label for="currentfactory">
-                  Old Factory: <input type="text" name="factory" required/>
-                </label>
-              </p>
-              <p> 
-                <label for="newfactory">
-                  New Factory: <input type="text" name="factory" required/>
-                </label>
-              </p>
-              <br>
-              <p> 
-                <label for="currentarea">
-                  Old Area: <input type="text" name="area" required/>
-                </label>
-              </p>
-              <p> 
-                <label for="newarea">
-                  New Area: <input type="text" name="area" required/>
-                </label>
-              </p>
-              <br>
+                <legend><h2>Update site</h2></legend>
+                <p>
+                    <label for="factory">
+                        Factory: <input id = factory type="text" name="factory" required/>
+                    </label>
+                </p>
+                <p>
+                    <label for="area">
+                        Area: <input id="area" type="text" name="area" required/>
+                    </label>
+                </p>
+                <p>
+                    <button onclick="updateSite()">Update</button>
+                </p>
             </fieldset>
 
         </div>
@@ -81,4 +60,10 @@
           <h2>Team 5</h2>
         </div>  
     </body>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../controllers/updater.js"></script>
+
 </html>
