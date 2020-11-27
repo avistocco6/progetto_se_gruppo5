@@ -46,35 +46,29 @@
             </div> 
         </div>    
         <div class="column" style="text-align: center;">
-            <form method="post" name="updateprocedure" >
-            <fieldset>
-              <legend><h2>Update procedure</h2></legend>
-              <p>
-                <label for="current">
-                  Old Procedure Name: <input type="text" name="oldprocedure" required/>
-                </label>
-              </p>
-              <p>
-                <label for="current">
-                  Old Procedure Description: <textarea></textarea>
-                </label>
-              </p>
-              <p>
-                <label for="current">
-                  New Procedure Name: <input type="text" name="newprocedure" required/>
-                </label>
-              </p>
-              <p>
-                <label for="new">
-                  New Procedure Description: <textarea></textarea>
-                </label>
-              </p>
-              <input type="file" id="myFile" name="filename">
-              <input type="submit" value="Upload SMP">
-            </fieldset>
+
+                <fieldset>
+                    <legend><h2>Update procedure</h2></legend>
+                    <p>
+                        <label for="new-procedure">
+                            Procedure description:
+                            <textarea id="new-procedure" type="text" name="new-procedure" required/></textarea>
+                        </label>
+                    </p>
+                    <!--input type="file" id="myFile" name="filename"-->
+                    <!--input type="submit" value="Upload SMP"-->
+                    <p>
+                        <button onclick="updateProcedure()">Update</button>
+                    </p>
+                </fieldset>
         </div>
         <div class="footer">
           <h2>Team 5</h2>
-        </div>  
+        </div>
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <!-- Custom JS -->
+        <script type="text/javascript" src="../controllers/updater.js"></script>
     </body>
 </html>
