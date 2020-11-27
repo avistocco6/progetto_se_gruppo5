@@ -68,4 +68,10 @@ class ProcedureTest extends TestCase
         $expected = file_get_contents("test_files\procedures.json");
         $this->assertEquals($expected, $json_string);
     }
+
+    function test_update_procedure() {
+        $json_string = '{"id": 2, "description": "testProcedure"}';
+        $ret = Procedure::updateProcedure($json_string);
+        $this->assertEquals($ret, true);
+    }
 }

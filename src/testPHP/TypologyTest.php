@@ -34,4 +34,10 @@ class TypologyTest extends TestCase {
         $expected = file_get_contents('test_files\typologies.json');
         $this->assertEquals($expected, $json_string);
     }
+
+    function test_update_typology() {
+        $json_string = '{"id": 1, "description": "updateTest"}';
+        $ret = Typology::updateTypology($json_string);
+        $this->assertEquals($ret, true);
+    }
 }

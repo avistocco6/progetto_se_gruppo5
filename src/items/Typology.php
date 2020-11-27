@@ -77,4 +77,20 @@ class Typology {
 
         return $json_string;
     }
+
+    public static function updateTypology($json) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $typology = json_decode($json, true);
+        $name = $typology['description'];
+        $id = $typology['id'];
+
+        $res = pg_query("UPDATE Typology SET description =" .
+            "'" . $name . "' WHERE tid = " . $id);
+
+        pg_close($conn);
+
+        return $res ? true : false;
+    }
 }

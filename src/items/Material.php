@@ -103,6 +103,8 @@ class Material {
         $res = pg_query("UPDATE Material SET matname =" .
                         "'" . $name . "' WHERE mid = " . $id);
 
+        pg_close($conn);
+
         return $res ? true : false;
     }
 }

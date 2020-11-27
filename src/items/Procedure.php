@@ -111,4 +111,20 @@ class Procedure {
 
         return $json_string;
     }
+
+    public static function updateProcedure($json) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $procedure = json_decode($json, true);
+        $description = $procedure['description'];
+        $id = $procedure['id'];
+
+        $res = pg_query("UPDATE MainProcedure SET description =" .
+            "'" . $description . "' WHERE mpid = " . $id);
+
+        pg_close($conn);
+
+        return $res ? true : false;
+    }
 }

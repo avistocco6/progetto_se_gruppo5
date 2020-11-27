@@ -35,4 +35,10 @@ class SkillTest extends TestCase
         $expected = file_get_contents("test_files\skills.json");
         $this->assertEquals($expected, $json_string);
     }
+
+    function test_update_skill() {
+        $json_string = '{"id": 1, "name": "updateTest"}';
+        $ret = Skill::updateSkill($json_string);
+        $this->assertEquals($ret, true);
+    }
 }

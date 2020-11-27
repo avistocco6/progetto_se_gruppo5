@@ -70,7 +70,7 @@ class Site {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT * FROM Site ORDER BY sid");
+        $res = connector("SELECT * FROM Site ORDER BY sid");
 
         if(!$res) return false;
 
@@ -88,5 +88,21 @@ class Site {
         pg_close($conn);
 
         return $json_string;
+    }
+
+    public static function updateSite($json) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $site = json_decode($json, true);
+        $branch = $site['factory'];
+        $department = $site['area'];
+        $id = $site['id'];
+
+        $res = pg_query("UPDATE Site SET branch = " .
+            "'" . $branch . "', department = " . "'" . $department ."'" . "WHERE sid = " . $id);
+
+        pg_close($conn);
+        return $res ? true : false;
     }
 }

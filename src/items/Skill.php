@@ -78,4 +78,20 @@ class Skill {
 
         return $json_string;
     }
+
+    public static function updateSkill($json) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $skill = json_decode($json, true);
+        $name = $skill['name'];
+        $id = $skill['id'];
+
+        $res = pg_query("UPDATE Skill SET skillname =" .
+            "'" . $name . "' WHERE skid = " . $id);
+
+        pg_close($conn);
+
+        return $res ? true : false;
+    }
 }

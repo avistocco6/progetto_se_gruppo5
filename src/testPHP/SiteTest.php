@@ -47,4 +47,10 @@ class SiteTest extends TestCase {
         $expected = file_get_contents("test_files\sites.json");
         $this->assertEquals($expected, $json_string);
     }
+
+    function test_update_site() {
+        $json_string = '{"id": 1, "factory": "testFactory", "area": "testArea"}';
+        $ret = Site::updateSite($json_string);
+        $this->assertEquals($ret, true);
+    }
 }
