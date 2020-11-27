@@ -1,5 +1,8 @@
-function updateMaterial(id, name) {
-    let json_string = '{"id": ' + id + '"name":' + '"' + name + '"}';
+function updateMaterial() {
+    let id =localStorage.getItem('id');
+    let name = document.getElementById('new-material').value;
+    let json_string = '{"id": ' + id + ',"name":' + '"' + name + '"}';
+    console.log(json_string);
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
@@ -8,7 +11,7 @@ function updateMaterial(id, name) {
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully updated!")
                 }
                 else{
@@ -21,6 +24,7 @@ function updateMaterial(id, name) {
             }
         }
     });
+    document.getElementById("new-material").value = "";
 }
 
 function updateSkill(id, name) {
@@ -34,7 +38,7 @@ function updateSkill(id, name) {
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully updated!")
                 }
                 else{
@@ -60,7 +64,7 @@ function updateSite(id, name) {
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully updated!")
                 }
                 else{
@@ -86,7 +90,7 @@ function updateTypology(id, name) {
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully updated!")
                 }
                 else{
@@ -112,7 +116,7 @@ function updateProcedure(id, name) {
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 console.log(obj);
-                if(obj == true){
+                if(obj['result']){
                     alert("Successfully updated!")
                 }
                 else{

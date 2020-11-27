@@ -60,7 +60,7 @@ class Skill {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT * FROM Skill");
+        $res = pg_query("SELECT * FROM Skill ORDER BY skid");
 
         if (!$res) return false;
 

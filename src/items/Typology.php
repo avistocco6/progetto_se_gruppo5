@@ -59,7 +59,7 @@ class Typology {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT * FROM Typology");
+        $res = pg_query("SELECT * FROM Typology ORDER BY tid");
 
         if(!$res) return false;
 

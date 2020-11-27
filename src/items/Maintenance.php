@@ -35,7 +35,7 @@ class Maintenance {
       $res = pg_query("SELECT maid, branch, department, Typology.description, estimatedtime
                       FROM MainActivity, Site, Typology
                       WHERE idtypology = tid AND idsite = sid AND mtype = '" . $type .
-                      "' AND week = " . $week . ";");
+                      "' AND week = " . $week . "ORDER BY maid;");
 
       if(!$res) return false;
 

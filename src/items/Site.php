@@ -70,7 +70,7 @@ class Site {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT * FROM Site");
+        $res = pg_query("SELECT * FROM Site ORDER BY sid");
 
         if(!$res) return false;
 

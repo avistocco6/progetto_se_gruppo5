@@ -45,4 +45,10 @@ class MaterialTest extends TestCase {
         $expected = file_get_contents("test_files\materials.json");
         $this->assertEquals($expected, $json_string);
     }
+
+    function test_update_material() {
+        $json_string = '{"id": 2, "name": "testUpdate"}';
+        $ret = Material::updateMaterial($json_string);
+        $this->assertEquals($ret, true);
+    }
 }

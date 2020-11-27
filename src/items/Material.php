@@ -74,7 +74,7 @@ class Material {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT mid, matname FROM Material");
+        $res = pg_query("SELECT mid, matname FROM Material ORDER BY mid");
 
         if(!$res) return false;
 
@@ -92,7 +92,7 @@ class Material {
         return $json_string;
     }
 
-    public static function update_material($json) {
+    public static function updateMaterial($json) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 

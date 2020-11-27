@@ -94,7 +94,7 @@ class Procedure {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT mpid, description FROM Mainprocedure");
+        $res = pg_query("SELECT mpid, description FROM Mainprocedure ORDER BY mpid");
 
         if(!$res) return false;
 
