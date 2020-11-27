@@ -52,18 +52,18 @@ class ProcedureTest extends TestCase
     }
 
     public function testSave() {
-        $json_data = file_get_contents('..\..\json_templates\procedure.json');
+        $json_data = file_get_contents('..\..\json_save_templates\procedure.json');
         $res = Procedure::save($json_data);
         $this->assertEquals($res, true);
     }
 
     public function test_addSkill() {
-        $json_data = file_get_contents('..\..\json_templates\skill_assignation_procedure.json');
+        $json_data = file_get_contents('..\..\json_save_templates\skill_assignation_procedure.json');
         $res = Procedure::addSkill($json_data);
         $this->assertEquals($res, true);
     }
 
-    function test_get_materials() {
+    function test_get_procedures() {
         $json_string = Procedure::get_procedures();
         $expected = file_get_contents("test_files\procedures.json");
         $this->assertEquals($expected, $json_string);

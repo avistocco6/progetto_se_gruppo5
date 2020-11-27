@@ -1,6 +1,6 @@
 function addMaterial() {
-    let name = document.getElementById("material-name").value;
-    let material = '{"name":' + '"' + name + '"}';
+    let name = document.getElementById("new-material").value;
+    let material = '{"name":' + '"' + name + '", "activity": null}';
     jQuery.ajax({
         type: "POST",
         url: '../models/saver.php',
@@ -21,6 +21,7 @@ function addMaterial() {
             }
         }
     });
+    document.getElementById("new-material").value = "";
 }
 
 function addSkill() {
@@ -46,31 +47,7 @@ function addSkill() {
             }
         }
     });
-}
-
-function addActivity() {
-    let name = document.getElementById("activity-name").value;
-    let activity = '{"name":' + '"' + name + '"}';
-    jQuery.ajax({
-        type: "POST",
-        url: '../models/saver.php',
-        dataType: 'json',
-        data: {functionname: "saveModel", arguments: [activity]},
-
-        success: function (obj, textstatus) {
-            if( !('error' in obj) ) {
-                if(obj['result']){
-                    alert("Successfully saved!")
-                }
-                else{
-                    alert("Error during saving!")
-                }
-            }
-            else {
-                alert("Impossible to save activity!");
-            }
-        }
-    });
+    document.getElementById("new-skill").value = "";
 }
 
 function addSite() {
@@ -98,16 +75,18 @@ function addSite() {
             }
         }
     });
+    document.getElementById("factory").value = "";
+    document.getElementById("area").value = "";
 }
 
 function addProcedure() {
-    let name = document.getElementById("procedure-name").value;
-    let procedure = '{"name":' + '"' + name + '"}';
+    let desc = document.getElementById("new-procedure").value;
+    let procedure = '{"description":' + '"' + desc + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/saver.php',
         dataType: 'json',
-        data: {functionname: "saveModel", arguments: [procedure]},
+        data: {functionname: "saveProcedure", arguments: [procedure]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
@@ -123,16 +102,17 @@ function addProcedure() {
             }
         }
     });
+    document.getElementById("new-procedure").value = "";
 }
 
 function addTypology() {
-    let name = document.getElementById("typology-name").value;
-    let typology = '{"name":' + '"' + name + '"}';
+    let name = document.getElementById("new-typology").value;
+    let typology = '{"description":' + '"' + name + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/saver.php',
         dataType: 'json',
-        data: {functionname: "saveModel", arguments: [typology]},
+        data: {functionname: "saveTypology", arguments: [typology]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
@@ -148,4 +128,5 @@ function addTypology() {
             }
         }
     });
+    document.getElementById("new-typology").value = "";
 }

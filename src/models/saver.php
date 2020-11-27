@@ -39,6 +39,12 @@ if( !isset($aResult['error']) ) {
             }
             $aResult['result'] = Site::save($_POST['arguments'][0]);
             break;
+        case 'saveProcedure':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $aResult['result'] = Procedure::save($_POST['arguments'][0]);
+            break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;

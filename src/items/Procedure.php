@@ -7,7 +7,7 @@ class Procedure {
     private $smp;
     private $activity;
 
-    public function __construct($description, $activity, $smp = null) {
+    public function __construct($description, $activity = null, $smp = null) {
         $this->description = $description;
         $this->activity = $activity;
         $this->smp = $smp;
@@ -58,9 +58,8 @@ class Procedure {
     }
 
     private static function db_insert($conn, $procedure) {
-        $sql = "INSERT INTO MainProcedure(description, idactivity)
-                VALUES(" . "'" . $procedure->description . "'," .
-                 $procedure->activity . ")";
+        $sql = "INSERT INTO MainProcedure(description)
+                VALUES(" . "'" . $procedure->description . "')";
 
         return $conn->query($sql) ? true : false;
     }
@@ -72,9 +71,8 @@ class Procedure {
             return null;
 
         $description = $material['description'];
-        $activity = $material['activity_id'];
 
-        return new Procedure($description, $activity);
+        return new Procedure($description);
     }
 
     public static function addSkill($json) {

@@ -232,7 +232,7 @@ function loadSelected() {
                 if (data === null) {
                     let row = staticHtml;
                     row = row.replace(/{skill}/ig, "There are not skills ");
-                    $('#skillsNeeded-rows).append(row);
+                    $('#skillsNeeded-rows').append(row);
                 }
             }
             else {

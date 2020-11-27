@@ -46,19 +46,27 @@
             </div> 
         </div> 
         <div class="column" style="text-align: center;">
-            <form method="post" name="addtype" >
-            <fieldset>
-              <legend><h2>Add typology</h2></legend>
-              <p> 
-                <label for="type">
-                  Typology: <input type="text" name="type" required/>
-                </label>
-              </p>
-            </fieldset>
+                <fieldset>
+                    <legend><h2>Add typology</h2></legend>
+                    <p>
+                        <label for="new-typology">
+                            New Typology: <input id = "new-typology" type="text" name="skill" required/>
+                        </label>
+                    </p>
+                    <p>
+                        <button onclick="addTypology()">Save</button>
+                    </p>
+                </fieldset>
           </form>  
         </div>
         <div class="footer">
           <h2>Team 5</h2>
         </div>  
     </body>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../controllers/saver.js"></script>
+
 </html>
