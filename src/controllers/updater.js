@@ -27,8 +27,10 @@ function updateMaterial() {
     document.getElementById("new-material").value = "";
 }
 
-function updateSkill(id, name) {
-    let json_string = '{"id": ' + id + '"name":' + '"' + name + '"}';
+function updateSkill() {
+    let id =localStorage.getItem('id');
+    let name = document.getElementById('new-skill').value;
+    let json_string = '{"id": ' + id + ',"name":' + '"' + name + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
@@ -51,10 +53,15 @@ function updateSkill(id, name) {
             }
         }
     });
+    document.getElementById("new-skill").value = "";
 }
 
-function updateSite(id, name) {
-    let json_string = '{"id": ' + id + '"name":' + '"' + name + '"}';
+function updateSite() {
+    let id =localStorage.getItem('id');
+    let factory= document.getElementById('factory').value;
+    let area= document.getElementById('area').value;
+    let json_string = '{"id": ' + id + ', "factory":' + '"' + factory + '", "area":'
+        + '"' + area + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
@@ -77,10 +84,14 @@ function updateSite(id, name) {
             }
         }
     });
+    document.getElementById("area").value = "";
+    document.getElementById("factory").value = "";
 }
 
-function updateTypology(id, name) {
-    let json_string = '{"id": ' + id + '"name":' + '"' + name + '"}';
+function updateTypology() {
+    let id =localStorage.getItem('id');
+    let description= document.getElementById('new-typology').value;
+    let json_string = '{"id": ' + id + ', "description":' + '"' + description + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
@@ -103,10 +114,13 @@ function updateTypology(id, name) {
             }
         }
     });
+    document.getElementById("new-typology").value = "";
 }
 
-function updateProcedure(id, name) {
-    let json_string = '{"id": ' + id + '"name":' + '"' + name + '"}';
+function updateProcedure() {
+    let id =localStorage.getItem('id');
+    let description= document.getElementById('new-procedure').value;
+    let json_string = '{"id": ' + id + ',"description":' + '"' + description + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
@@ -129,5 +143,6 @@ function updateProcedure(id, name) {
             }
         }
     });
+    document.getElementById("new-procedure").value = "";
 }
 

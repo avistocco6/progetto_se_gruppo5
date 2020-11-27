@@ -25,25 +25,25 @@ if( !isset($aResult['error']) ) {
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Skill::save($_POST['arguments'][0]);
+            $aResult['result'] = Skill::updateSkill($_POST['arguments'][0]);
             break;
         case 'updateTypology':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Typology::save($_POST['arguments'][0]);
+            $aResult['result'] = Typology::updateTypology($_POST['arguments'][0]);
             break;
         case 'updateSite':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Site::save($_POST['arguments'][0]);
+            $aResult['result'] = Site::updateSite($_POST['arguments'][0]);
             break;
         case 'updateProcedure':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Procedure::save($_POST['arguments'][0]);
+            $aResult['result'] = Procedure::updateProcedure($_POST['arguments'][0]);
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
