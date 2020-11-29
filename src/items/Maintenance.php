@@ -74,23 +74,23 @@ class Maintenance {
       if(!$activity) return false;
 
       if(!$skills) {
-          $skills = "";
+          $skills_string = "";
       }
       else {
-        $skills = "[";
-        while ($row = pg_fetch_row($res)) {
-            $skills = $skills . "{\n" . '"id":' . $row[0] . ",\n" . '"name":' .
+        $skills_string = "[";
+        while ($row = pg_fetch_row($skills)) {
+            $skills_string = $skills_string . "{\n" . '"id":' . $row[0] . ",\n" . '"name":' .
                 '"' . $row[1] . '"' . "\n}" . ",\n";
         }
-        if(strlen($skills) > 1) {
-            $skills = substr($skills, 0, strlen($skills) - 2);
-            $skills = $skills . "]";
-        } else $skills = "";
+        if(strlen($skills_string) > 1) {
+            $skills_string = substr($skills_string, 0, strlen($skills_string) - 2);
+            $skills_string = $skills_string . "]";
+        } else $skills_string = "";
       };
-      $row = pg_fetch_row($res);
+      $row = pg_fetch_row($activity);
       $json_string = '{"id":' . $row[0] . ', "week":' .
           '"' . $row[1] . '"' . ', "description":' . '"' . $row[2] . '"' .
-          ', "workspaceNotes":' . '"' . $row[3] . '"' . ', "skills:"' . $skills . "}";
+          ', "workspaceNotes":' . '"' . $row[3] . '"' . ', "skills:"' . $skills_string . "}";
 
       pg_close($conn);
 
