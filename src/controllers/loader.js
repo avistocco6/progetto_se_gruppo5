@@ -18,9 +18,7 @@ function loadMaterials() {
 
                 /* When empty material */
                 if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{Material}/ig, "There are no materials");
-                    $('#materials-rows').append(row);
+                    alert("There are no materials!")
                 }
             }
             else {
@@ -51,9 +49,7 @@ function loadSkills() {
 
                 /* When empty skill */
                 if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{Skill}/ig, "There are no skills");
-                    $('#skills-rows').append(row);
+                    alert("There are no skills!")
                 }
             }
             else {
@@ -86,9 +82,7 @@ function loadSites() {
 
                 /* When empty sites */
                 if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{Sites}/ig, "There are no sites");
-                    $('#sites-rows').append(row);
+                    alert("There are no sites!")
                 }
             }
             else {
@@ -120,9 +114,7 @@ function loadTypology() {
 
                 /* When empty sites */
                 if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{Typology}/ig, "There are no typology");
-                    $('#typology-rows').append(row);
+                    alert("There are no typoloies!")
                 }
             }
             else {
@@ -153,9 +145,7 @@ function loadProcedures() {
                 });
                 /* When empty sites */
                 if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{Typology}/ig, "There are no procedures");
-                    $('#procedures-rows').append(row);
+                    alert("There are no procedures!")
                 }
             }
             else {
@@ -177,112 +167,35 @@ function loadSelected() {
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 let data = JSON.parse(obj.result);
-                let staticHtml = $("#intervDescription-row-template").html();
+                let workspaceNotes = $("#workspace-row-template").html();
+                let description = $("intervDescription-row-template");
+                let skill = $("skillsNeeded-row-template");
 
-                $.each(data, function (index, obj) {
-                  let row = staticHtml;
-                  row = row.replace(/{intdescription}/ig, obj.intdescription);
-                  $('#intervDescription-rows').append(row);
-                });
+                workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
+                description = description.replace(/{Intervention Description}/ig, data.description);
 
-                /* When empty description*/
-                if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{intdescription}/ig, "There is not a description ");
-                    $('#intervDescription-rows').append(row);
-                }
-            }
-            else {
-                console.log(obj.error);
-                alert("Impossible to load description");
-            }
+                $("numweek").append(data.week);
+                $("activityname").append(data.activity);
+                $("workspace-rows").append(workspaceNotes);
+                $("intervDescription-rows").append(description);
 
-            if( !('error' in obj) ) {
-                let data = JSON.parse(obj.result);
-                let staticHtml = $("#workspace-row-template").html();
-
-                $.each(data, function (index, obj) {
-                  let row = staticHtml;
-                  row = row.replace(/{workspacenotes}/ig, obj.workspacenotes);
-                  $('#workspace-rows').append(row);
-                });
-
-                /* When empty notes*/
-                if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{workspacenotes}/ig, "There are not notes ");
-                    $('#workspace-rows').append(row);
-                }
-            }
-            else {
-                console.log(obj.error);
-                alert("Impossible to load workspace notes");
-            }
-             if( !('error' in obj) ) {
-                let data = JSON.parse(obj.result);
-                let staticHtml = $("#skillsNeeded-row-template").html();
-
-                $.each(data, function (index, obj) {
-                  let row = staticHtml;
-                  row = row.replace(/{skill}/ig, obj.skill);
+                $.each(data.skills, function(index, obj) {
+                  let row = skill;
+                  row = row.replace(/{Skill}/ig, obj.name);
                   $('#skillsNeeded-rows').append(row);
                 });
-
-                /* When empty skills*/
+                /* When empty sites */
                 if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{skill}/ig, "There are not skills ");
-                    $('#skillsNeeded-rows').append(row);
+                    alert("Error with activity chosen!")
                 }
             }
             else {
                 console.log(obj.error);
-                alert("Impossible to load skills");
-            }
-            if( !('error' in obj) ) {
-                let data = JSON.parse(obj.result);
-                let staticHtml = $("#number").html();
-
-                $.each(data, function (index, obj) {
-                  let row = staticHtml;
-                  row = row.replace(/{week}/ig, obj.week);
-                  $('#numweek').append(row);
-                });
-
-                /* When empty week*/
-                if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{week}/ig, "There is not a week ");
-                    $('#numweek').append(row);
-                }
-            }
-            else {
-                console.log(obj.error);
-                alert("Impossible to load week");
-            }
-            if( !('error' in obj) ) {
-                let data = JSON.parse(obj.result);
-                let staticHtml = $("#name").html();
-
-                $.each(data, function (index, obj) {
-                  let row = staticHtml;
-                  row = row.replace(/{activityname}/ig, obj.activityname);
-                  $('#activityname').append(row);
-                });
-
-                /* When empty week*/
-                if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{activityname}/ig, "There is not an activity ");
-                    $('#activityname').append(row);
-                }
-            }
-            else {
-                console.log(obj.error);
-                alert("Impossible to load activity");
+                alert("Impossible to load procedures");
             }
         }
-    });
+        });
+
 }
 function loadPlanned(week) {
     let json = '{ "week":' + week + ', "type": "planned activity"}';
@@ -308,9 +221,7 @@ function loadPlanned(week) {
 
                 /* When empty activity */
                 if (data === null) {
-                    let row = staticHtml;
-                    row = row.replace(/{Activity}/ig, "There are no activities");
-                    $('#activities-rows').append(row);
+                    alert("There are no activities!")
                 }
             }
             else {

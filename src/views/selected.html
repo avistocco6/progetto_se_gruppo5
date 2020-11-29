@@ -19,8 +19,8 @@
             background-color: white;
             border: 1px solid #8492A6;
             border-radius: 5px;
-            float:left;  
-            margin: 10px;   
+            float:left;
+            margin: 10px;
         }
         #number{
             background-color: #333;
@@ -31,7 +31,7 @@
             float:left;
             margin-left:2px;
             color:white;
-            margin: 10px; 
+            margin: 10px;
         }
         #activity{
              font-family: Lato;
@@ -44,7 +44,7 @@
             border-radius: 5px;
             float:left;
             margin-left:2px;
-            margin: 10px;     
+            margin: 10px;
         }
         #name{
            background-color: #333;
@@ -55,12 +55,12 @@
             float:left;
             margin-left:2px;
             color:white;
-            margin: 10px;     
+            margin: 10px;
         }
-        
+
         .tab1{
             float: left;
-            
+
         }
         .tab2{
             width: 100%
@@ -83,32 +83,32 @@
         	<div class="header">
         		<h1> Activity Selected </h1>
             </div>
-            <div class="header">  
+            <div class="header">
                 <p>
                     <a href="index.html"><img border="0" src="exit.png" width="70" height="70"> </a>
-                </p>  
+                </p>
             </div>
         </div>
         <div class="column">
                 <div class="header2" style="margin: 0;">
                     <div id= "week">
                         <p> Week n° </p>
-                    </div>  
+                    </div>
                     <div id="number">
                         <tbody id="numweek">
 
                         </tbody>
-                    </div> 
+                    </div>
                      <div id="activity">
                         <p>Activity to assign</p>
-                    </div> 
+                    </div>
                     <div id="name">
                         <tbody id="activityname">
 
                         </tbody>
-                    </div> 
-                    <a href="updateactivity.html"><input type="button" value="update" name="update" style="margin: 10px; width: 100px; height: 50px;"> </a> 
-                    <input type="button" value="forward" name="forward" style="margin: 10px; width: 100px; 
+                    </div>
+                    <a href="updateactivity.html"><input type="button" value="update" name="update" style="margin: 10px; width: 100px; height: 50px;"> </a>
+                    <input type="button" value="forward" name="forward" style="margin: 10px; width: 100px;
             height: 50px;">
                 </div>
                 <div class="content">
@@ -116,7 +116,7 @@
                       <tr>
                         <th>Workspace Notes</th>
                       </tr>
-
+                        <thead>
                         <template id="workspace-row-template">
                             <tr>
                                 <td>{Workspace Notes}</td>
@@ -127,16 +127,13 @@
                         <tbody id="workspace-rows">
 
                         </tbody>
-                      <tr>
-                        <td contenteditable="true" style="overflow: scroll;max-width: 1000px;">The plant is closed from 00/00/20 to 00/00/20. On the remaining days, it's possible to intervene only after 15:00 ddddddddddsdkjadhchjasjssdjhhgdahsgjahsgadshghsdhjsdjhgsdjhgsdfhjgsdhgjsdfhjgsdfhjgsdfhjgsdfhjgsdfhjgsdfhjgsfdhgsfhhjgsfhjgsfhcihsbdkhjbcaskhbdjdjdjjdjdjdjdcjksbdckhjsbdxhjavjh</td>
-                      </tr>
                     </table>
 
                     <table class="tab2">
                       <tr>
                         <th>Intervention Description</th>
                       </tr>
-
+                        <thead>
                         <template id="intervDescription-row-template">
                             <tr>
                                 <td>{Intervention Description}</td>
@@ -147,26 +144,13 @@
                         <tbody id="intervDescription-rows">
 
                         </tbody>
-
-                      <tr>
-                        <td style="overflow: scroll;">Description one</td>
-                      </tr>
                     </table>
-                    <table class="tab3"> 
+                    <table class="tab3">
                         <th>Skills Needed</th>
-                          <tr>
-                            <td>Skill one</td>
-                          </tr>  
-                          <tr>
-                            <td>Skill two</td>
-                          </tr>
-                          <tr>  
-                            <td>Skill three</td>
-                          </tr>
-
+                        <thead>
                         <template id="skillsNeeded-row-template">
                             <tr>
-                                <td>{Skills Needed}</td>
+                                <td>{Skill}</td>
                             </tr>
                         </template>
                         </thead>
@@ -175,9 +159,9 @@
 
                         </tbody>
 
-                    </table> 
-                </div>     
-            </div>    
+                    </table>
+                </div>
+            </div>
        </div>
     </div>
         <div class="footer" >
