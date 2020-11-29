@@ -178,8 +178,8 @@ function loadSelected() {
                 workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
                 desc = desc.replace(/{Intervention Description}/ig, data.description);
 
-                $("#numweek").value = data.week;
-                $("#activityname").value = data.activity;
+                document.getElementById("numWeek").innerHTML = data.week;
+                document.getElementById("activityName").innerHTML  = data.id;
                 $("#workspace-rows").append(workspaceNotes);
                 $("#intervDescription-rows").append(desc);
 
