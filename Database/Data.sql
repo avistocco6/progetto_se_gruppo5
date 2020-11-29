@@ -102,11 +102,9 @@ values ('24-11-2020','Topolino3','100%');
 --------------------------------------INSERT INTO MAINACTIVITY
 insert into MainActivity(description,estimatedtime,interruptible,mtype,week,workspacenotes,idtypology,idsite)
 values ('replacement of robot 23 welding cables','00:30:00',true,'planned activity',23,
-        'the plant is closed from 00/00/20 to 00/00/20; on the remaining days it is possible to intervene
-         only after 15:00.',002,002);
+        'the plant is closed from 00/00/20 to 00/00/20; on the remaining days it is possible to intervene only after 15:00.',002,002);
 insert into MainActivity(description,estimatedtime,interruptible,mtype,week,workspacenotes,idtypology,idsite)
-values ('compressor replacement','1:10:00',false,'ewo',23,'Plant stopped from 12:23 p.m. pending intervention.
-		Smoke from the XX4 compressor as a result of loud noise.',001,001);
+values ('compressor replacement','1:10:00',false,'ewo',23,'Plant stopped from 12:23 p.m. pending intervention. Smoke from the XX4 compressor as a result of loud noise.',001,001);
 
 
 --------------------------------------INSERT INTO MATERIAL

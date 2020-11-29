@@ -169,17 +169,19 @@ function loadSelected() {
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 let data = JSON.parse(obj.result);
+
                 let workspaceNotes = $("#workspace-row-template").html();
-                let description = $("intervDescription-row-template");
-                let skill = $("skillsNeeded-row-template");
+                let desc = $("#intervDescription-row-template").html();
+                let skill = $("#skillsNeeded-row-template").html();
+
 
                 workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
-                description = description.replace(/{Intervention Description}/ig, data.description);
+                desc = desc.replace(/{Intervention Description}/ig, data.description);
 
-                $("numweek").append(data.week);
-                $("activityname").append(data.activity);
-                $("workspace-rows").append(workspaceNotes);
-                $("intervDescription-rows").append(description);
+                $("#numweek").value = data.week;
+                $("#activityname").value = data.activity;
+                $("#workspace-rows").append(workspaceNotes);
+                $("#intervDescription-rows").append(desc);
 
                 $.each(data.skills, function(index, obj) {
                   let row = skill;

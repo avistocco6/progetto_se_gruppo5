@@ -79,8 +79,8 @@ class Maintenance {
       else {
         $skills_string = "[";
         while ($row = pg_fetch_row($skills)) {
-            $skills_string = $skills_string . "{\n" . '"id":' . $row[0] . ",\n" . '"name":' .
-                '"' . $row[1] . '"' . "\n}" . ",\n";
+            $skills_string = $skills_string . "{" . '"id":' . $row[0] . ", " . '"name":' .
+                '"' . $row[1] . '"' . "}" . ", ";
         }
         if(strlen($skills_string) > 1) {
             $skills_string = substr($skills_string, 0, strlen($skills_string) - 2);
@@ -89,8 +89,8 @@ class Maintenance {
       };
       $row = pg_fetch_row($activity);
       $json_string = '{"id":' . $row[0] . ', "week":' .
-          '"' . $row[1] . '"' . ', "description":' . '"' . $row[2] . '"' .
-          ', "workspaceNotes":' . '"' . $row[3] . '"' . ', "skills:"' . $skills_string . "}";
+            $row[1] . ', "description":' . '"' . $row[2] . '"' .
+          ', "workspaceNotes":' . '"' . $row[3] . '"' . ', "skills": ' . $skills_string . "}";
 
       pg_close($conn);
 
