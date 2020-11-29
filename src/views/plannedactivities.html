@@ -98,6 +98,7 @@
               <th>Area</th>
               <th>Type</th>
               <th>Estimated Intervention Time</th>
+              <th style="text-align: center;"><h3>Select</h3></th>
             </tr>
             <template id="activities-row-template">
             <tr>
@@ -105,7 +106,9 @@
               <td>{Area}</td>
               <td>{Type}</td>
               <td>{EstimatedTime}</td>
-              <td><a href="selected.html"><input style="width: 100%;" type="button" onclick ="loadSelected()" name="select" value="select"></a></td>
+              <td style="text-align:center;">
+                  <a href="selected.html" class="btn btn-primary" onclick="passId()">Select</a>
+              </td>
             </tr>
             </template>
           </thead>
@@ -113,7 +116,7 @@
 
           </tbody>
           <tr>
-            <td colspan="4" style="background-color: #7A858C; color: white;"><b><a href="addactivity.html">+ Add</a></b></td>
+            <td colspan="5" style="background-color: #7A858C; color: white;"><b><a href="addactivity.html">+ Add</a></b></td>
           </tr>
         </table>
       </div>
@@ -128,9 +131,12 @@
 
     <script type="application/javascript">
       $(document).ready(loadPlanned(23));
-    </script>
-     <script type="application/javascript">
-      $(document).ready(loadSelected());
+
+      function passId() {
+        $('#activities').find('tr').click( function(){
+          localStorage.setItem("id",$(this).index()+1);
+        });
+      };
     </script>
     </body>
 </html>

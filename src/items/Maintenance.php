@@ -53,4 +53,47 @@ class Maintenance {
 
       return $json_string;
   }
+
+  public static function loadActivity($json) {
+      $connector = new PgConnection();
+      $conn = $connector->connect();
+
+      $item = json_decode($json, true);
+      $id = $item['id'];
+
+      $activity = pg_query("SELECT maid, week, description, workspacenotes
+                      FROM MainActivity
+                      WHERE maid ="  . $id);
+
+      $skills = pg_query("SELECT skid, skillname
+                      FROM Skill, MainActivity AS MA, SMAssignment AS Assign
+                      WHERE idskill = skid and MA.maid = Assign.maid and
+                            MA.maid =" . $id .
+                      "ORDER BY skid");
+
+      if(!$activity) return false;
+
+      if(!$skills) {
+          $skills = "";
+      }
+      else {
+        $skills = "[";
+        while ($row = pg_fetch_row($res)) {
+            $skills = $skills . "{\n" . '"id":' . $row[0] . ",\n" . '"name":' .
+                '"' . $row[1] . '"' . "\n}" . ",\n";
+        }
+        if(strlen($skills) > 1) {
+            $skills = substr($skills, 0, strlen($skills) - 2);
+            $skills = $skills . "]";
+        } else $skills = "";
+      };
+      $row = pg_fetch_row($res);
+      $json_string = '{"id":' . $row[0] . ', "week":' .
+          '"' . $row[1] . '"' . ', "description":' . '"' . $row[2] . '"' .
+          ', "workspaceNotes":' . '"' . $row[3] . '"' . ', "skills:"' . $skills . "}";
+
+      pg_close($conn);
+
+      return $json_string;
+  }
 }

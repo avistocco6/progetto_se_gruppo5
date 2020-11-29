@@ -158,11 +158,13 @@ function loadProcedures() {
 
 
 function loadSelected() {
+    let id =localStorage.getItem('id');
+    id = '{"id":' + id + "}";
     jQuery.ajax({
         type: "POST",
         url: '../models/loader.php',
         dataType: 'json',
-        data: {functionname: "loadSelected", arguments: []},
+        data: {functionname: "loadSelected", arguments: [id]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
