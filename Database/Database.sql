@@ -9,6 +9,7 @@ drop table if exists DailyAvailability cascade;
 drop table if exists Holding cascade;
 drop table if exists SPAssignment cascade;
 drop table if exists Composition cascade;
+drop table if exists SMAssignment cascade;
 drop role if exists gruppo5;
 
 create table Client (
@@ -23,7 +24,7 @@ create table Client (
 create table Typology (
 	tid SERIAL,
 	description varchar(30) not null,
-	constraint pk_Typology primary key(tid)	
+	constraint pk_Typology primary key(tid)
 );
 
 create table Site(
@@ -54,7 +55,7 @@ create table MainActivity (
 	constraint fk_site_MainActivity_sid_Site foreign key(idsite)
 		references Site(sid)
 		on delete restrict on update cascade
-	
+
 );
 
 create table Material(
@@ -130,7 +131,16 @@ create table SPAssignment (
 		references MainProcedure(mpid)
 		on delete restrict on update cascade
 );
+
+create table SMAssignment(
+	maid smallint not null,
+	idskill smallint not null,
+	constraint pk_SMAssignment primary key (maid,idskill),
+	constraint fk_maid_SMAssignment_maid_MainActivity foreign key (maid)
+		references MainActivity(maid)
+		on delete restrict on update cascade,
+	constraint fk_idskill_SMAssignment_skid_Skill foreign key (idskill)
+		references Skill(skid)
+		on delete restrict on update cascade
+);
 CREATE ROLE gruppo5 LOGIN SUPERUSER PASSWORD 'progettoSE2020';
-
-
-

@@ -174,3 +174,10 @@ insert into SPAssignment(ids,idp)
 values(008,002);
 insert into SPAssignment(ids,idp)
 values(009,002);
+
+
+-----------------------------------------------INSERT INTO SMASSIGNMENT
+insert into SMAssignment(idskill,maid)
+values(002,001);
+insert into SMAssignment(idskill,maid)
+values(001,001);
