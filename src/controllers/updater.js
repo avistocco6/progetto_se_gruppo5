@@ -2,7 +2,6 @@ function updateMaterial() {
     let id =localStorage.getItem('id');
     let name = document.getElementById('new-material').value;
     let json_string = '{"id": ' + id + ',"name":' + '"' + name + '"}';
-    console.log(json_string);
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',

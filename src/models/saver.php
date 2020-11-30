@@ -19,7 +19,18 @@ if( !isset($aResult['error']) ) {
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Material::save($_POST['arguments'][0]);
+            $material = json_decode($_POST['arguments'][0], true);
+
+            if($material == null) {
+                $aResult['error'] = 'Error in arguments!';
+                break;
+            }
+            else{
+                $name = $material['name'];
+                $activity = $material['activity'];
+
+                $aResult['result'] = Material::save($name, $activity);
+            }
             break;
         case 'saveSkill':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
@@ -43,7 +54,17 @@ if( !isset($aResult['error']) ) {
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Procedure::save($_POST['arguments'][0]);
+            $procedure = json_decode($_POST['arguments'][0], true);
+
+            if($procedure == null) {
+                $aResult['error'] = 'Error in arguments!';
+                break;
+            }
+            else{
+                $description = $procedure['description'];
+
+                $aResult['result'] = Procedure::save($description);
+            }
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';

@@ -27,7 +27,7 @@ class Material {
         return $this->activity;
     }
 
-    public static function save($json) {
+    public static function save($name, $activity) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -36,38 +36,22 @@ class Material {
             return false;
         }
 
-        $material = self::create_from_json($json);
-
-        if($material == null) return false;
-
-        $res = self::db_insert($connector, $material);
+        $res = self::db_insert($connector, $name, $activity);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $material) {
-        if($material->activity != null)
+    private static function db_insert($conn, $name, $activity) {
+        if($activity != null)
             $sql = "INSERT INTO Material(matname, idactivity)
-                    VALUES(" . "'" . $material->name . "'," . $material->activity . ")";
+                    VALUES(" . "'" . $name . "'," . $activity . ")";
         else
             $sql = "INSERT INTO Material(matname)
-                    VALUES(" . "'" . $material->name . "'" . ")";
+                    VALUES(" . "'" . $name . "'" . ")";
 
         return $conn->query($sql) ? true : false;
-    }
-
-    private static function create_from_json($json) {
-        $material = json_decode($json, true);
-
-        if($material == null)
-            return null;
-
-        $name = $material['name'];
-        $activity = $material['activity'];
-
-        return new Material($name, $activity);
     }
 
     public static function get_materials() {
@@ -92,13 +76,9 @@ class Material {
         return $json_string;
     }
 
-    public static function updateMaterial($json) {
+    public static function updateMaterial($id, $name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
-
-        $material = json_decode($json, true);
-        $name = $material['name'];
-        $id = $material['id'];
 
         $res = pg_query("UPDATE Material SET matname =" .
                         "'" . $name . "' WHERE mid = " . $id);

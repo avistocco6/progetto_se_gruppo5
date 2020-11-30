@@ -24,13 +24,9 @@ class Maintenance {
       $this->site = $site;
     }
 
-    public static  function getByWeek($json) {
+    public static  function getByWeek($week, $type) {
       $connector = new PgConnection();
       $conn = $connector->connect();
-
-      $item = json_decode($json, true);
-      $week = $item['week'];
-      $type = $item['type'];
 
       $res = pg_query("SELECT maid, branch, department, Typology.description, estimatedtime
                       FROM MainActivity, Site, Typology
@@ -54,12 +50,9 @@ class Maintenance {
       return $json_string;
   }
 
-  public static function loadActivity($json) {
+  public static function loadActivity($id) {
       $connector = new PgConnection();
       $conn = $connector->connect();
-
-      $item = json_decode($json, true);
-      $id = $item['id'];
 
       $activity = pg_query("SELECT maid, week, description, workspacenotes
                       FROM MainActivity
@@ -74,7 +67,7 @@ class Maintenance {
       if(!$activity) return false;
 
       if(!$skills) {
-          $skills_string = "";
+          $skills_string = '[]';
       }
       else {
         $skills_string = "[";
@@ -85,7 +78,7 @@ class Maintenance {
         if(strlen($skills_string) > 1) {
             $skills_string = substr($skills_string, 0, strlen($skills_string) - 2);
             $skills_string = $skills_string . "]";
-        } else $skills_string = "";
+        } else $skills_string = '[]';
       };
       $row = pg_fetch_row($activity);
       $json_string = '{"id":' . $row[0] . ', "week":' .

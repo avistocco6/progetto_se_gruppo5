@@ -19,7 +19,18 @@ if( !isset($aResult['error']) ) {
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Material::updateMaterial($_POST['arguments'][0]);
+
+            $material = json_decode($_POST['arguments'][0], true);
+
+            if($material == null) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            else{
+                $name = $material['name'];
+                $id = $material['id'];
+
+                $aResult['result'] = Material::updateMaterial($id, $name);
+            }
             break;
         case 'updateSkill':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
@@ -43,7 +54,17 @@ if( !isset($aResult['error']) ) {
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Procedure::updateProcedure($_POST['arguments'][0]);
+            $procedure = json_decode($_POST['arguments'][0], true);
+
+            if($procedure == null) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            else{
+                $description = $procedure['description'];
+                $id = $procedure['id'];
+
+                $aResult['result'] = Procedure::updateProcedure($id, $description);
+            }
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';

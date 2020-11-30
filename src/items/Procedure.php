@@ -37,52 +37,31 @@ class Procedure {
         $this->activity = $activity;
     }
 
-    public static function save($json) {
+    public static function save($description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         if($conn == null) {
-            //echo '<p style="color:rgb(255,0,0);">Error saving material</p>';
             return false;
         }
 
-        $procedure = self::create_from_json($json);
-
-        if($procedure == null) return false;
-
-        $res = self::db_insert($connector, $procedure);
+        $res = self::db_insert($connector, $description);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $procedure) {
+    private static function db_insert($conn, $description) {
         $sql = "INSERT INTO MainProcedure(description)
-                VALUES(" . "'" . $procedure->description . "')";
+                VALUES(" . "'" . $description . "')";
 
         return $conn->query($sql) ? true : false;
     }
 
-    private static function create_from_json($json) {
-        $material = json_decode($json, true);
-
-        if($material == null)
-            return null;
-
-        $description = $material['description'];
-
-        return new Procedure($description);
-    }
-
-    public static function addSkill($json) {
+    public static function addSkill($skill_id, $procedure_id) {
         $connector = new PgConnection();
         $conn = $connector->connect();
-
-        $assign = json_decode($json, true);
-
-        $skill_id = $assign['skill_id'];
-        $procedure_id = $assign['procedure_id'];
 
         $sql = "INSERT INTO SPAssignment(ids, idp) VALUES(" . "'" . $skill_id . "'," . $procedure_id . ")";
         return $connector->query($sql) ? true : false;
@@ -112,13 +91,10 @@ class Procedure {
         return $json_string;
     }
 
-    public static function updateProcedure($json) {
+    public static function updateProcedure($id, $description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $procedure = json_decode($json, true);
-        $description = $procedure['description'];
-        $id = $procedure['id'];
 
         $res = pg_query("UPDATE MainProcedure SET description =" .
             "'" . $description . "' WHERE mpid = " . $id);
