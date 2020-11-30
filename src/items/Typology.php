@@ -17,42 +17,26 @@ class Typology {
         $this->description = $description;
     }
 
-    public static function save($json) {
+    public static function save($description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         if($conn == null) {
-            //echo '<p style="color:rgb(255,0,0);">Error saving typology</p>';
             return false;
         }
 
-        $typology = self::create_from_json($json);
-
-        if($typology == null) return false;
-
-        $res = self::db_insert($connector, $typology);
+        $res = self::db_insert($connector, $description);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $typology) {
+    private static function db_insert($conn, $description) {
         $sql = "INSERT INTO Typology(description)
-                VALUES(". "'". $typology->description . "'" . ")";
+                VALUES(". "'". $description . "'" . ")";
 
         return $conn->query($sql) ? true : false;
-    }
-
-    private static function create_from_json($json) {
-        $typology = json_decode($json, true);
-
-        if($typology == null)
-            return null;
-
-        $description = $typology['description'];
-
-        return new Typology($description);
     }
 
     public static function get_typologies() {
@@ -78,16 +62,12 @@ class Typology {
         return $json_string;
     }
 
-    public static function updateTypology($json) {
+    public static function updateTypology($id, $description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $typology = json_decode($json, true);
-        $name = $typology['description'];
-        $id = $typology['id'];
-
         $res = pg_query("UPDATE Typology SET description =" .
-            "'" . $name . "' WHERE tid = " . $id);
+            "'" . $description . "' WHERE tid = " . $id);
 
         pg_close($conn);
 

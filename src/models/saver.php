@@ -36,19 +36,50 @@ if( !isset($aResult['error']) ) {
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Skill::save($_POST['arguments'][0]);
+            $skill = json_decode($_POST['arguments'][0], true);
+
+            if($skill == null) {
+                $aResult['error'] = 'Error in arguments!';
+                break;
+            }
+            else{
+                $name = $skill['name'];
+
+                $aResult['result'] = Skill::save($name);
+            }
             break;
         case 'saveTypology':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Typology::save($_POST['arguments'][0]);
+            $typology = json_decode($_POST['arguments'][0], true);
+
+            if($typology == null) {
+                $aResult['error'] = 'Error in arguments!';
+                break;
+            }
+            else{
+                $description = $typology['description'];
+
+                $aResult['result'] = Typology::save($description);
+            }
             break;
         case 'saveSite':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $aResult['result'] = Site::save($_POST['arguments'][0]);
+            $site = json_decode($_POST['arguments'][0], true);
+
+            if($site == null) {
+                $aResult['error'] = 'Error in arguments!';
+                break;
+            }
+            else{
+                $branch = $site['branch'];
+                $department = $site['department'];
+
+                $aResult['result'] = Site::save($branch, $department);
+            }
             break;
         case 'saveProcedure':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {

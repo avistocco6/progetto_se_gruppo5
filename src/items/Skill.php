@@ -17,43 +17,28 @@ class Skill {
         $this->name = $name;
     }
 
-    public static function save($json) {
+    public static function save($name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         if($conn == null) {
-            //echo '<p style="color:rgb(255,0,0);">Error saving material</p>';
             return false;
         }
 
-        $skill = self::create_from_json($json);
-
-        if($skill == null) return false;
-
-        $res = self::db_insert($connector, $skill);
+        $res = self::db_insert($connector, $name);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $skill) {
+    private static function db_insert($conn, $name) {
         $sql = "INSERT INTO Skill(skillname)
-                VALUES(" . "'" . $skill->name . "'" . ")";
+                VALUES(" . "'" . $name . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
 
-    private static function create_from_json($json) {
-        $skill = json_decode($json, true);
-
-        if($skill == null)
-            return null;
-
-        $name = $skill['name'];
-
-        return new Skill($name);
-    }
 
     public static function get_skills()
     {
@@ -79,13 +64,10 @@ class Skill {
         return $json_string;
     }
 
-    public static function updateSkill($json) {
+    public static function updateSkill($id, $name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $skill = json_decode($json, true);
-        $name = $skill['name'];
-        $id = $skill['id'];
 
         $res = pg_query("UPDATE Skill SET skillname =" .
             "'" . $name . "' WHERE skid = " . $id);

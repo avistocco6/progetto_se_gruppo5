@@ -23,7 +23,7 @@ create table Client (
 
 create table Typology (
 	tid SERIAL,
-	description varchar(30) not null,
+	description varchar(100) not null,
 	constraint pk_Typology primary key(tid)
 );
 

@@ -27,41 +27,25 @@ class Site {
         $this->branch = $branch;
     }
 
-    public static function save($json) {
+    public static function save($branch, $department) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         if($conn == null) {
-            //echo '<p style="color:rgb(255,0,0);">Error saving views</p>';
             return false;
         }
 
-        $site = self::create_from_json($json);
-
-        if($site == null) return false;
-
-        $res = self::db_insert($connector, $site);
+        $res = self::db_insert($connector, $branch, $department);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function create_from_json($json) {
-        $site = json_decode($json, true);
 
-        if($site == null)
-            return null;
-
-        $branch = $site['branch'];
-        $department = $site['department'];
-
-        return new Site($branch, $department);
-    }
-
-    private static function db_insert($conn, $site) {
+    private static function db_insert($conn, $branch, $department) {
         $sql = "INSERT INTO Site(branch, department)
-                VALUES(" . "'" . $site->branch . "'" . "," . "'" . $site->department . "'" . ")";
+                VALUES(" . "'" . $branch . "'" . "," . "'" . $department . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
@@ -90,14 +74,10 @@ class Site {
         return $json_string;
     }
 
-    public static function updateSite($json) {
+    public static function updateSite($id, $branch, $department) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $site = json_decode($json, true);
-        $branch = $site['factory'];
-        $department = $site['area'];
-        $id = $site['id'];
 
         $res = pg_query("UPDATE Site SET branch = " .
             "'" . $branch . "', department = " . "'" . $department ."'" . "WHERE sid = " . $id);

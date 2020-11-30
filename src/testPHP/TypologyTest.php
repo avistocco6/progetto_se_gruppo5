@@ -23,7 +23,7 @@ class TypologyTest extends TestCase {
     }
 
     public function test_save_from_json() {
-        $json_data = file_get_contents('..\..\json_templates\typology.json');
+        $json_data = file_get_contents('..\..\json_save_templates\typology.json');
         $res = Typology::save($json_data);
         $this->assertEquals($res, true);
     }
