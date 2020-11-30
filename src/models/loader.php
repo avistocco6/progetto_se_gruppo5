@@ -29,6 +29,9 @@ if( !isset($aResult['error']) ) {
         case 'loadProcedures':
             $aResult['result'] = Procedure::get_procedures();
             break;
+        case 'loadWeeks':
+            $aResult['result'] = Maintenance::loadWeeks();
+            break;
         case 'loadPlanned':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';

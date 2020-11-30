@@ -96,4 +96,29 @@ class Maintenance {
 
       return $json_string;
   }
+
+  public static function loadWeeks() {
+      $connector = new PgConnection();
+      $conn = $connector->connect();
+
+
+      $res = pg_query("SELECT week
+                      FROM MainActivity
+                      WHERE mtype = 'planned activity'
+                      GROUP BY week");
+
+      if(!$res) return false;
+
+      $json_string = "[";
+      while($row = pg_fetch_row($res)) {
+          $json_string = $json_string . "{\n" .'"week":' . $row[0] . "\n}". ",\n";
+      }
+      if(strlen($json_string) > 1) {
+          $json_string = substr($json_string, 0, strlen($json_string) - 2);
+          $json_string = $json_string . "]";
+      } else $json_string = null;
+      pg_close($conn);
+
+      return $json_string;
+  }
 }

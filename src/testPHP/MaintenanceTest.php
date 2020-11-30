@@ -14,6 +14,10 @@ class MaintenanceTest
         $json_string = Maintenance::loadActivity($json);
         file_put_contents("test_files\selectedActivity.json", $json_string);
     }
+    function test_loadWeeks() {
+        $json_string = Maintenance::loadWeeks();
+        file_put_contents("test_files\weeks.json", $json_string);
+    }
 }
 
 $test = new MaintenanceTest();
@@ -25,3 +29,7 @@ echo file_get_contents("test_files\maintenances.json");
 $test->test_loadActivity();
 echo "<h1>LOADED ACTIVITY 1</h1>";
 echo file_get_contents("test_files\selectedActivity.json");
+
+$test->test_loadWeeks();
+echo "<h1>LOADED WEEKS</h1>";
+echo file_get_contents("test_files\weeks.json");
