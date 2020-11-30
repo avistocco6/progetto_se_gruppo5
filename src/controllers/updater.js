@@ -2,6 +2,7 @@ function updateMaterial() {
     let id =localStorage.getItem('id');
     let name = document.getElementById('new-material').value;
     let json_string = '{"id": ' + id + ',"name":' + '"' + name + '"}';
+    console.log(json_string);
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
@@ -145,3 +146,45 @@ function updateProcedure() {
     document.getElementById("new-procedure").value = "";
 }
 
+function updateActivity() {
+    let id =localStorage.getItem('id');
+    let site= document.getElementById('site').value;
+    let typology= document.getElementById('typology').value;
+    let description= document.getElementById('description').value;
+    let estimatedtime= document.getElementById('estimatedtime').value;
+    let interruptible= document.getElementById('interruptible').value;
+    let week= document.getElementById('week').value;
+    let json_string = '{"id": ' + id + ', "idsite":' + '"' + site + '", "idtypology":'
+        + '"' + typology + '", "description":' + '"' + description + '", "estimatedtime":' + '"' 
+        + estimatedtime + '", "interruptible":' + interruptible + '", "week":' + week + '"}';
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/updater.php',
+        dataType: 'json',
+        data: {functionname: "updateActivity", arguments: [json_string]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log(obj);
+                if(obj['result']){
+                    alert("Successfully updated!")
+                }
+                else{
+                    alert("Error during update!")
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to update sites!");
+            }
+        }
+    });
+    document.getElementById("area").value = "";
+    document.getElementById("factory").value = "";
+    document.getElementById('site').value = "";
+    document.getElementById('typology').value = "";
+    document.getElementById('description').value = "";
+    document.getElementById('estimatedtime').value = "";
+    document.getElementById('interruptible').value = "";
+    document.getElementById('week').value = "";
+}
