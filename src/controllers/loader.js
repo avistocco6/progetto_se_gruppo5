@@ -210,28 +210,60 @@ function loadPlanned(week) {
         data: {functionname: "loadPlanned", arguments: [json]},
 
         success: function (obj, textstatus) {
-            if( !('error' in obj) ) {
+            if (!('error' in obj)) {
                 let data = JSON.parse(obj.result);
                 let staticHtml = $("#activities-row-template").html();
 
+                $('#activities-rows').children().remove();
+
                 $.each(data, function (index, obj) {
-                  let row = staticHtml;
-                  row = row.replace(/{ID}/ig, obj.id);
-                  row = row.replace(/{Area}/ig, obj.area);
-                  row = row.replace(/{Type}/ig, obj.type);
-                  row = row.replace(/{EstimatedTime}/ig, obj.estimated_time);
-                  $('#activities-rows').append(row);
+                    let row = staticHtml;
+                    row = row.replace(/{ID}/ig, obj.id);
+                    row = row.replace(/{Area}/ig, obj.area);
+                    row = row.replace(/{Type}/ig, obj.type);
+                    row = row.replace(/{EstimatedTime}/ig, obj.estimated_time);
+                    $('#activities-rows').append(row);
                 });
 
                 /* When empty activity */
                 if (data === null) {
                     alert("There are no activities!")
                 }
-            }
-            else {
+            } else {
                 console.log(obj.error);
                 alert("Impossible to load activities");
             }
         }
     });
+}
+    function loadWeeks() {
+        jQuery.ajax({
+            type: "POST",
+            url: '../models/loader.php',
+            dataType: 'json',
+            data: {functionname: "loadWeeks", arguments: []},
+
+            success: function (obj, textstatus) {
+                if( !('error' in obj) ) {
+                    let data = JSON.parse(obj.result);
+                    let staticHtml = $("#week-template").html();
+
+                    $.each(data, function (index, obj) {
+                        let option = staticHtml;
+                        option = option.replace(/{Week}/ig, obj.week);
+                        $('#week-select').append(option);
+                    });
+                    let week = document.getElementById('week-select').options[0].text;
+                    loadPlanned(week);
+                    /* When empty sites */
+                    if (data === null) {
+                        alert("There are no activities planned!");
+                    }
+                }
+                else {
+                    console.log(obj.error);
+                    alert("Impossible to load weeks!");
+                }
+            }
+        });
 }
