@@ -19,86 +19,40 @@ if( !isset($aResult['error']) ) {
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-
-            $material = json_decode($_POST['arguments'][0], true);
-
-            if($material == null) {
-                $aResult['error'] = 'Error in arguments!';
-            }
-            else{
-                $name = $material['name'];
-                $id = $material['id'];
-
-                $aResult['result'] = Material::updateMaterial($id, $name);
-            }
+            $aResult['result'] = Material::updateMaterial($_POST['arguments'][0]);
             break;
         case 'updateSkill':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $skill = json_decode($_POST['arguments'][0], true);
-
-            if($skill == null) {
-                $aResult['error'] = 'Error in arguments!';
-            }
-            else{
-                $name = $skill['name'];
-                $id = $skill['id'];
-
-                $aResult['result'] = Skill::updateSkill($id, $name);
-            }
+            $aResult['result'] = Skill::updateSkill($_POST['arguments'][0]);
             break;
         case 'updateTypology':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $typology = json_decode($_POST['arguments'][0], true);
-
-            if($typology == null) {
-                $aResult['error'] = 'Error in arguments!';
-            }
-            else{
-                $description = $typology['description'];
-                $id = $typology['id'];
-
-                $aResult['result'] = Typology::updateTypology($id, $description);
-            }
+            $aResult['result'] = Typology::updateTypology($_POST['arguments'][0]);
             break;
         case 'updateSite':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $site = json_decode($_POST['arguments'][0], true);
-
-            if($site == null) {
-                $aResult['error'] = 'Error in arguments!';
-            }
-            else{
-                $branch = $site['factory'];
-                $id = $site['id'];
-                $department = $site['area'];
-
-                $aResult['result'] = Site::updateSite($id, $branch, $department);
-            }
+            $aResult['result'] = Site::updateSite($_POST['arguments'][0]);
             break;
         case 'updateProcedure':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $procedure = json_decode($_POST['arguments'][0], true);
-
-            if($procedure == null) {
-                $aResult['error'] = 'Error in arguments!';
-            }
-            else{
-                $description = $procedure['description'];
-                $id = $procedure['id'];
-
-                $aResult['result'] = Procedure::updateProcedure($id, $description);
-            }
+            $aResult['result'] = Procedure::updateProcedure($_POST['arguments'][0]);
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
+            break;
+        case 'updateActivity':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $aResult['result'] = Activity::updateActivity($_POST['arguments'][0]);
             break;
     }
 
