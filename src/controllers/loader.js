@@ -61,7 +61,7 @@ function loadSkills() {
 }
 
 
-function loadSites() {
+function loadSites(flag) {
     jQuery.ajax({
         type: "POST",
         url: '../models/loader.php',
@@ -74,10 +74,15 @@ function loadSites() {
                 let staticHtml = $("#sites-row-template").html();
 
                 $.each(data, function (index, obj) {
-                  let row = staticHtml;
+                    let row = staticHtml;
                     row = row.replace(/{Branch}/ig, obj.factory);
                     row = row.replace(/{Department}/ig, obj.area);
-                    $('#sites-rows').append(row);
+                    if(!flag)
+                        $('#sites-rows').append(row);
+                    else {
+                        $('#area').append(row.children[0]);
+                        $('#factory').append(row.children[1]);
+                    }
                 });
 
                 /* When empty sites */

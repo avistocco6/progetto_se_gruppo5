@@ -47,12 +47,12 @@
                 	<option value="{Branch}">{Branch}</option>
                 	<option value="{Department}">{Department}</option>
                 </template>
-                  <label for="sites-row">
-                  	Factory: <select name="Factory" id="sites-rows">
+                  <label for="factory">
+                  	Site: <select name="Factory" id="factory">
                   </select>
-                  </label>
-                  <label for="sites-row">
-                  Area: <select name="area" id="sites-rows">
+                  <!../label>
+                  <label for="area">
+                  Area: <select name="Area" id="area">
                   </select>
                   </label>
               </p>
@@ -73,7 +73,7 @@
               </p>
               <br>
               <p> 
-                <label for="time">
+                <label for="estimatedtime">
                   Estimated Intervention Time: <input placeholder="hh:mm:ss"id="estimatedtime" type="text" name="time" required/>
                 </label>
               </p>
@@ -88,6 +88,7 @@
               <br>
               <p> 
                 <label for="interruption">
+                  <p id="interruption">
                   Interruptible Activity: 
                   <input type="radio" id="interruptible" name="yes_no" checked>Yes</input>
                   <input type="radio" id="interruptible" name="yes_no">No</input>
@@ -96,7 +97,7 @@
               </p>
               <br>
               <p> 
-                <label for="type">
+                <label for="week">
                   Week: <select name="week" id="week">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -173,8 +174,8 @@
     
     <script type="application/javascript">
       $(document).ready(function(){
-      	 loadMaterials();
-        loadSites();
+        loadMaterials();
+        loadSites(true);
         loadTypology();
       });
     </script>

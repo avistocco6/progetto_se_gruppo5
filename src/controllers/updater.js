@@ -188,3 +188,4 @@ function updateActivity() {
     document.getElementById('interruptible').value = "";
     document.getElementById('week').value = "";
 }
+

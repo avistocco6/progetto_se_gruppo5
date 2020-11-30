@@ -114,4 +114,16 @@ class Maintenance {
 
       return $json_string;
   }
+
+    public static function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = pg_query("UPDATE MainActivity SET description = " .
+            "'" . $description . "', idsite = " . "'" . $idsite . "', idtypology = " . "'" . $idtypology ."', estimatedtime = '"
+            . $estimatedtime . "', week = " . "'" . $week . "', interruptible = " . "'" . $interruptible ."'" .  "WHERE maid = " . $maid);
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
 }
