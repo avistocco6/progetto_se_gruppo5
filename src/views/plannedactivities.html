@@ -85,7 +85,8 @@
 
       function passId() {
         $('#activities').find('tr').click( function(){
-          localStorage.setItem("id",$(this).index()+1);
+          let id = document.getElementById("activities").rows[$(this).index()+1].cells[0].innerHTML;
+          localStorage.setItem("id", id);
         });
       };
     </script>

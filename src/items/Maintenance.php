@@ -138,13 +138,14 @@ class Maintenance {
       return $json_string;
   }
 
-    public static function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible) {
+    public static function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         $res = pg_query("UPDATE MainActivity SET description = " .
             "'" . $description . "', idsite = " . "'" . $idsite . "', idtypology = " . "'" . $idtypology ."', estimatedtime = '"
-            . $estimatedtime . "', week = " . "'" . $week . "', interruptible = " . "'" . $interruptible ."'" .  "WHERE maid = " . $maid);
+            . $estimatedtime . "', week = " . "'" . $week . "', interruptible = " . "'" . $interruptible ."',"
+            . " mtype = '" . $mtype . "'" .  "WHERE maid = " . $maid);
 
         pg_close($conn);
         return $res ? true : false;

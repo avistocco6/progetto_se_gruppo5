@@ -103,7 +103,7 @@
                     <div id="name">
                         <p id="activityName"></p>
                     </div>
-                    <a href="updateactivity.html"><input type="button" value="update" name="update" style="margin: 10px; width: 100px; height: 50px;"> </a>
+                    <a href="updateactivity.html"><input type="button" onclick="passId();" value="update" name="update" style="margin: 10px; width: 100px; height: 50px;"> </a>
                     <input type="button" value="forward" name="forward" style="margin: 10px; width: 100px;
             height: 50px;">
                 </div>
@@ -172,6 +172,12 @@
 
         <script type="application/javascript">
           $(document).ready(loadSelected());
+
+          function passId() {
+              $('#activities').find('tr').click( function(){
+                  localStorage.setItem("id", parseInt(document.getElementById("activityName").text));
+              });
+          };
         </script>
 
     </body>

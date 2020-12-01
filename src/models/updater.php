@@ -114,9 +114,10 @@ if( !isset($aResult['error']) ) {
                 $estimatedtime = $activity['estimatedtime'];
                 $week = $activity['week'];
                 $interruptible = $activity['interruptible'];
+                $mtype = $activity['mtype'];
 
                 $aResult['result'] = Maintenance::updateActivity($maid, $description, $idsite,
-                    $idtypology, $estimatedtime, $week, $interruptible);
+                    $idtypology, $estimatedtime, $week, $interruptible, $mtype);
             }
             break;
         default:

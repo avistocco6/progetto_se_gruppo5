@@ -148,45 +148,50 @@ function updateProcedure() {
 
 function updateActivity() {
     let id =localStorage.getItem('id');
-    let site= document.getElementById('site').value;
-    let typology= document.getElementById('typology').value;
-    let description= document.getElementById('description').value;
-    let estimatedtime= document.getElementById('estimatedtime').value;
-    let interruptible= document.getElementById('interruptible').value;
-    let week= document.getElementById('week').value;
-    let json_string = '{"id": ' + id + ', "idsite":' + '"' + site + '", "idtypology":'
-        + '"' + typology + '", "description":' + '"' + description + '", "estimatedtime":' + '"' 
-        + estimatedtime + '", "interruptible":' + interruptible + '", "week":' + week + '"}';
-    console.log(json_string);
+    console.log(id);
+    let typology = document.getElementById("typology-rows").selectedIndex+1;
+    typology = 0 ? typology == -1 : typology;
+    let description = document.getElementById("description").value;
+    let time = document.getElementById("time").value;
+    //var material = document.getElementById("materials-rows").value;
+    //material = material.options[selectedIndex].value;
+    let week = document.getElementById("week").selectedIndex+1;
+    week = 0 ? week == -1 : week;
+    let idsite = document.getElementById("sites-rows").selectedIndex+1;
+    idsite = 0 ? idsite == -1 : idsite;
+    var isInterrupt = $("input[name=yes_no]:checked").val()
+    isInterrupt = false ? isInterrupt == "No" : true;
+
+    let activity = '{"maid":' + id + '"site_id":' + idsite + ', "description":' + '"' + description +
+        '", "estimatedTime":' + '"' + time +
+        '", "interruptible": ' + isInterrupt +
+        ', "typology_id":' + typology +
+        ', "week":' + week +
+        ',"mtype": "planned activity"}';
+    console.log(activity);
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
         dataType: 'json',
-        data: {functionname: "updateActivity", arguments: [json_string]},
+        data: {functionname: "updateeActivity", arguments: [activity]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
                 if(obj['result']){
-                    alert("Successfully updated!")
+                    alert("Successfully added!")
                 }
                 else{
-                    alert("Error during update!")
+                    alert("Error during add!")
                 }
             }
             else {
                 console.log(obj.error);
-                alert("Impossible to update sites!");
+                alert("Impossible to add activity!");
             }
         }
     });
-    document.getElementById("area").value = "";
-    document.getElementById("factory").value = "";
-    document.getElementById('site').value = "";
-    document.getElementById('typology').value = "";
+
     document.getElementById('description').value = "";
-    document.getElementById('estimatedtime').value = "";
-    document.getElementById('interruptible').value = "";
-    document.getElementById('week').value = "";
+    document.getElementById('time').value = "";
 }
 
