@@ -5,9 +5,12 @@
     	<meta charset="utf-8"/>
     	<meta name="author" content="Team 5"/>
     	<meta name="description" content="Web application for maintenance activies."/>
-    	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
         <style>
             a{
               text-decoration: none;
@@ -16,11 +19,14 @@
             a:visited{
               color: black;
             }
-            
+            .btn{
+              background-color: #3bb0bb;
+              border-color:white; 
+            }
         </style>    
     </head>
     <body>
-        <div class="row">
+        <div class="row" style="margin-left: 0px; margin-right: 0px;">
             <div class="header" >
                 <p>
                   <a href="managedb.html"><img border="0" src="return.png" width="70" height="70"> </a>
@@ -46,7 +52,9 @@
                         <tr>
                             <td>{Skill}</td>
                             <td style="text-align:center;">
-                                <a href="updateskill.html" class="btn btn-primary" onclick="passId()">Edit</a>
+                                <a href="updateskill.html" onclick="passId();" class="btn btn-success btn-lg">
+                                    <span class="glyphicon glyphicon-edit"></span>  
+                                </a>
                             </td>
                         </tr>
                     </template>
@@ -54,10 +62,11 @@
                 <tbody id="skills-rows">
 
                 </tbody>
-              <tr>
-                <td colspan="2" style="background-color: #7A858C; color: white;"><b><a href="addskill.html">+ Add</a></b></td>
-              </tr>
             </table>
+            <br>
+            <a href="addskill.html" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-plus-sign"></span> Add
+            </a>
         </div>
         <div class="footer">
           <h2>Team 5</h2>

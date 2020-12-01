@@ -5,9 +5,12 @@
     	<meta charset="utf-8"/>
     	<meta name="author" content="Team 5"/>
     	<meta name="description" content="Web application for maintenance activies."/>
-    	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-   <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      
         <style>
             
             a{
@@ -16,6 +19,14 @@
             }
             a:visited{
               color: black;
+            }
+            .btn{
+              background-color: #3bb0bb;
+              border-color:white; 
+            }
+            .row{
+                margin-left: 0px; 
+                margin-right: 0px;
             }
             
         </style>    
@@ -44,8 +55,8 @@
 
               </tr>
               <tr>
-                <th style="background-color: #7A858C">Factory</th>
-                <th style="background-color: #7A858C">Area</th>
+                <th style="background-color: #7A858C; text-align: center;">Factory</th>
+                <th style="background-color: #7A858C; text-align: center;">Area</th>
                 <th style="text-align: center; background-color: #7A858C">Edit</th>
               </tr>
                 <template id="sites-row-template">
@@ -53,7 +64,9 @@
                         <td>{Branch}</td>
                         <td>{Department}</td>
                         <td style="text-align:center;">
-                           <a href="updatesite.html" class="btn btn-primary" onclick="passId()">Edit</a>
+                          <a href="updateprocedure.html" onclick="passId();" class="btn btn-success btn-lg">
+                            <span class="glyphicon glyphicon-edit"></span>  
+                          </a>
                        </td>
                     </tr>
                 </template>
@@ -61,12 +74,11 @@
               <tbody id="sites-rows">
 
               </tbody>
-
-              <tr>
-                <td colspan="3" style="background-color: #7A858C; color: white;"><b><a href="addsite.html">+ Add</a></b></td>
-              </tr>
-
             </table>
+            <br>
+            <a href="addsite.html" class="btn btn-info btn-lg">
+              <span class="glyphicon glyphicon-plus-sign"></span> Add
+            </a>
         </div> 
 
         <div class="footer">
