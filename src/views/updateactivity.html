@@ -42,20 +42,17 @@
             <fieldset>
               <legend><h2>Update Activity</h2></legend>
               <fieldset>
-              <p> 
-                <template id="#sites-row-template">
-                	<option value="{Branch}">{Branch}</option>
-                	<option value="{Department}">{Department}</option>
+                <template id="sites-row-template">
+                  <option value="{Branch} - {Department}">{Branch} - {Department}</option>
                 </template>
-                  <label for="factory">
-                  	Site: <select name="Factory" id="factory">
-                  </select>
-                  <!../label>
-                  <label for="area">
-                  Area: <select name="Area" id="area">
+                <p>
+                  <label for="sites-rows">
+                    Area: <select  name="type" id="sites-rows">
+
                   </select>
                   </label>
-              </p>
+
+                </p>
               </fieldset>
               <br>
               <p> 
@@ -175,7 +172,7 @@
     <script type="application/javascript">
       $(document).ready(function(){
         loadMaterials();
-        loadSites(true);
+        loadSites();
         loadTypology();
       });
     </script>

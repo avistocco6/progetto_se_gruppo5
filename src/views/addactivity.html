@@ -46,13 +46,13 @@
               <fieldset>
               <br>
               <p>
-                <template id="#sites-row-template">
-                	<option value="{Branch}">{Branch}</option>
-                	<option value="{Department}">{Department}</option>
-                </template>
+                  <template id="sites-row-template">
+                      <option value="{Branch} - {Department}">{Branch} - {Department}</option>
+                  </template>
                   <label for="sites-rows">
                   	Area: <select  name="type" id="sites-rows">
-                  </select>
+
+                          </select>
                   </label>
 
               </p>
@@ -89,11 +89,11 @@
               </p>
               <br>
               <p> 
-                <label for="interruption">
+                <label for="yes_no_radio">
                     <p>
                   Interruptible Activity: 
-                  <input type="radio" name="yes_no"  id="interruption" checked>Yes</input>
-                  <input type="radio" name="yes_no" id="interruption1">No</input>
+                  <input type="radio" name="yes_no" value="Yes" id="interruptible" checked>Yes</input>
+                  <input type="radio" name="yes_no" value="No" id="interruptible">No</input>
                   </p>
                 </label>
               </p>
@@ -178,7 +178,7 @@
      <script type="application/javascript">
       $(document).ready(function(){
         loadMaterials();
-        loadSites(true);
+        loadSites();
         loadTypology();
       });
     </script>

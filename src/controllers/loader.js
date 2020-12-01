@@ -61,7 +61,7 @@ function loadSkills() {
 }
 
 
-function loadSites(flag) {
+function loadSites() {
     jQuery.ajax({
         type: "POST",
         url: '../models/loader.php',
@@ -77,12 +77,8 @@ function loadSites(flag) {
                     let row = staticHtml;
                     row = row.replace(/{Branch}/ig, obj.factory);
                     row = row.replace(/{Department}/ig, obj.area);
-                    if(!flag)
-                        $('#sites-rows').append(row);
-                    else {
-                        $('#area').append(row.children[0]);
-                        $('#factory').append(row.children[1]);
-                    }
+
+                    $('#sites-rows').append(row);
                 });
 
                 /* When empty sites */

@@ -24,6 +24,29 @@ class Maintenance {
       $this->site = $site;
     }
 
+    public static function save($idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        if($conn == null) {
+            return false;
+        }
+
+        $res = self::db_insert($connector, $idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype);
+
+        pg_close($conn);
+
+        return $res;
+    }
+    private static function db_insert($conn, $idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
+        $interruptible = $interruptible ? 'true' : 'false';
+        $sql = "INSERT INTO MainActivity(description, estimatedtime, interruptible, week, idtypology, idsite, mtype)
+                VALUES(" . "'" . $description . "'" . "," . "'" .$estimatedtime . "'" .
+                    "," . $interruptible . "," . $week  . "," . $idtypology . "," . $idsite . ",'" . $mtype . "')";
+
+        return $conn->query($sql) ? true : false;
+    }
+
     public static  function getByWeek($week, $type) {
       $connector = new PgConnection();
       $conn = $connector->connect();

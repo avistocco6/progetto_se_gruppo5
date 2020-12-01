@@ -157,6 +157,7 @@ function updateActivity() {
     let json_string = '{"id": ' + id + ', "idsite":' + '"' + site + '", "idtypology":'
         + '"' + typology + '", "description":' + '"' + description + '", "estimatedtime":' + '"' 
         + estimatedtime + '", "interruptible":' + interruptible + '", "week":' + week + '"}';
+    console.log(json_string);
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',

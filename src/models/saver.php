@@ -98,7 +98,7 @@ if( !isset($aResult['error']) ) {
             }
             break;
         case 'saveActivity':
-             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
             $activity = json_decode($_POST['arguments'][0], true);
@@ -110,17 +110,17 @@ if( !isset($aResult['error']) ) {
             else{
 
                 $description = $activity['description'];
-                $idsite = $activity['idsite'];
-                $idtypology = $activity['idtypology'];
-                $estimatedtime = $activity['estimatedtime'];
-                $week = $activity['week'];
+                $estimatedtime = $activity['estimatedTime'];
                 $interruptible = $activity['interruptible'];
+                $week = $activity['week'];
+                $idtypology = $activity['typology_id'];
+                $idsite = $activity['site_id'];
+                $mtype = $activity['mtype'];
 
-                $aResult['result'] = Activity::addActivity( $description, $idsite,
-                    $idtypology, $estimatedtime, $week, $interruptible);
+                $aResult['result'] = Maintenance::save($idsite, $description,
+                    $estimatedtime, $week, $interruptible, $idtypology, $mtype);
             }
             break;
-
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;
