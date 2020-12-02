@@ -162,18 +162,19 @@ function updateActivity() {
     var isInterrupt = $("input[name=yes_no]:checked").val()
     isInterrupt = false ? isInterrupt == "No" : true;
 
-    let activity = '{"maid":' + id + '"site_id":' + idsite + ', "description":' + '"' + description +
-        '", "estimatedTime":' + '"' + time +
-        '", "interruptible": ' + isInterrupt +
-        ', "typology_id":' + typology +
-        ', "week":' + week +
-        ',"mtype": "planned activity"}';
+    let activity = '{"maid":' + id + ', "site_id":' + idsite + ', "description":' + '"' + description +
+                    '", "estimatedTime":' + '"' + time +
+                    '", "interruptible": ' + isInterrupt +
+                    ', "typology_id":' + typology +
+                    ', "week":' + week +
+                    ',"mtype": "planned activity"}';
+
     console.log(activity);
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
         dataType: 'json',
-        data: {functionname: "updateeActivity", arguments: [activity]},
+        data: {functionname: "updateActivity", arguments: [activity]},
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
