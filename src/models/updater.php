@@ -109,15 +109,14 @@ if( !isset($aResult['error']) ) {
             else{
                 $maid = $activity['maid'];
                 $description = $activity['description'];
-                $idsite = $activity['idsite'];
-                $idtypology = $activity['idtypology'];
-                $estimatedtime = $activity['estimatedtime'];
-                $week = $activity['week'];
+                $estimatedtime = $activity['estimatedTime'];
                 $interruptible = $activity['interruptible'];
+                $week = $activity['week'];
+                $idtypology = $activity['typology_id'];
+                $idsite = $activity['site_id'];
                 $mtype = $activity['mtype'];
 
-                $aResult['result'] = Maintenance::updateActivity($maid, $description, $idsite,
-                    $idtypology, $estimatedtime, $week, $interruptible, $mtype);
+                $aResult['result'] = Maintenance::updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype);
             }
             break;
         default:
