@@ -1,0 +1,16 @@
+[{
+"id":1,
+"description":"Mechanical"
+},
+{
+"id":2,
+"description":"Electric"
+},
+{
+"id":3,
+"description":"Hydraulic"
+},
+{
+"id":4,
+"description":"Electronics"
+}]

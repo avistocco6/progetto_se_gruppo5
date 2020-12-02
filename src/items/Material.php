@@ -11,39 +11,22 @@ class Material {
         $this->activity = $activity;
     }
 
-    public function set_name($name) {
-        $this->name = $name;
-    }
-
-    public function set_activity($activity) {
-        $this->activity = $activity;
-    }
-
-    public function get_name() {
-        return $this->name;
-    }
-
-    public function get_activity() {
-        return $this->activity;
-    }
-
-    public static function save($name, $activity) {
+    public static function save($name, $activity = null) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         if($conn == null) {
-            //echo '<p style="color:rgb(255,0,0);">Error saving material</p>';
             return false;
         }
 
-        $res = self::db_insert($connector, $name, $activity);
+        $res = self::dbInsert($connector, $name, $activity);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $name, $activity) {
+    private static function dbInsert($conn, $name, $activity) {
         if($activity != null)
             $sql = "INSERT INTO Material(matname, idactivity)
                     VALUES(" . "'" . $name . "'," . $activity . ")";
@@ -54,11 +37,11 @@ class Material {
         return $conn->query($sql) ? true : false;
     }
 
-    public static function get_materials() {
+    public static function getMaterials() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT mid, matname FROM Material ORDER BY mid");
+        $res = $connector->query("SELECT mid, matname FROM Material ORDER BY mid");
 
         if(!$res) return false;
 
@@ -80,7 +63,7 @@ class Material {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("UPDATE Material SET matname =" .
+        $res = $connector->query("UPDATE Material SET matname =" .
                         "'" . $name . "' WHERE mid = " . $id);
 
         pg_close($conn);

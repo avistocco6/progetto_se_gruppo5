@@ -6,49 +6,40 @@ use PHPUnit\Framework\TestCase;
 include_once '..\items\Material.php';
 
 class MaterialTest extends TestCase {
-    private function testMaterial() {
-        return new Material( "Cuscinetto", 2);
-    }
 
-    public function test_get_name() {
-        $material = $this->testMaterial();
-
-        $this->assertEquals($material->get_name(), "Cuscinetto");
-    }
-
-    public function test_get_activity() {
-        $material = $this->testMaterial();
-
-        $this->assertEquals($material->get_activity(), 2);
-    }
-
-    public function test_set_activity() {
-        $material = $this->testMaterial();
-        $material->set_activity(12);
-        $this->assertEquals($material->get_activity(), 12);
-    }
-
-    public function test_set_name() {
-        $material = $this->testMaterial();
-        $material->set_name("Vite");
-        $this->assertEquals($material->get_name(), "Vite");
-    }
-
-    public function test_save_from_json() {
-        $json_data = file_get_contents('..\..\json_save_templates\material.json');
-        $res = Material::save($json_data);
+    public function testSave() {
+        $res = Material::save("testMaterial");
         $this->assertEquals($res, true);
+
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = pg_query("DELETE FROM Material where matname = 'testMaterial'");
+
+        pg_close($conn);
     }
 
-    function test_get_materials() {
-        $json_string = Material::get_materials();
+    function testGetMaterials() {
+        $json_string = Material::getMaterials();
+        echo $json_string;
         $expected = file_get_contents("test_files\materials.json");
         $this->assertEquals($expected, $json_string);
     }
 
-    function test_update_material() {
-        $json_string = '{"id": 2, "name": "testUpdate"}';
-        $ret = Material::updateMaterial($json_string);
+    function testUpdateMaterial() {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = pg_query("SELECT matname FROM Material where mid = 2");
+
+        $row = pg_fetch_row($res);
+        $oldName = $row[0];
+
+        $ret = Material::updateMaterial(2, "testUpdate");
         $this->assertEquals($ret, true);
+
+        $ret = Material::updateMaterial(2, $oldName);
+        $this->assertEquals($ret, true);
+
     }
 }

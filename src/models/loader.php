@@ -15,19 +15,19 @@ if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
         case 'loadMaterials':
-            $aResult['result'] = Material::get_materials();
+            $aResult['result'] = Material::getMaterials();
             break;
         case 'loadSkills':
-            $aResult['result'] = Skill::get_skills();
+            $aResult['result'] = Skill::getSkills();
             break;
         case 'loadTypologies':
-            $aResult['result'] = Typology::get_typologies();
+            $aResult['result'] = Typology::getTypologies();
             break;
         case 'loadSites':
-            $aResult['result'] = Site::get_sites();
+            $aResult['result'] = Site::getSites();
             break;
         case 'loadProcedures':
-            $aResult['result'] = Procedure::get_procedures();
+            $aResult['result'] = Procedure::getProcedures();
             break;
         case 'loadWeeks':
             $aResult['result'] = Maintenance::loadWeeks();

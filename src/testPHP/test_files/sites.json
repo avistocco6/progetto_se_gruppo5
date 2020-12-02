@@ -1,0 +1,15 @@
+[{
+"id":1,
+"factory":"Fisciano",
+"area":"Molding"
+},
+{
+"id":2,
+"factory":"Nusco",
+"area":"Carpentry"
+},
+{
+"id":3,
+"factory":"Morra",
+"area":"Painting"
+}]

@@ -129,7 +129,6 @@ function updateProcedure() {
 
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
-                console.log(obj);
                 if(obj['result']){
                     alert("Successfully updated!")
                 }
@@ -148,11 +147,10 @@ function updateProcedure() {
 
 function updateActivity() {
     let id =localStorage.getItem('id');
-    console.log(id);
     let typology = document.getElementById("typology-rows").selectedIndex+1;
     typology = 0 ? typology == -1 : typology;
     let description = document.getElementById("description").value;
-    let time = document.getElementById("time").value;
+    let time = document.getElementById("estimatedtime").value;
     //var material = document.getElementById("materials-rows").value;
     //material = material.options[selectedIndex].value;
     let week = document.getElementById("week").selectedIndex+1;
@@ -163,13 +161,14 @@ function updateActivity() {
     isInterrupt = false ? isInterrupt == "No" : true;
 
     let activity = '{"maid":' + id + ', "site_id":' + idsite + ', "description":' + '"' + description +
-                    '", "estimatedTime":' + '"' + time +
+                    '", "estimated_time":' + '"' + time +
                     '", "interruptible": ' + isInterrupt +
                     ', "typology_id":' + typology +
                     ', "week":' + week +
                     ',"mtype": "planned activity"}';
 
     console.log(activity);
+
     jQuery.ajax({
         type: "POST",
         url: '../models/updater.php',
@@ -179,20 +178,20 @@ function updateActivity() {
         success: function (obj, textstatus) {
             if( !('error' in obj) ) {
                 if(obj['result']){
-                    alert("Successfully added!")
+                    alert("Successfully updated!")
                 }
                 else{
-                    alert("Error during add!")
+                    alert("Error during update!")
                 }
             }
             else {
                 console.log(obj.error);
-                alert("Impossible to add activity!");
+                alert("Impossible to update activity!");
             }
         }
     });
 
     document.getElementById('description').value = "";
-    document.getElementById('time').value = "";
+    document.getElementById('estimatedtime').value = "";
 }
 

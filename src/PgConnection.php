@@ -22,39 +22,39 @@ class PgConnection
         return $connection;
     }
 
-    public function set_username($username) {
+    public function setUsername($username) {
         $this->username = $username;
     }
 
-    public function set_port($port) {
+    public function setPort($port) {
         $this->port = $port;
     }
 
-    public function set_host($host) {
+    public function setHost($host) {
         $this->username = $host;
     }
 
-    public function set_db($db) {
+    public function setDb($db) {
         $this->username = $db;
     }
 
-    public function set_password($password) {
+    public function setPassword($password) {
         $this->username = $password;
     }
 
-    public function get_username() {
+    public function getUsername() {
         return $this->username;
     }
 
-    public function  get_db() {
+    public function  getDb() {
         return $this->db;
     }
 
-    public function  get_host() {
+    public function  getHost() {
         return $this->host;
     }
 
-    public function get_port() {
+    public function getPort() {
         return $this->port;
     }
 

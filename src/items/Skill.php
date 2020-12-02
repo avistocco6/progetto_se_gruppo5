@@ -9,14 +9,6 @@ class Skill {
         $this->name = $name;
     }
 
-    public function get_name() {
-        return $this->name;
-    }
-
-    public function set_name($name) {
-        $this->name = $name;
-    }
-
     public static function save($name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
@@ -25,14 +17,14 @@ class Skill {
             return false;
         }
 
-        $res = self::db_insert($connector, $name);
+        $res = self::dbInsert($connector, $name);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $name) {
+    private static function dbInsert($conn, $name) {
         $sql = "INSERT INTO Skill(skillname)
                 VALUES(" . "'" . $name . "'" . ")";
 
@@ -40,12 +32,12 @@ class Skill {
     }
 
 
-    public static function get_skills()
+    public static function getSkills()
     {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT * FROM Skill ORDER BY skid");
+        $res = $connector->query("SELECT * FROM Skill ORDER BY skid");
 
         if (!$res) return false;
 
@@ -69,7 +61,7 @@ class Skill {
         $conn = $connector->connect();
 
 
-        $res = pg_query("UPDATE Skill SET skillname =" .
+        $res = $connector->query("UPDATE Skill SET skillname =" .
             "'" . $name . "' WHERE skid = " . $id);
 
         pg_close($conn);

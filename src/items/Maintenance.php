@@ -77,11 +77,11 @@ class Maintenance {
       $connector = new PgConnection();
       $conn = $connector->connect();
 
-      $activity = pg_query("SELECT maid, week, description, workspacenotes
+      $activity = $connector->query("SELECT maid, week, description, workspacenotes
                       FROM MainActivity
                       WHERE maid ="  . $id);
 
-      $skills = pg_query("SELECT skid, skillname
+      $skills = $connector->query("SELECT skid, skillname
                       FROM Skill, MainActivity AS MA, SMAssignment AS Assign
                       WHERE idskill = skid and MA.maid = Assign.maid and
                             MA.maid =" . $id .
@@ -118,7 +118,7 @@ class Maintenance {
       $conn = $connector->connect();
 
 
-      $res = pg_query("SELECT week
+      $res = $connector->query("SELECT week
                       FROM MainActivity
                       WHERE mtype = 'planned activity'
                       GROUP BY week");
@@ -141,9 +141,8 @@ class Maintenance {
     public static function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype) {
         $connector = new PgConnection();
         $conn = $connector->connect();
-        echo "how u doin";
-        echo $maid;
-        $res = pg_query("UPDATE MainActivity SET description = " .
+        $interruptible = $interruptible ? 'true' : 'false';
+        $res = $connector->query("UPDATE MainActivity SET description = " .
             "'" . $description . "', idsite = " . "'" . $idsite . "', idtypology = " . "'" . $idtypology ."', estimatedtime = '"
             . $estimatedtime . "', week = " . "'" . $week . "', interruptible = " . "'" . $interruptible ."',"
             . " mtype = '" . $mtype . "'" .  "WHERE maid = " . $maid);

@@ -11,22 +11,6 @@ class Site {
         $this->branch = $branch;
     }
 
-    public function get_branch() {
-        return $this->branch;
-    }
-
-    public function get_department() {
-        return $this->department;
-    }
-
-    public function set_department($department) {
-        $this->department = $department;
-    }
-
-    public function set_branch($branch) {
-        $this->branch = $branch;
-    }
-
     public static function save($branch, $department) {
         $connector = new PgConnection();
         $conn = $connector->connect();
@@ -35,7 +19,7 @@ class Site {
             return false;
         }
 
-        $res = self::db_insert($connector, $branch, $department);
+        $res = self::dbInsert($connector, $branch, $department);
 
         pg_close($conn);
 
@@ -43,14 +27,14 @@ class Site {
     }
 
 
-    private static function db_insert($conn, $branch, $department) {
+    private static function dbInsert($conn, $branch, $department) {
         $sql = "INSERT INTO Site(branch, department)
                 VALUES(" . "'" . $branch . "'" . "," . "'" . $department . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
 
-    public static function get_sites() {
+    public static function getSites() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -79,7 +63,7 @@ class Site {
         $conn = $connector->connect();
 
 
-        $res = pg_query("UPDATE Site SET branch = " .
+        $res = $connector->query("UPDATE Site SET branch = " .
             "'" . $branch . "', department = " . "'" . $department ."'" . "WHERE sid = " . $id);
 
         pg_close($conn);

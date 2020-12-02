@@ -7,71 +7,42 @@ include_once '..\items\Procedure.php';
 class ProcedureTest extends TestCase
 {
 
-    private function testProcedure() {
-        return new Procedure("desc", 1 );
-    }
-
-    public function testGetActivity() {
-        $proc = $this->testProcedure();
-
-        $this->assertEquals(1, $proc->getActivity());
-    }
-
-    public function testSetSmp() {
-        $proc = $this->testProcedure();
-
-        $proc->setSmp("test_procedure.txt");
-        $this->assertEquals("TEST", $proc->getSmp());
-    }
-
-    public function testGetSmp() {
-        $proc = $this->testProcedure();
-
-        $proc->setSmp("test_procedure.txt");
-        $this->assertEquals("TEST", $proc->getSmp());
-    }
-
-    public function testSetActivity() {
-        $proc = $this->testProcedure();
-
-        $proc->setActivity(2);
-        $this->assertEquals(2, $proc->getActivity());
-    }
-
-    public function testSetDescription() {
-        $proc = $this->testProcedure();
-
-        $proc->setDescription("desc2");
-        $this->assertEquals("desc2", $proc->getDescription());
-    }
-
-    public function testGetDescription() {
-        $proc = $this->testProcedure();
-
-        $this->assertEquals("desc", $proc->getDescription());
-    }
-
     public function testSave() {
-        $json_data = file_get_contents('..\..\json_save_templates\procedure.json');
-        $res = Procedure::save($json_data);
+        $res = Procedure::save("testDesc");
         $this->assertEquals($res, true);
-    }
 
-    public function test_addSkill() {
-        $json_data = file_get_contents('..\..\json_save_templates\skill_assignation_procedure.json');
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = pg_query("DELETE FROM MainProcedure where description = 'testDesc'");
+
+        pg_close($conn);
+    }
+/*
+    public function testAddSkill() {
         $res = Procedure::addSkill($json_data);
         $this->assertEquals($res, true);
     }
-
-    function test_get_procedures() {
-        $json_string = Procedure::get_procedures();
+*/
+    function testGetProcedures() {
+        $json_string = Procedure::getProcedures();
         $expected = file_get_contents("test_files\procedures.json");
         $this->assertEquals($expected, $json_string);
     }
 
-    function test_update_procedure() {
-        $json_string = '{"id": 2, "description": "testProcedure"}';
-        $ret = Procedure::updateProcedure($json_string);
+    function testUpdateProcedure() {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = pg_query("SELECT description FROM MainProcedure where mpid = 2");
+
+        $row = pg_fetch_row($res);
+        $oldDesc = $row[0];
+
+        $ret = Procedure::updateProcedure(2, "testProcedure");
+        $this->assertEquals($ret, true);
+
+        $ret = Procedure::updateProcedure(2, $oldDesc);
         $this->assertEquals($ret, true);
     }
 }

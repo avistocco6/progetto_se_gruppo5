@@ -9,14 +9,6 @@ class Typology {
         $this->description = $description;
     }
 
-    public function get_description() {
-        return $this->description;
-    }
-
-    public function set_description($description) {
-        $this->description = $description;
-    }
-
     public static function save($description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
@@ -25,25 +17,25 @@ class Typology {
             return false;
         }
 
-        $res = self::db_insert($connector, $description);
+        $res = self::dbInsert($connector, $description);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function db_insert($conn, $description) {
+    private static function dbInsert($conn, $description) {
         $sql = "INSERT INTO Typology(description)
                 VALUES(". "'". $description . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
 
-    public static function get_typologies() {
+    public static function getTypologies() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT * FROM Typology ORDER BY tid");
+        $res = $connector->query("SELECT * FROM Typology ORDER BY tid");
 
         if(!$res) return false;
 
@@ -66,7 +58,7 @@ class Typology {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("UPDATE Typology SET description =" .
+        $res = $connector->query("UPDATE Typology SET description =" .
             "'" . $description . "' WHERE tid = " . $id);
 
         pg_close($conn);

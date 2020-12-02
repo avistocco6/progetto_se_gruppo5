@@ -1,42 +1,34 @@
 <?php
 
+
+use PHPUnit\Framework\TestCase;
 include_once '..\items\Maintenance.php';
 
-class MaintenanceTest
+class MaintenanceTest extends TestCase
 {
-    function test_getByWeek() {
+    function testGetByWeek() {
         $json_string = Maintenance::getByWeek(23, 'planned activity');
-        file_put_contents("test_files\maintenances.json", $json_string);
+        $expected = file_get_contents("test_files\maintenances.json");
+        $this->assertEquals($expected, $json_string);
     }
-    function test_loadActivity() {
+    function testLoadActivity() {
         $json_string = Maintenance::loadActivity(1);
-        file_put_contents("test_files\selectedActivity.json", $json_string);
+        $expected = file_get_contents("test_files\selectedActivity.json");
+        $this->assertEquals($expected, $json_string);
     }
-    function test_loadWeeks() {
+    function testLoadWeeks() {
         $json_string = Maintenance::loadWeeks();
-        file_put_contents("test_files\weeks.json", $json_string);
+        $expected = file_get_contents("test_files\weeks.json");
+        $this->assertEquals($expected, $json_string);
     }
-    function test_save() {
+    function testSave() {
         $ret = Maintenance::save(1, "test", "11:20:30",
             1, false, 1, 'planned activity');
-        return $ret;
+        $this->assertEquals($ret, true);
+    }
+    function testUpdate() {
+        $ret = Maintenance::updateActivity(1, "test", 1, 1,
+            "11:11:11", 1, false, 'planned activity');
+        $this->assertEquals($ret, true);
     }
 }
-
-$test = new MaintenanceTest();
-
-$test->test_getByWeek();
-echo "<h1>PLANNED ACTIVITY ON WEEK 23</h1>";
-echo file_get_contents("test_files\maintenances.json");
-
-$test->test_loadActivity();
-echo "<h1>LOADED ACTIVITY 1</h1>";
-echo file_get_contents("test_files\selectedActivity.json");
-
-$test->test_loadWeeks();
-echo "<h1>LOADED WEEKS</h1>";
-echo file_get_contents("test_files\weeks.json");
-
-
-echo "<h1>SAVE</h1>";
-echo $test->test_save();
