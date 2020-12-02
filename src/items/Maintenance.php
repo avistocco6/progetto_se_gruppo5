@@ -141,7 +141,8 @@ class Maintenance {
     public static function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype) {
         $connector = new PgConnection();
         $conn = $connector->connect();
-
+        echo "how u doin";
+        echo $maid;
         $res = pg_query("UPDATE MainActivity SET description = " .
             "'" . $description . "', idsite = " . "'" . $idsite . "', idtypology = " . "'" . $idtypology ."', estimatedtime = '"
             . $estimatedtime . "', week = " . "'" . $week . "', interruptible = " . "'" . $interruptible ."',"
