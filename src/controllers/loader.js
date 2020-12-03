@@ -175,12 +175,12 @@ function loadSelected() {
                 let desc = $("#intervDescription-row-template").html();
                 let skill = $("#skillsNeeded-row-template").html();
 
-
                 workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
                 desc = desc.replace(/{Intervention Description}/ig, data.description);
 
                 document.getElementById("numWeek").innerHTML = data.week;
-                document.getElementById("activityName").innerHTML  = data.id;
+                document.getElementById("activityName").innerHTML  = data.id +
+                    " - " + data.site + " - " + data.typology + " - " + data.time;
                 $("#workspace-rows").append(workspaceNotes);
                 $("#intervDescription-rows").append(desc);
 

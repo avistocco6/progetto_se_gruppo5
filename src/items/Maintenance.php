@@ -77,9 +77,10 @@ class Maintenance {
       $connector = new PgConnection();
       $conn = $connector->connect();
 
-      $activity = $connector->query("SELECT maid, week, description, workspacenotes
-                      FROM MainActivity
-                      WHERE maid ="  . $id);
+      $activity = $connector->query("SELECT maid, week, MA.description, workspacenotes, branch, 
+                                            department, estimatedtime, typology.description
+                      FROM MainActivity AS MA, Site, Typology
+                      WHERE maid ="  . $id . "and idsite = sid and idtypology = tid");
 
       $skills = $connector->query("SELECT skid, skillname
                       FROM Skill, MainActivity AS MA, SMAssignment AS Assign
@@ -106,7 +107,9 @@ class Maintenance {
       $row = pg_fetch_row($activity);
       $json_string = '{"id":' . $row[0] . ', "week":' .
             $row[1] . ', "description":' . '"' . $row[2] . '"' .
-          ', "workspaceNotes":' . '"' . $row[3] . '"' . ', "skills": ' . $skills_string . "}";
+          ', "workspaceNotes":' . '"' . $row[3] . '"' . ', "skills": ' . $skills_string .
+          ',"site":' . '"'. $row[4] . "-" . $row[5] . '", "time":' . '"' . $row[6] . '", "typology":'
+          . '"' . $row[7] . '"'. "}";
 
       pg_close($conn);
 
