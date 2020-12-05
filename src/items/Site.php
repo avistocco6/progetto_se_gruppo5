@@ -95,4 +95,19 @@ class Site {
         pg_close($conn);
         return $res ? true : false;
     }
+
+    /**
+     * delete a stored Site by id
+     * @param $id
+     * @return bool
+     */
+    public function removeSite($id) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("DELETE FROM Site WHERE sid =" . $id);
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
 }

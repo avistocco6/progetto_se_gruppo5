@@ -93,4 +93,19 @@ class Skill {
 
         return $res ? true : false;
     }
+
+    /**
+     * delete a stored Skill by id
+     * @param $id
+     * @return bool
+     */
+    public function removeSkill($id) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("DELETE FROM Skill WHERE skid =" . $id);
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
 }

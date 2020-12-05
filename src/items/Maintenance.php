@@ -191,4 +191,19 @@ class Maintenance {
         pg_close($conn);
         return $res ? true : false;
     }
+
+    /**
+     * delete a stored maintenance activity by id
+     * @param $maid
+     * @return bool
+     */
+    public function removeActivity($maid) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("DELETE FROM MainActivity WHERE maid =" . $maid);
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
 }

@@ -91,4 +91,19 @@ class Typology {
 
         return $res ? true : false;
     }
+
+    /**
+     * delete a stored typology by id
+     * @param $id
+     * @return bool
+     */
+    public function removeTypology($id) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("DELETE FROM Typology WHERE tid =" . $id);
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
 }

@@ -95,4 +95,19 @@ class Material {
 
         return $res ? true : false;
     }
+
+    /**
+     * delete a stored material by id
+     * @param $id
+     * @return bool
+     */
+    public function removeMaterial($id) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("DELETE FROM Material WHERE mid =" . $mid);
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
 }

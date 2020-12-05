@@ -107,4 +107,19 @@ class Procedure {
 
         return $res ? true : false;
     }
+
+    /**
+     * delete a stored Procedure by id
+     * @param $id
+     * @return bool
+     */
+    public function removeProcedure($id) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("DELETE FROM Procedure WHERE pid =" . $id);
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
 }
