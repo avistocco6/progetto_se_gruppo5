@@ -3,17 +3,29 @@
 include_once '..\PgConnection.php';
 
 class Procedure {
-    private $description;
-    private $smp;
-    private $activity;
+    private static $instance = null;
 
-    public function __construct($description, $activity = null, $smp = null) {
-        $this->description = $description;
-        $this->activity = $activity;
-        $this->smp = $smp;
+    private function __construct() {
+        // instance init
     }
 
-    public static function save($description) {
+    private function __clone() {
+        // make unclonable the object
+    }
+
+    public static function getInstance() {
+        if (static::$instance === null) {
+            static::$instance = new Procedure();
+        }
+        return static::$instance;
+    }
+
+    /**
+     * save new procedure
+     * @param $description
+     * @return bool
+     */
+    public function save($description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -21,21 +33,27 @@ class Procedure {
             return false;
         }
 
-        $res = self::dbInsert($connector, $description);
+        $res = $this->dbInsert($connector, $description);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function dbInsert($conn, $description) {
+    private function dbInsert($conn, $description) {
         $sql = "INSERT INTO MainProcedure(description)
                 VALUES(" . "'" . $description . "')";
 
         return $conn->query($sql) ? true : false;
     }
 
-    public static function addSkill($skill_id, $procedure_id) {
+    /**
+     * assign a skill to a procedure
+     * @param $skill_id
+     * @param $procedure_id
+     * @return bool
+     */
+    public function addSkill($skill_id, $procedure_id) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -45,13 +63,17 @@ class Procedure {
         pg_close($conn);
     }
 
-    public static function getProcedures() {
+    /**
+     * get all stored procedures
+     * @return string|null
+     */
+    public function getProcedures() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         $res = $connector->query("SELECT mpid, description FROM Mainprocedure ORDER BY mpid");
 
-        if(!$res) return false;
+        if(!$res) return null;
 
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
@@ -67,7 +89,13 @@ class Procedure {
         return $json_string;
     }
 
-    public static function updateProcedure($id, $description) {
+    /**
+     * update a stored procedure
+     * @param $id
+     * @param $description
+     * @return bool
+     */
+    public function updateProcedure($id, $description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 

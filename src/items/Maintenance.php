@@ -3,28 +3,38 @@
 include_once '..\PgConnection.php';
 
 class Maintenance {
-    private $description;
-    private $estimatedtime;
-    private $interruptible;
-    private $EWO;
-    private $week;
-    private $workspacenotes;
-    private $maintainer;
-    private $typology;
-    private $site;
+    private static  $instance = null;
 
-    public function __construct($site, $description, $estimatedtime, $week, $interruptible = false, $EWO = false, $workspacenotes = null, $maintainer = null, $typology = null) {
-      $this->description = $description;
-      $this->estimatedtime = $estimatedtime;
-      $this->workspacenotes = $workspacenotes;
-      $this->week = $week;
-      $this->EWO = $EWO;
-      $this->interruptible = $interruptible;
-      $this->typology = $typology;
-      $this->site = $site;
+    private function __construct() {
+        // instance init
     }
 
-    public static function save($idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
+    private function __clone() {
+        // make unclonable the object
+    }
+
+    public static function getInstance() {
+        if (static::$instance === null) {
+            static::$instance = new Maintenance();
+        }
+        return static::$instance;
+    }
+
+    /**
+     *
+     * save a maintenance in the database
+     *
+     * @param $idsite site id for maintenance as int
+     * @param $description maintenance description as string
+     * @param $estimatedtime estimated maintenance time as string in format hh:mm:ss
+     * @param $week week when maintenance is planned as int
+     * @param $interruptible true if maintenance is not interruptible, false if it is interruptible
+     * @param $idtypology typology id for maintenance as int
+     * @param $mtype maintenance type: 'planned actiity', 'unplanned activity' or 'EWO'
+     * @return bool true if correctly saved, false if not
+     */
+    public function save($idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -32,13 +42,14 @@ class Maintenance {
             return false;
         }
 
-        $res = self::db_insert($connector, $idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype);
+        $res = $this->db_insert($connector, $idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype);
 
         pg_close($conn);
 
         return $res;
     }
-    private static function db_insert($conn, $idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
+
+    private function db_insert($conn, $idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
         $interruptible = $interruptible ? 'true' : 'false';
         $sql = "INSERT INTO MainActivity(description, estimatedtime, interruptible, week, idtypology, idsite, mtype)
                 VALUES(" . "'" . $description . "'" . "," . "'" .$estimatedtime . "'" .
@@ -47,7 +58,13 @@ class Maintenance {
         return $conn->query($sql) ? true : false;
     }
 
-    public static  function getByWeek($week, $type) {
+    /**
+     * load all maintenances planned on a selected week
+     * @param $week
+     * @param $type
+     * @return string|null
+     */
+    public function getByWeek($week, $type) {
       $connector = new PgConnection();
       $conn = $connector->connect();
 
@@ -56,7 +73,7 @@ class Maintenance {
                       WHERE idtypology = tid AND idsite = sid AND mtype = '" . $type .
                       "' AND week = " . $week . "ORDER BY maid;");
 
-      if(!$res) return false;
+      if(!$res) return null;
 
       $json_string = "[";
       while($row = pg_fetch_row($res)) {
@@ -73,7 +90,12 @@ class Maintenance {
       return $json_string;
   }
 
-  public static function loadActivity($id) {
+    /**
+     * load a maintenance activity by id
+     * @param $id
+     * @return string|null
+     */
+  public function loadActivity($id) {
       $connector = new PgConnection();
       $conn = $connector->connect();
 
@@ -88,7 +110,7 @@ class Maintenance {
                             MA.maid =" . $id .
                       "ORDER BY skid");
 
-      if(!$activity) return false;
+      if(!$activity) return null;
 
       if(!$skills) {
           $skills_string = '[]';
@@ -116,7 +138,11 @@ class Maintenance {
       return $json_string;
   }
 
-  public static function loadWeeks() {
+    /**
+     * load all weeks that have maintenances planned
+     * @return string|null
+     */
+  public function loadWeeks() {
       $connector = new PgConnection();
       $conn = $connector->connect();
 
@@ -126,7 +152,7 @@ class Maintenance {
                       WHERE mtype = 'planned activity'
                       GROUP BY week");
 
-      if(!$res) return false;
+      if(!$res) return null;
 
       $json_string = "[";
       while($row = pg_fetch_row($res)) {
@@ -141,7 +167,19 @@ class Maintenance {
       return $json_string;
   }
 
-    public static function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype) {
+    /**
+     * update a maintenance activity
+     * @param $maid
+     * @param $description
+     * @param $idsite
+     * @param $idtypology
+     * @param $estimatedtime
+     * @param $week
+     * @param $interruptible
+     * @param $mtype
+     * @return bool
+     */
+    public function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype) {
         $connector = new PgConnection();
         $conn = $connector->connect();
         $interruptible = $interruptible ? 'true' : 'false';

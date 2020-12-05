@@ -26,10 +26,11 @@ if( !isset($aResult['error']) ) {
                 break;
             }
             else{
+                $mat = Material::getInstance();
                 $name = $material['name'];
                 $activity = $material['activity'];
 
-                $aResult['result'] = Material::save($name, $activity);
+                $aResult['result'] = $mat->save($name, $activity);
             }
             break;
         case 'saveSkill':
@@ -43,9 +44,10 @@ if( !isset($aResult['error']) ) {
                 break;
             }
             else{
+                $sk = Skill::getInstance();
                 $name = $skill['name'];
 
-                $aResult['result'] = Skill::save($name);
+                $aResult['result'] = $sk->save($name);
             }
             break;
         case 'saveTypology':
@@ -59,9 +61,10 @@ if( !isset($aResult['error']) ) {
                 break;
             }
             else{
+                $typol = Typology::getInstance();
                 $description = $typology['description'];
 
-                $aResult['result'] = Typology::save($description);
+                $aResult['result'] = $typol->save($description);
             }
             break;
         case 'saveSite':
@@ -75,10 +78,11 @@ if( !isset($aResult['error']) ) {
                 break;
             }
             else{
+                $site_ = Site::getInstance();
                 $branch = $site['branch'];
                 $department = $site['department'];
 
-                $aResult['result'] = Site::save($branch, $department);
+                $aResult['result'] = $site_->save($branch, $department);
             }
             break;
         case 'saveProcedure':
@@ -92,9 +96,10 @@ if( !isset($aResult['error']) ) {
                 break;
             }
             else{
+                $proc = Procedure::getInstance();
                 $description = $procedure['description'];
 
-                $aResult['result'] = Procedure::save($description);
+                $aResult['result'] = $proc->save($description);
             }
             break;
         case 'saveActivity':
@@ -108,7 +113,7 @@ if( !isset($aResult['error']) ) {
                 break;
             }
             else{
-
+                $maintenance = Maintenance::getInstance();
                 $description = $activity['description'];
                 $estimatedtime = $activity['estimatedTime'];
                 $interruptible = $activity['interruptible'];
@@ -117,7 +122,7 @@ if( !isset($aResult['error']) ) {
                 $idsite = $activity['site_id'];
                 $mtype = $activity['mtype'];
 
-                $aResult['result'] = Maintenance::save($idsite, $description,
+                $aResult['result'] = $maintenance->save($idsite, $description,
                     $estimatedtime, $week, $interruptible, $idtypology, $mtype);
             }
             break;

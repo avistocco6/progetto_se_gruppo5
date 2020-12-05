@@ -26,10 +26,11 @@ if( !isset($aResult['error']) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
             else{
+                $mat = Material::getInstance();
                 $name = $material['name'];
                 $id = $material['id'];
 
-                $aResult['result'] = Material::updateMaterial($id, $name);
+                $aResult['result'] = $mat->updateMaterial($id, $name);
             }
             break;
         case 'updateSkill':
@@ -42,10 +43,11 @@ if( !isset($aResult['error']) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
             else{
+                $sk = Skill::getInstance();
                 $name = $skill['name'];
                 $id = $skill['id'];
 
-                $aResult['result'] = Skill::updateSkill($id, $name);
+                $aResult['result'] = $sk->updateSkill($id, $name);
             }
             break;
         case 'updateTypology':
@@ -58,10 +60,11 @@ if( !isset($aResult['error']) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
             else{
+                $typol = Typology::getInstance();
                 $description = $typology['description'];
                 $id = $typology['id'];
 
-                $aResult['result'] = Typology::updateTypology($id, $description);
+                $aResult['result'] = $typol->updateTypology($id, $description);
             }
             break;
         case 'updateSite':
@@ -74,11 +77,12 @@ if( !isset($aResult['error']) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
             else{
+                $site_ = Site::getInstance();
                 $branch = $site['factory'];
                 $id = $site['id'];
                 $department = $site['area'];
 
-                $aResult['result'] = Site::updateSite($id, $branch, $department);
+                $aResult['result'] = $site_->updateSite($id, $branch, $department);
             }
             break;
         case 'updateProcedure':
@@ -91,10 +95,11 @@ if( !isset($aResult['error']) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
             else{
+                $proc = Procedure::getInstance();
                 $description = $procedure['description'];
                 $id = $procedure['id'];
 
-                $aResult['result'] = Procedure::updateProcedure($id, $description);
+                $aResult['result'] = $proc->updateProcedure($id, $description);
             }
             break;
         case 'updateActivity':
@@ -107,6 +112,7 @@ if( !isset($aResult['error']) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
             else{
+                $maintenance = Maintenance::getInstance();
                 $maid = $activity['maid'];
                 $description = $activity['description'];
                 $estimatedtime = $activity['estimated_time'];
@@ -116,7 +122,7 @@ if( !isset($aResult['error']) ) {
                 $idsite = $activity['site_id'];
                 $mtype = $activity['mtype'];
 
-                $aResult['result'] = Maintenance::updateActivity($maid, $description,
+                $aResult['result'] = $maintenance->updateActivity($maid, $description,
                     $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype);
             }
             break;

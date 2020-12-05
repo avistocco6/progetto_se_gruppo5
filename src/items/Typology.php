@@ -3,13 +3,29 @@
 include_once '..\PgConnection.php';
 
 class Typology {
-    private $description;
+    private static $instance = null;
 
-    public function __construct($description) {
-        $this->description = $description;
+    private function __construct() {
+        // instance init
     }
 
-    public static function save($description) {
+    private function __clone() {
+        // make unclonable the object
+    }
+
+    public static function getInstance() {
+        if (static::$instance === null) {
+            static::$instance = new Typology();
+        }
+        return static::$instance;
+    }
+
+    /**
+     * store a new typology
+     * @param $description
+     * @return bool
+     */
+    public function save($description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -17,21 +33,25 @@ class Typology {
             return false;
         }
 
-        $res = self::dbInsert($connector, $description);
+        $res = $this->dbInsert($connector, $description);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function dbInsert($conn, $description) {
+    private function dbInsert($conn, $description) {
         $sql = "INSERT INTO Typology(description)
                 VALUES(". "'". $description . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
 
-    public static function getTypologies() {
+    /**
+     * get all stored typologies
+     * @return false|string|null
+     */
+    public function getTypologies() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -54,7 +74,13 @@ class Typology {
         return $json_string;
     }
 
-    public static function updateTypology($id, $description) {
+    /**
+     * update a stored typology
+     * @param $id
+     * @param $description
+     * @return bool
+     */
+    public function updateTypology($id, $description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 

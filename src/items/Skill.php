@@ -3,13 +3,29 @@
 include_once '..\PgConnection.php';
 
 class Skill {
-    private $name;
+    private static $instance = null;
 
-    public function __construct($name) {
-        $this->name = $name;
+    private function __construct() {
+        // instance init
     }
 
-    public static function save($name) {
+    private function __clone() {
+        // make unclonable the object
+    }
+
+    public static function getInstance() {
+        if (static::$instance === null) {
+            static::$instance = new Skill();
+        }
+        return static::$instance;
+    }
+
+    /**
+     * store a new skill
+     * @param $name
+     * @return bool
+     */
+    public function save($name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -17,29 +33,32 @@ class Skill {
             return false;
         }
 
-        $res = self::dbInsert($connector, $name);
+        $res = $this->dbInsert($connector, $name);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function dbInsert($conn, $name) {
+    private function dbInsert($conn, $name) {
         $sql = "INSERT INTO Skill(skillname)
                 VALUES(" . "'" . $name . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
 
-
-    public static function getSkills()
+    /**
+     * get all stored skills
+     * @return string|null
+     */
+    public function getSkills()
     {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         $res = $connector->query("SELECT * FROM Skill ORDER BY skid");
 
-        if (!$res) return false;
+        if (!$res) return null;
 
         $json_string = "[";
         while ($row = pg_fetch_row($res)) {
@@ -56,7 +75,13 @@ class Skill {
         return $json_string;
     }
 
-    public static function updateSkill($id, $name) {
+    /**
+     * update a stored skill
+     * @param $id
+     * @param $name
+     * @return bool
+     */
+    public function updateSkill($id, $name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 

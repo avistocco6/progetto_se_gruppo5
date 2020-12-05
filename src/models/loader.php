@@ -15,39 +15,51 @@ if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
         case 'loadMaterials':
-            $aResult['result'] = Material::getMaterials();
+            $material = Material::getInstance();
+            $aResult['result'] = $material->getMaterials();
             break;
         case 'loadSkills':
-            $aResult['result'] = Skill::getSkills();
+            $sk = Skill::getInstance();
+            $aResult['result'] = $sk->getSkills();
             break;
         case 'loadTypologies':
-            $aResult['result'] = Typology::getTypologies();
+            $typol = Typology::getInstance();
+            $aResult['result'] = $typol->getTypologies();
             break;
         case 'loadSites':
-            $aResult['result'] = Site::getSites();
+            $site = Site::getInstance();
+            $aResult['result'] = $site->getSites();
             break;
         case 'loadProcedures':
-            $aResult['result'] = Procedure::getProcedures();
+            $proc = Procedure::getInstance();
+            $aResult['result'] = $proc->getProcedures();
             break;
         case 'loadWeeks':
-            $aResult['result'] = Maintenance::loadWeeks();
+            $maintenance = Maintenance::getInstance();
+            $aResult['result'] = $maintenance->loadWeeks();
             break;
         case 'loadPlanned':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $item = json_decode($_POST['arguments'][0], true);
-            $week = $item['week'];
-            $type = $item['type'];
-            $aResult['result'] = Maintenance::getByWeek($week, $type);
+            else {
+                $maintenance = Maintenance::getInstance();
+                $item = json_decode($_POST['arguments'][0], true);
+                $week = $item['week'];
+                $type = $item['type'];
+                $aResult['result'] = $maintenance->getByWeek($week, $type);
+            }
             break;
         case 'loadSelected':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
-            $item = json_decode($_POST['arguments'][0], true);
-            $id = $item['id'];
-            $aResult['result'] = Maintenance::loadActivity($id);
+            else {
+                $maintenance = Maintenance::getInstance();
+                $item = json_decode($_POST['arguments'][0], true);
+                $id = $item['id'];
+                $aResult['result'] = $maintenance->loadActivity($id);
+            }
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';

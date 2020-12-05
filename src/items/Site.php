@@ -3,15 +3,30 @@
 include_once '..\PgConnection.php';
 
 class Site {
-    private $branch;
-    private $department;
+    private static $instance = null;
 
-    public function __construct($branch, $department) {
-        $this->department = $department;
-        $this->branch = $branch;
+    private function __construct() {
+        // instance init
     }
 
-    public static function save($branch, $department) {
+    private function __clone() {
+        // make unclonable the object
+    }
+
+    public static function getInstance() {
+        if (static::$instance === null) {
+            static::$instance = new Site();
+        }
+        return static::$instance;
+    }
+
+    /**
+     * store a new site
+     * @param $branch
+     * @param $department
+     * @return bool
+     */
+    public function save($branch, $department) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -19,7 +34,7 @@ class Site {
             return false;
         }
 
-        $res = self::dbInsert($connector, $branch, $department);
+        $res = $this->dbInsert($connector, $branch, $department);
 
         pg_close($conn);
 
@@ -27,20 +42,24 @@ class Site {
     }
 
 
-    private static function dbInsert($conn, $branch, $department) {
+    private function dbInsert($conn, $branch, $department) {
         $sql = "INSERT INTO Site(branch, department)
                 VALUES(" . "'" . $branch . "'" . "," . "'" . $department . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
 
-    public static function getSites() {
+    /**
+     * get all stored sites
+     * @return string|null
+     */
+    public function getSites() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         $res = $connector->query("SELECT * FROM Site ORDER BY sid");
 
-        if(!$res) return false;
+        if(!$res) return null;
 
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
@@ -58,7 +77,14 @@ class Site {
         return $json_string;
     }
 
-    public static function updateSite($id, $branch, $department) {
+    /**
+     * update a stored site
+     * @param $id
+     * @param $branch
+     * @param $department
+     * @return bool
+     */
+    public function updateSite($id, $branch, $department) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 

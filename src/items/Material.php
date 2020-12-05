@@ -3,15 +3,30 @@
 include_once '..\PgConnection.php';
 
 class Material {
-    private $name;
-    private $activity;
+    private static $instance = null;
 
-    public function __construct($name, $activity) {
-        $this->name = $name;
-        $this->activity = $activity;
+    private function __construct() {
+        // instance init
     }
 
-    public static function save($name, $activity = null) {
+    private function __clone() {
+        // make unclonable the object
+    }
+
+    public static function getInstance() {
+        if (static::$instance === null) {
+            static::$instance = new Material();
+        }
+        return static::$instance;
+    }
+
+    /**
+     * save a new material
+     * @param $name
+     * @param null $activity
+     * @return bool
+     */
+    public function save($name, $activity = null) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -19,14 +34,14 @@ class Material {
             return false;
         }
 
-        $res = self::dbInsert($connector, $name, $activity);
+        $res = $this->dbInsert($connector, $name, $activity);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private static function dbInsert($conn, $name, $activity) {
+    private function dbInsert($conn, $name, $activity) {
         if($activity != null)
             $sql = "INSERT INTO Material(matname, idactivity)
                     VALUES(" . "'" . $name . "'," . $activity . ")";
@@ -37,7 +52,11 @@ class Material {
         return $conn->query($sql) ? true : false;
     }
 
-    public static function getMaterials() {
+    /**
+     * get all materials
+     * @return false|string|null
+     */
+    public function getMaterials() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -59,7 +78,13 @@ class Material {
         return $json_string;
     }
 
-    public static function updateMaterial($id, $name) {
+    /**
+     * update a material
+     * @param $id
+     * @param $name
+     * @return bool
+     */
+    public function updateMaterial($id, $name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
