@@ -57,6 +57,10 @@ class Procedure {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
+        if($conn == null) {
+            return false;
+        }
+
         $sql = "INSERT INTO SPAssignment(ids, idp) VALUES(" . "'" . $skill_id . "'," . $procedure_id . ")";
         return $connector->query($sql) ? true : false;
 
@@ -71,10 +75,16 @@ class Procedure {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
+        if($conn == null) {
+            return null;
+        }
+
         $res = $connector->query("SELECT mpid, description FROM Mainprocedure ORDER BY mpid");
 
-        if(!$res) return null;
-
+        if(!$res) {
+            pg_close($conn);
+            return null;
+        }
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"name":' .
@@ -99,6 +109,9 @@ class Procedure {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("UPDATE MainProcedure SET description =" .
             "'" . $description . "' WHERE mpid = " . $id);
@@ -116,6 +129,10 @@ class Procedure {
     public function removeProcedure($id) {
         $connector = new PgConnection();
         $conn = $connector->connect();
+
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("DELETE FROM Procedure WHERE pid =" . $id);
 

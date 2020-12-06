@@ -49,16 +49,21 @@ class Typology {
 
     /**
      * get all stored typologies
-     * @return false|string|null
+     * @return string|null
      */
     public function getTypologies() {
         $connector = new PgConnection();
         $conn = $connector->connect();
+        if($conn == null) {
+            return null;
+        }
 
         $res = $connector->query("SELECT * FROM Typology ORDER BY tid");
 
-        if(!$res) return false;
-
+        if(!$res) {
+            pg_close($conn);
+            return null;
+        }
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"description":' .
@@ -83,6 +88,9 @@ class Typology {
     public function updateTypology($id, $description) {
         $connector = new PgConnection();
         $conn = $connector->connect();
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("UPDATE Typology SET description =" .
             "'" . $description . "' WHERE tid = " . $id);
@@ -100,6 +108,9 @@ class Typology {
     public function removeTypology($id) {
         $connector = new PgConnection();
         $conn = $connector->connect();
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("DELETE FROM Typology WHERE tid =" . $id);
 

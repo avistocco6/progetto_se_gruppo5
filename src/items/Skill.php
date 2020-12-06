@@ -55,11 +55,16 @@ class Skill {
     {
         $connector = new PgConnection();
         $conn = $connector->connect();
+        if($conn == null) {
+            return null;
+        }
 
         $res = $connector->query("SELECT * FROM Skill ORDER BY skid");
 
-        if (!$res) return null;
-
+        if(!$res) {
+            pg_close($conn);
+            return null;
+        }
         $json_string = "[";
         while ($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" . '"id":' . $row[0] . ",\n" . '"name":' .
@@ -84,7 +89,9 @@ class Skill {
     public function updateSkill($id, $name) {
         $connector = new PgConnection();
         $conn = $connector->connect();
-
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("UPDATE Skill SET skillname =" .
             "'" . $name . "' WHERE skid = " . $id);
@@ -102,6 +109,9 @@ class Skill {
     public function removeSkill($id) {
         $connector = new PgConnection();
         $conn = $connector->connect();
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("DELETE FROM Skill WHERE skid =" . $id);
 

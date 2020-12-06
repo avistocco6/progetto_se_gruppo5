@@ -54,16 +54,22 @@ class Material {
 
     /**
      * get all materials
-     * @return false|string|null
+     * @return string|null
      */
     public function getMaterials() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
+        if($conn == null) {
+            return null;
+        }
+
         $res = $connector->query("SELECT mid, matname FROM Material ORDER BY mid");
 
-        if(!$res) return false;
-
+        if(!$res) {
+            pg_close($conn);
+            return null;
+        }
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"name":' .
@@ -88,6 +94,10 @@ class Material {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
+        if($conn == null) {
+            return false;
+        }
+
         $res = $connector->query("UPDATE Material SET matname =" .
                         "'" . $name . "' WHERE mid = " . $id);
 
@@ -104,6 +114,10 @@ class Material {
     public function removeMaterial($id) {
         $connector = new PgConnection();
         $conn = $connector->connect();
+
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("DELETE FROM Material WHERE mid =" . $mid);
 

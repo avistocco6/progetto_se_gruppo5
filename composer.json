@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "phpunit/phpunit": "9.4.3",
+    "phpunit/dbunit": "3.*",
     "ext-json": "*",
     "ext-pgsql": "*"
   }

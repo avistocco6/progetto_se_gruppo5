@@ -29,6 +29,9 @@ class Site {
     public function save($branch, $department) {
         $connector = new PgConnection();
         $conn = $connector->connect();
+        if($conn == null) {
+            return false;
+        }
 
         if($conn == null) {
             return false;
@@ -56,11 +59,16 @@ class Site {
     public function getSites() {
         $connector = new PgConnection();
         $conn = $connector->connect();
+        if($conn == null) {
+            return null;
+        }
 
         $res = $connector->query("SELECT * FROM Site ORDER BY sid");
 
-        if(!$res) return null;
-
+        if(!$res) {
+            pg_close($conn);
+            return null;
+        }
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"factory":' .
@@ -87,7 +95,9 @@ class Site {
     public function updateSite($id, $branch, $department) {
         $connector = new PgConnection();
         $conn = $connector->connect();
-
+        if($conn == null) {
+            return false;
+        }
 
         $res = $connector->query("UPDATE Site SET branch = " .
             "'" . $branch . "', department = " . "'" . $department ."'" . "WHERE sid = " . $id);
