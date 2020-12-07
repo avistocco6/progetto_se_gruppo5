@@ -22,7 +22,7 @@
     	<div class="row">
             <div class="header" >
                 <p>
-                  <a href="managedb.html"><img border="0" src="return.png" width="70" height="70"> </a>
+                  <a href="usermanagement.html"><img border="0" src="return.png" width="70" height="70"> </a>
                 </p>
             </div>
             <div class="header" >
@@ -40,35 +40,12 @@
           <fieldset>
             <div class="container">
               <p>
-                <label for="name"><b>Name: </b></label>
-                <input type="text" placeholder="Enter Name" name="name" required>
-              </p>
-              <p>
-                <label for="surname"><b>Last Name: </b></label>
-                <input type="text" placeholder="Enter Last Name" name="lastname" required>
-              </p>
-              <p>
-                <label for="email"><b>Email: </b></label>
+                <label for="email"><b>Change Email: </b></label>
                 <input type="text" placeholder="Enter Email" name="email" required>
               </p>
               <p>
-                <label for="psw"><b>Password: </b></label>
+                <label for="psw"><b>Change Password: </b></label>
                 <input type="password" placeholder="Enter Password" name="psw" required>
-              </p>
-              <p>
-                <label for="role"><b>Role: </b></label>
-                <select name="role" id="role">
-                  <option value="-">-</option>
-                  <option value="Planner">Planner</option>
-                  <option value="Maintainer">Maintainer</option>
-                </select>
-              </p>
-              <p>
-                <label for="skill"><b>Skills: </b></label>
-                <select name="skill" id="skill" multiple="">
-                  <option value="skill1">skill1</option>
-                  <option value="skill2">skill2</option>
-                </select>
               </p>
               <button type="submit" onclick="reload();">Save</button>
             </div>
@@ -76,8 +53,8 @@
         </form>
     	</div>	
     	<div class="footer" style="position: absolute;">
-                <h2>Team 5</h2>
-        </div>
+        <h2>Team 5</h2>
+      </div>
     </body>
     <script type="text/javascript">
         function reload(){

@@ -43,13 +43,15 @@
                 <a href="index.html"><img border="0" src="exit.png" width="70" height="70"> </a>
               </p>  
             </div> 
-        </div>   
+      </div>   
     	<div class="column" style="text-align: center;">
-         <template id="role-template"><option value='{Role}'>{Role}</option></template>
-          <label for="role-select">
-            Role: <select id="role-select" name="role">
-                  </select>
-          </label>
+        <label for="role-select">
+          Role: <select onchange="showbutton()" id="role" name="role">
+                  <option value="-">Choose a role</option>
+                  <option value="planner">Planner</option>
+                  <option value="mantainer">Mantainer</option>
+          </select>
+        </label>
     		<table id="users">
           <thead>
             <tr>
@@ -57,13 +59,11 @@
               <th style="text-align: center;"><h3>Last Name</h3></th>
               <th style="text-align: center;"><h3>E-mail</h3></th>
               <th style="text-align: center;"><h3>Password</h3></th>
-              <th style="text-align: center;"><h3>Role</h3></th>
-              <th style="text-align: center;"><h3>Skills</h3></th>
               <th style="text-align: center;"><h3>Edit</h3></th>
               <td style="text-align:center;">
-                  <a href="updateuser.html" onclick="passId();" class="btn btn-success btn-lg">
-                    <span class="glyphicon glyphicon-edit"></span>  
-                  </a>
+                <a href="updateuser.html" onclick="passId();" class="btn btn-success btn-lg">
+                  <span class="glyphicon glyphicon-edit"></span>  
+                </a>
             </tr>
             <template id="users-row-template">
               <tr>
@@ -71,10 +71,6 @@
                 <td>{LastName}</td>
                 <td>{Email}</td>
                 <td>{Password}</td>
-                <td>{Role}</td>
-                <td>{Skills}</td>
-                
-                </td>
               </tr>
             </template>
           </thead>
@@ -83,15 +79,19 @@
           </tbody>
         </table>
         <a href="adduser.html" class="btn btn-info btn-lg">
-              <span class="glyphicon glyphicon-plus-sign"></span> Add
-            </a>
+          <span class="glyphicon glyphicon-plus-sign"></span> Add
+        </a>
+        <p id="buttonskill" style="display: none;">
+          <a href="skillassignment.html" class="btn btn-info btn-lg">
+            <span id="buttonskill" class="glyphicon glyphicon-plus-sign"> </span>Skills Assignment
+          </a>
+        </p>
     	</div>	
     	<div class="footer" style="position: absolute;">
-                <h2>Team 5</h2>
-        </div>
+        <h2>Team 5</h2>
+      </div>
     </body>
     <script type="application/javascript">
-
       function passId() {
         $('#users').find('tr').click( function(){
           let id = document.getElementById("users").rows[$(this).index()+1].cells[0].innerHTML;
@@ -99,6 +99,15 @@
         });
       };
 
-      
+      function showbutton(){
+        var x = document.getElementById("role").selectedIndex;
+        var y = document.getElementsByTagName("option")[x].value;
+        if(y=='mantainer'){
+          document.getElementById('buttonskill').style.display="inline";
+        }
+        else{
+          document.getElementById('buttonskill').style.display="none";
+        }
+      }
     </script>
 </html>    

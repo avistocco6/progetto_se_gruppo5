@@ -1,135 +1,14 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-    	<title> HOME PAGE </title>
+    	<title> Home Page </title>
     	<meta charset="utf-8"/>
     	<meta name="author" content="Team 5"/>
     	<meta name="description" content="Web application for maintenance activies."/>
     	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-    	   <link rel="preconnect" href="https://fonts.gstatic.com">
+    	<link rel="stylesheet" type="text/css" href="login.css"/>
+    	<link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
-    	<style type="text/css">
-    		/* Full-width input fields */
-			input[type=email], input[type=password] {
-			  width: 100%;
-			  padding: 12px 20px;
-			  margin: 8px 0;
-			  display: inline-block;
-			  border: 1px solid #ccc;
-			  box-sizing: border-box;
-			}
-
-			/* Set a style for all buttons */
-			button {
-			  background-color: #3bb0bb;
-			  color: black;
-			  padding: 14px 20px;
-			  margin: 8px 0;
-			  border: none;
-			  cursor: pointer;
-			  width: 100%;
-			}
-
-			button:hover {
-			  opacity: 0.8;
-			}
-
-			/* Extra styles for the cancel button */
-			.cancelbtn {
-			  width: auto;
-			  padding: 10px 18px;
-			  background-color: #f44336;
-			}
-
-			/* Center the image and position the close button */
-			.imgcontainer {
-			  text-align: center;
-			  margin: 24px 0 12px 0;
-			  position: relative;
-			}
-
-			img.avatar {
-			  width: 40%;
-			  border-radius: 50%;
-			}
-
-			.container {
-			  padding: 16px;
-			}
-
-			span.psw {
-			  float: right;
-			  padding-top: 16px;
-			}
-
-			/* The Modal (background) */
-			.modal {
-			  display: none; /* Hidden by default */
-			  position: fixed; /* Stay in place */
-			  z-index: 1; /* Sit on top */
-			  left: 0;
-			  top: 0;
-			  width: 100%; /* Full width */
-			  height: 100%; /* Full height */
-			  overflow: auto; /* Enable scroll if needed */
-			  background-color: rgb(0,0,0); /* Fallback color */
-			  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-			  padding-top: 60px;
-			}
-
-			/* Modal Content/Box */
-			.modal-content {
-			  background-color: #fefefe;
-			  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-			  border: 1px solid #888;
-			  width: 60%; /* Could be more or less, depending on screen size */
-			}
-
-			/* The Close Button (x) */
-			.close {
-			  position: absolute;
-			  right: 25px;
-			  top: 20px;
-			  color: #000;
-			  font-size: 35px;
-			  font-weight: bold;
-			}
-
-			.close:hover,
-			.close:focus {
-			  color: #3bb0bb;
-			  cursor: pointer;
-			}
-
-			a{
-	    		text-decoration: none;
-	    		color: black;
-			}
-			a:visited{
-				color: black;
-			}
-			/* Add Zoom Animation */
-			.animate {
-			  -webkit-animation: animatezoom 0.6s;
-			  animation: animatezoom 0.6s
-			}
-
-			@-webkit-keyframes animatezoom {
-			  from {-webkit-transform: scale(0)} 
-			  to {-webkit-transform: scale(1)}
-			}
-
-			/* Change styles for span and cancel button on extra small screens */
-			@media screen and (max-width: 300px) {
-			  span.psw {
-			     display: block;
-			     float: none;
-			  }
-			  .cancelbtn {
-			     width: 100%;
-			  }
-			}
-    	</style>
     </head>
     <body>
     	<div class="row">
@@ -143,7 +22,7 @@
 	    </div>    
     	<div class="column" style="text-align: center;">
     			<img onclick="document.getElementById('id01').style.display='block'" style="width:auto; margin-top:80px;" src="icon1.png" width="150" height="150">
-    			<h1>Click on the icon to login as a <a href="managedb.html">System Administrator</a> or as a <a href="#">Planner</a>.</h1>
+    			<h1>Click on the icon to login as a <a href="managedb.html">System Administrator</a> or as a <a href="plannerview.html">Planner</a>.</h1>
     	</div>	
     	<div id="id01" class="modal">
   
@@ -153,17 +32,17 @@
 		    	<p>
 		    	<label for="role" style="text-align: center;"><b>Role: </b></label>
                   <select onchange="showbutton()" name="role" id="role">
-                  	<option value="-">-</option>
+                  	<option value="-" selected="selected">-</option>
                     <option value="systemadmin">System Admnistrator</option>
                     <option value="planner">Planner</option>
                 </select>
             	</p>
                 <br>
 			    <label for="email"><b>E-mail</b></label>
-			    <input type="email" placeholder="Enter E-mail" name="email" required>
+			    <input type="email" placeholder="Enter E-mail" name="email" >
 
 			    <label for="psw"><b>Password</b></label>
-			    <input type="password" placeholder="Enter Password" name="psw" required>
+			    <input type="password" placeholder="Enter Password" name="psw" >
 			        
 			    <button type="submit">Login</button>
    		     
@@ -177,20 +56,15 @@
         </div>
     </body>
     <script>
-		// Get the modal
-		var modal = document.getElementById('modal');
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-		    if (event.target == modal) {
-		        modal.style.display = "none";
-		    }
-		}
 		function showbutton(){
 
 			var x = document.getElementById("role").selectedIndex;
   			var y = document.getElementsByTagName("option")[x].value;
   			if(y=='systemadmin'){
 				document.getElementById('sysadmin').style.display="block";
+			}
+			else{
+				document.getElementById('sysadmin').style.display="none";
 			}
 		}
 
