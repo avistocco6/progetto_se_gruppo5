@@ -195,3 +195,56 @@ function updateActivity() {
     document.getElementById('estimatedtime').value = "";
 }
 
+function updateUser() {
+    let username =localStorage.getItem('username');
+    let email = document.getElementsByName("email").value;
+    let psw = document.getElementsByName("psw").value;
+    let json_email = '{"username": ' + '"' + username + '"' + ',"email":' + '"' + email + '"}';
+    let json_psw = '{"username": ' + '"' + username + '"' + ',"password":' + '"' + psw + '"}';
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/updater.php',
+        dataType: 'json',
+        data: {functionname: "updateEmail", arguments: [json_email]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log(obj);
+                if(obj['result']){
+                    alert("Successfully updated!")
+                }
+                else{
+                    alert("Error during update!")
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to update email!");
+            }
+        }
+    });
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/updater.php',
+        dataType: 'json',
+        data: {functionname: "updatePassword", arguments: [json_psw]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                console.log(obj);
+                if(obj['result']){
+                    alert("Successfully updated!")
+                }
+                else{
+                    alert("Error during update!")
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to update password!");
+            }
+        }
+    });
+    document.getElementsByName("email").value = "";
+    document.getElementsByName("psw").value = "";
+}

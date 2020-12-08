@@ -267,4 +267,39 @@ function loadPlanned(week) {
                 }
             }
         });
-}
+    }
+
+    function loadUsers() {
+        jQuery.ajax({
+            type: "POST",
+            url: '../models/loader.php',
+            dataType: 'json',
+            data: {functionname: "loadUsers", arguments: []},
+
+            success: function (obj, textstatus) {
+                if( !('error' in obj) ) {
+                    let data = JSON.parse(obj.result);
+                    let staticHtml = $("#users-row-template").html();
+
+                    $.each(data, function (index, obj) {
+                        let row = staticHtml;
+                        row = row.replace(/{Username}/ig, obj.username);
+                        row = row.replace(/{Name}/ig, obj.name);
+                        row = row.replace(/{Email}/ig, obj.email);
+                        row = row.replace(/{Password}/ig, obj.password);
+
+                        $('#users-rows').append(row);
+                    });
+
+                    /* When empty sites */
+                    if (data === null) {
+                        alert("There are no users!")
+                    }
+                }
+                else {
+                    console.log(obj.error);
+                    alert("Impossible to load users");
+                }
+            }
+        });
+    }

@@ -55,8 +55,8 @@
     		<table id="users">
           <thead>
             <tr>
+              <th style="text-align: center;"><h3>Username</h3></th>
               <th style="text-align: center;"><h3>Name</h3></th>
-              <th style="text-align: center;"><h3>Last Name</h3></th>
               <th style="text-align: center;"><h3>E-mail</h3></th>
               <th style="text-align: center;"><h3>Password</h3></th>
               <th style="text-align: center;"><h3>Edit</h3></th>
@@ -67,8 +67,8 @@
             </tr>
             <template id="users-row-template">
               <tr>
+                <td>{Username}</td>
                 <td>{Name}</td>
-                <td>{LastName}</td>
                 <td>{Email}</td>
                 <td>{Password}</td>
               </tr>
@@ -90,12 +90,19 @@
     	<div class="footer" style="position: absolute;">
         <h2>Team 5</h2>
       </div>
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <!-- Custom JS -->
+        <script type="text/javascript" src="../controllers/loader.js"></script>
+
     </body>
     <script type="application/javascript">
       function passId() {
         $('#users').find('tr').click( function(){
           let id = document.getElementById("users").rows[$(this).index()+1].cells[0].innerHTML;
-          localStorage.setItem("id", id);
+          localStorage.setItem("username", id); <!-- PASSARE USERNAME E NON ID -->
         });
       };
 

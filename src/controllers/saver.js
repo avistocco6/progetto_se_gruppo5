@@ -178,3 +178,38 @@ function addActivity(){
     document.getElementById('description').value = "";
     document.getElementById('time').value = "";
 }
+
+function addUser() {
+    let username = document.getElementsByName("username").value;
+    let name = document.getElementsByName("name").value;
+    let email = document.getElementsByName("email").value;
+    let psw = document.getElementsByName("psw").value;
+    let role = document.getElementsByName("role").value;
+    let user = '{"username":' + '"' + username + '"' + ', "name":' + '"'
+        + name + '"' + ', "email":' + '"' + email + '"' + ', "psw":' + '"' + psw + '"'
+        + ', "role":' + '"' + role + '"' + ', "user":' + '"' + user + '"' + '}';
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/saver.php',
+        dataType: 'json',
+        data: {functionname: "saveUser", arguments: [user]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                if(obj['result']){
+                    alert("Successfully saved!")
+                }
+                else{
+                    alert("Error during saving!")
+                }
+            }
+            else {
+                alert("Impossible to save user!");
+            }
+        }
+    });
+    document.getElementsByName("username").value = "";
+    document.getElementsByName("name").value = "";
+    document.getElementsByName("email").value = "";
+    document.getElementsByName("psw").value = "";
+}

@@ -153,7 +153,7 @@ class User {
             return null;
         }
 
-        $res = $connector->query("SELECT username, clientname, clientrole FROM Client ORDER BY username");
+        $res = $connector->query("SELECT username, clientname, pass, email FROM Client ORDER BY username");
 
         if(!$res) {
             pg_close($conn);
@@ -163,7 +163,7 @@ class User {
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
             $json_string = $json_string . "{\n" .'"username":' . $row[0] . ",\n" . '"name":' .
-                '"' . $row[1] . '"' . ",\n" . '"role":' . '"' . $row[2] . '"' ."\n}" . ",\n";
+                '"' . $row[1] . '"' . ",\n" . '"password":' . '"' . $row[2] . '"' .",\n" . '"email":' . '"' . $row[3] . '"' ."\n}" . ",\n";
         }
         if(strlen($json_string) > 1) {
             $json_string = substr($json_string, 0, strlen($json_string) - 2);
