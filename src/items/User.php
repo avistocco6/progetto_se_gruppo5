@@ -29,7 +29,7 @@ class User {
      * @param null $name
      * @return bool
      */
-    public function save($username, $password, $role, $name = null) {
+    public function save($username, $password, $role, $email, $name = null) {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -37,17 +37,17 @@ class User {
             return false;
         }
 
-        $res = $this->db_insert($connector, $username, $password, $role, $name);
+        $res = $this->db_insert($connector, $username, $password, $role, $name, $email);
 
         pg_close($conn);
 
         return $res;
     }
 
-    private function db_insert($conn, $username, $password, $role, $name) {
-        $sql = "INSERT INTO Client(username, pass, clientname, ncompetence, clientrole)
+    private function db_insert($conn, $username, $password, $role, $name, $email) {
+        $sql = "INSERT INTO Client(username, pass, clientname, ncompetence, clientrole, email)
                 VALUES(". "'" . $username . "'," . "'" . $password . "'," .
-                        "'" . $name . "',". "'" . $role . "'" . ")";
+                        "'" . $name . "',". "'" . $role . "'" . ",". "'" . $email . "'" . ")";
 
         return $conn->query($sql) ? true : false;
     }
@@ -122,6 +122,30 @@ class User {
         return $res ? true : false;
     }
 
+    /**
+     * update user s email
+     * @param $username
+     * @param $email
+     * @return bool
+     */
+    public function updateEmail($username, $email) {
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+        if($conn == null) {
+            return false;
+        }
+
+        $res = $connector->query("UPDATE Client SET email =" . "'" . $email . "'" . "WHERE username ="
+            . "'" . $username . "'");
+
+        pg_close($conn);
+        return $res ? true : false;
+    }
+
+    /**
+     * get all stored users
+     * @return string|null
+     */
     public function getUsers() {
         $connector = new PgConnection();
         $conn = $connector->connect();

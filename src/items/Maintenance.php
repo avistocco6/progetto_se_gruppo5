@@ -34,6 +34,9 @@ class Maintenance {
      * @return bool true if correctly saved, false if not
      */
     public function save($idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
+        if($idsite <= 0 || $week <= 0 || $description)
+            return false;
+
 
         $connector = new PgConnection();
         $conn = $connector->connect();
