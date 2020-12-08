@@ -213,3 +213,31 @@ function addUser() {
     document.getElementsByName("email").value = "";
     document.getElementsByName("psw").value = "";
 }
+
+
+function assignSkill() {
+    let username = localStorage.getItem('username');
+    let skill = document.getElementsByName("skill").value;
+    let skillAssign = '{"username": ' + '"' + username + '"' + ',"skillname":' + '"' + skill + '"}';
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/saver.php',
+        dataType: 'json',
+        data: {functionname: "assignSkill", arguments: [skillAssign]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                if(obj['result']){
+                    alert("Successfully saved!")
+                }
+                else{
+                    alert("Error during saving!")
+                }
+            }
+            else {
+                alert("Impossible to assign skill!");
+            }
+        }
+    });
+
+}
