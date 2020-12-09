@@ -61,7 +61,7 @@
               <th style="text-align: center;"><h3>Password</h3></th>
               <th style="text-align: center;"><h3>Edit</h3></th>
               <td style="text-align:center;">
-                <a href="updateuser.html" onclick="passId();" class="btn btn-success btn-lg">
+                <a href="updateuser.html" onclick="passUsername();" class="btn btn-success btn-lg">
                   <span class="glyphicon glyphicon-edit"></span>  
                 </a>
             </tr>
@@ -99,10 +99,10 @@
 
     </body>
     <script type="application/javascript">
-      function passId() {
+      function passUsername() {
         $('#users').find('tr').click( function(){
-          let id = document.getElementById("users").rows[$(this).index()+1].cells[0].innerHTML;
-          localStorage.setItem("username", id); <!-- PASSARE USERNAME E NON ID -->
+          let username = document.getElementById("users").rows[$(this).index()+1].cells[0].innerHTML;
+          localStorage.setItem("username", username); 
         });
       };
 
