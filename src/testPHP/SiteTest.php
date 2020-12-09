@@ -7,22 +7,23 @@ include '..\items\Site.php';
 class SiteTest extends TestCase {
 
     public function testSave() {
-        $res = Site::save("test", "test");
+        $site = Site::getInstance();
+        $res = $site->save("test", "test");
         $this->assertEquals($res, true);
 
-        $res = Site::save("test", "Molding");
+        $res = $site->save("test", "Molding");
         $this->assertEquals($res, true);
 
-        $res = Site::save("Fisciano", "test");
+        $res = $site->save("Fisciano", "test");
         $this->assertEquals($res, true);
 
-        $res = Site::save("Fisciano", "Molding");
+        $res = $site->save("Fisciano", "Molding");
         $this->assertEquals($res, false);
 
-        $res = Site::save("", "Molding");
+        $res = $site->save("", "Molding");
         $this->assertEquals($res, false);
 
-        $res = Site::save("Fisciano", "");
+        $res = $site->save("Fisciano", "");
         $this->assertEquals($res, false);
 
         $connector = new PgConnection();
@@ -30,18 +31,18 @@ class SiteTest extends TestCase {
 
         $res = $connector->query("DELETE FROM Site where branch = 'test'");
 
-
-
         pg_close($conn);
     }
 
     function testGetSites() {
-        $json_string = Site::getSites();
+        $site = Site::getInstance();
+        $json_string = $site->getSites();
         $expected = file_get_contents("test_files\sites.json");
         $this->assertEquals($expected, $json_string);
     }
 
     function testUpdateSite() {
+        $site = Site::getInstance();
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -51,32 +52,32 @@ class SiteTest extends TestCase {
         $oldBranch = $row[0];
         $oldDepartment = $row[1];
 
-        $ret = Site::updateSite(2, "test", "test");
+        $ret = $site->updateSite(2, "test", "test");
         $this->assertEquals($ret, true);
 
-        $ret = Site::updateSite(2, $oldBranch, $oldDepartment);
+        $ret = $site->updateSite(2, $oldBranch, $oldDepartment);
         $this->assertEquals($ret, true);
 
-        $ret = Site::updateSite(2, "Fisciano", "test");
+        $ret = $site->updateSite(2, "Fisciano", "test");
         $this->assertEquals($ret, true);
 
-        $ret = Site::updateSite(2, "test", "Molding");
+        $ret = $site->updateSite(2, "test", "Molding");
         $this->assertEquals($ret, true);
 
-        $ret = Site::updateSite(2, "", "Molding");
+        $ret = $site->updateSite(2, "", "Molding");
         $this->assertEquals($ret, false);
 
-        $ret = Site::updateSite(2, "Fisciano", "");
+        $ret = $site->updateSite(2, "Fisciano", "");
         $this->assertEquals($ret, false);
 
-        $ret = Site::updateSite(-3, "test", "test");
+        $ret = $site->updateSite(-3, "test", "test");
         $this->assertEquals($ret, false);
 
 
     }
 
-
     function testRemoveSite(){
+        $site = Site::getInstance();
         $connector = new PgConnection();
         $conn = $connector->connect();
 
@@ -87,13 +88,13 @@ class SiteTest extends TestCase {
         $oldDepartment = $row[1];
 
 
-        $ret = Site::removeSite(2);
+        $ret = $site->removeSite(2);
         $this->assertEquals($ret, true);
 
-        $ret = Site::removeSite(-3);
+        $ret = $site->removeSite(-3);
         $this->assertEquals($ret, false);
 
-        $ret = Site::save(2, $oldBranch, $oldDepartment);
+        $ret = $site->save(2, $oldBranch, $oldDepartment);
      
 
         pg_close($conn);
