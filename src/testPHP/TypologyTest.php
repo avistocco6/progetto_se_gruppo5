@@ -5,7 +5,6 @@ use PHPUnit\Framework\TestCase;
 include_once '..\items\Typology.php';
 
 class TypologyTest extends TestCase {
-
     public function testSave() {
         $res = Typology::save("test");
         $this->assertEquals($res, true);
@@ -18,14 +17,14 @@ class TypologyTest extends TestCase {
         pg_close($conn);
     }
 
+
     function testGetTypologies() {
         $json_string = Typology::getTypologies();
-        file_put_contents('test_files\typologies.json', $json_string);
         $expected = file_get_contents('test_files\typologies.json');
         $this->assertEquals($expected, $json_string);
     }
 
-    function test_update_typology() {
+    function testUpdateTypology() {
         $connector = new PgConnection();
         $conn = $connector->connect();
 

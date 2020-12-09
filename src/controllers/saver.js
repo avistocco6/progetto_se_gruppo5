@@ -180,14 +180,14 @@ function addActivity(){
 }
 
 function addUser() {
-    let username = document.getElementsByName("username").value;
-    let name = document.getElementsByName("name").value;
-    let email = document.getElementsByName("email").value;
-    let psw = document.getElementsByName("psw").value;
-    let role = document.getElementsByName("role").value;
+    let username = document.getElementById("username").value;
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let psw = document.getElementById("password").value;
+    let role = document.getElementById("role").value;
     let user = '{"username":' + '"' + username + '"' + ', "name":' + '"'
         + name + '"' + ', "email":' + '"' + email + '"' + ', "psw":' + '"' + psw + '"'
-        + ', "role":' + '"' + role + '"' + ', "user":' + '"' + user + '"' + '}';
+        + ', "role":' + '"' + role + '"' + '}';
     jQuery.ajax({
         type: "POST",
         url: '../models/saver.php',

@@ -3,7 +3,7 @@
 include_once '..\PgConnection.php';
 
 class User {
-    private static  $instance = null;
+    private static $instance = null;
 
     private function __construct() {
         // instance init
@@ -15,7 +15,7 @@ class User {
 
     public static function getInstance() {
         if (static::$instance === null) {
-            static::$instance = new Client();
+            static::$instance = new User();
         }
         return static::$instance;
     }
@@ -25,6 +25,7 @@ class User {
      *
      * @param $username
      * @param $password
+     * @param $email
      * @param $role
      * @param null $name
      * @return bool
@@ -45,11 +46,17 @@ class User {
     }
 
     private function db_insert($conn, $username, $password, $role, $name, $email) {
-        $sql = "INSERT INTO Client(username, pass, clientname, ncompetence, clientrole, email)
+        $sql = "INSERT INTO Client(username, pass, clientname, clientrole, email)
                 VALUES(". "'" . $username . "'," . "'" . $password . "'," .
                         "'" . $name . "',". "'" . $role . "'" . ",". "'" . $email . "'" . ")";
 
-        return $conn->query($sql) ? true : false;
+        $res = $conn->query($sql);
+
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+        return $res;
     }
 
     /**
@@ -66,21 +73,39 @@ class User {
 
         $ret = $connector->query("SELECT clientrole, ncompetence FROM Client where username =" . "'" . $username . "'");
 
-        if($ret[0] != 'maintainer') {
+        if(pg_num_rows($ret) != 1) {
             pg_close($conn);
             return false;
         }
 
-        $ncompet = $ret[1];
+        $row = pg_fetch_row($ret);
+
+        if($row[0] != 'maintainer') {
+            pg_close($conn);
+            return false;
+        }
+
+        $ncompet = $row[1]+1;
 
         $ret = $connector->query("SELECT skid FROM Skill WHERE skillname =" . "'" . $skillname . "'");
-        $skid = $ret[0];
+
+        if(pg_num_rows($ret) != 1) {
+            pg_close($conn);
+            return false;
+        }
+        $skid = pg_fetch_row($ret)[0];
 
         $sql = "INSERT INTO Holding(username, idskill) VALUES(" . "'" . $username . "'," . $skid . ")";
-        $connector->query("UPDATE Client SET ncompetence =" . $ncompet+1 . "WHERE username =" . "'" . $username . "'");
-        pg_close($conn);
+        $connector->query("UPDATE Client SET ncompetence =" . $ncompet . "WHERE username =" . "'" . $username . "'");
 
-        return $connector->query($sql) ? true : false;
+        $res = $connector->query($sql);
+        if(pg_affected_rows($res) == 1)
+            $res = true;
+        else
+            $res = false;
+
+        pg_close($conn);
+        return $res;
     }
 
     /**
@@ -97,8 +122,13 @@ class User {
 
         $res = $connector->query("DELETE FROM Client WHERE username =" . "'" . $username . "'");
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 
     /**
@@ -118,8 +148,13 @@ class User {
         $res = $connector->query("UPDATE Client SET pass =" . "'" . $password . "'" . "WHERE username ="
                 . "'" . $username . "'");
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 
     /**
@@ -138,8 +173,13 @@ class User {
         $res = $connector->query("UPDATE Client SET email =" . "'" . $email . "'" . "WHERE username ="
             . "'" . $username . "'");
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 
     /**
@@ -153,7 +193,7 @@ class User {
             return null;
         }
 
-        $res = $connector->query("SELECT username, clientname, pass, email FROM Client ORDER BY username");
+        $res = $connector->query("SELECT username, clientname, pass, email, clientrole FROM Client ORDER BY username");
 
         if(!$res) {
             pg_close($conn);
@@ -162,8 +202,9 @@ class User {
 
         $json_string = "[";
         while($row = pg_fetch_row($res)) {
-            $json_string = $json_string . "{\n" .'"username":' . $row[0] . ",\n" . '"name":' .
-                '"' . $row[1] . '"' . ",\n" . '"password":' . '"' . $row[2] . '"' .",\n" . '"email":' . '"' . $row[3] . '"' ."\n}" . ",\n";
+            $json_string = $json_string . "{\n" .'"username":' . '"' . $row[0] . '"' . ",\n" . '"name":' .
+                '"' . $row[1] . '"' . ",\n" . '"password":' . '"' . $row[2] . '"' .",\n" . '"email":' . '"' .
+                $row[3] . '"' . ",\n" . '"role":' . '"' . $row[4] . '"' ."\n}" . ",\n";
         }
         if(strlen($json_string) > 1) {
             $json_string = substr($json_string, 0, strlen($json_string) - 2);
@@ -179,20 +220,17 @@ class User {
      * Check if the inserted password is correct for given username
      * @param $username
      * @param $password
-     * @return bool|null
+     * @return bool
      */
     public function checkPassword($username, $password) {
         $connector = new PgConnection();
         $conn = $connector->connect();
         if($conn == null) {
-            return null;
+            return false;
         }
 
         $res = $connector->query("SELECT * FROM Client WHERE pass=" . "'" . $password . "'" .
                 "AND username=" . "'" . $username . "'");
-        if(pg_num_rows($res) != 1)
-            return false;
-        else
-            return true;
+        return pg_num_rows($res) == 1;
     }
 }

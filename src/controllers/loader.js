@@ -270,6 +270,7 @@ function loadPlanned(week) {
     }
 
     function loadUsers() {
+        let role = document.getElementById("role").value;
         jQuery.ajax({
             type: "POST",
             url: '../models/loader.php',
@@ -282,13 +283,15 @@ function loadPlanned(week) {
                     let staticHtml = $("#users-row-template").html();
 
                     $.each(data, function (index, obj) {
-                        let row = staticHtml;
-                        row = row.replace(/{Username}/ig, obj.username);
-                        row = row.replace(/{Name}/ig, obj.name);
-                        row = row.replace(/{Email}/ig, obj.email);
-                        row = row.replace(/{Password}/ig, obj.password);
+                        if(obj.role == role) {
+                            let row = staticHtml;
+                            row = row.replace(/{Username}/ig, obj.username);
+                            row = row.replace(/{Name}/ig, obj.name);
+                            row = row.replace(/{Email}/ig, obj.email);
+                            row = row.replace(/{Password}/ig, obj.password);
 
-                        $('#users-rows').append(row);
+                            $('#users-rows').append(row);
+                        }
                     });
 
                     /* When empty sites */

@@ -21,19 +21,19 @@ values ('Electronics');
 --------------------------------INSERT INTO CLIENT
 
 insert into Client(username,pass,clientrole, email)
-values('simonasorgente','s1m0n4','planner', sim@gmail.com);
+values('simonasorgente','s1m0n4','planner', 'sim@gmail.com');
 insert into Client(username,pass,clientrole, email)
-values('antoniettanapoli','4n70n1e774','planner', ant@gmail.com);
+values('antoniettanapoli','4n70n1e774','planner', 'ant@gmail.com');
 insert into Client(username,pass,clientrole, email)
-values('antonellarossi','4n70nell4','planner', a.r@gmail.com);
+values('antonellarossi','4n70nell4','planner', 'a.r@gmail.com');
 insert into Client(username,pass,clientrole, email)
-values('angelovistocco','4ngel0','planner', a.v@gmail.com);
+values('angelovistocco','4ngel0','planner', 'a.v@gmail.com');
 insert into Client(username,pass,clientname,ncompetence,clientrole, email)
-values('Pippo1','p1pp0','Pippo',3,'maintainer', p.p@gmail.com);
+values('Pippo1','p1pp0','Pippo',3,'maintainer', 'p.p@gmail.com');
 insert into Client(username,pass,clientname,ncompetence,clientrole, email)
-values('Paperino2','p4per1n0','Paperino',2,'maintainer', pa.pa@gmail.com);
+values('Paperino2','p4per1n0','Paperino',2,'maintainer', 'pa.pa@gmail.com');
 insert into Client(username,pass,clientname,ncompetence,clientrole, email)
-values('Topolino3','70p0l1n0','Topolino',4,'maintainer', t.t@gmail.com);
+values('Topolino3','70p0l1n0','Topolino',4,'maintainer', 't.t@gmail.com');
 
 --------------------------------INSERT INTO SKILL
 insert into skill(skillname)

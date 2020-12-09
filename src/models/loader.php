@@ -14,6 +14,10 @@ if( !isset($_POST['functionname']) ) { $aResult['error'] = 'No function name!'; 
 if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
+        case 'loadUsers':
+            $user = User::getInstance();
+            $aResult['result'] = $user->getUsers();
+            break;
         case 'loadMaterials':
             $material = Material::getInstance();
             $aResult['result'] = $material->getMaterials();

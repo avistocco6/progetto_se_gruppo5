@@ -41,11 +41,11 @@
             <div class="container">
               <p>
                 <label for="email"><b>Change Email: </b></label>
-                <input type="text" placeholder="Enter Email" name="email" required>
+                <input id="email" type="text" placeholder="Enter Email" name="email" required>
               </p>
               <p>
                 <label for="psw"> <b>Change Password: </b> </label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
               </p>
                 <button onclick="updateUser()">Save</button>
             </div>
@@ -62,10 +62,11 @@
         <!-- Custom JS -->
         <script type="text/javascript" src="../controllers/updater.js"></script>
 
-    </body>
+
     <script type="text/javascript">
         function reload(){
             window.location.replace('usermanagement.html');
         }    
     </script>
+    </body>
 </html>    

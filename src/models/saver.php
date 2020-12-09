@@ -15,6 +15,43 @@ if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'
 if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
+        case 'saveUser':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $user = json_decode($_POST['arguments'][0], true);
+
+            if($user == null) {
+                $aResult['error'] = 'Error in arguments!';
+                break;
+            }
+            else{
+                $us = User::getInstance();
+                $username = $user['username'];
+                $name = $user['name'];
+                $email = $user['email'];
+                $psw = $user['psw'];
+                $role = $user['role'];
+                $aResult['result'] = $us->save($username, $psw, $role, $email, $name);
+            }
+            break;
+        case 'assignSkill':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $user = json_decode($_POST['arguments'][0], true);
+
+            if($user == null) {
+                $aResult['error'] = 'Error in arguments!';
+                break;
+            }
+            else{
+                $us = User::getInstance();
+                $username = $user['username'];
+                $skill = $user['skillname'];
+                $aResult['result'] = $us->assignSkill($username, skill);
+            }
+            break;
         case 'saveMaterial':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';

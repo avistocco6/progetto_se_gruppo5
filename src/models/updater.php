@@ -15,6 +15,42 @@ if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'
 if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
+        case 'updateEmail':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+
+            $user = json_decode($_POST['arguments'][0], true);
+
+            if($user == null) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            else{
+                $us = User::getInstance();
+                $username = $user['username'];
+                $email = $user['email'];
+
+                $aResult['result'] = $us->updateEmail($username, $email);
+            }
+            break;
+        case 'updatePassword':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+
+            $user = json_decode($_POST['arguments'][0], true);
+
+            if($user == null) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            else{
+                $us = User::getInstance();
+                $username = $user['username'];
+                $password = $user['password'];
+
+                $aResult['result'] = $us->updatePassword($username, $password);
+            }
+            break;
         case 'updateMaterial':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
