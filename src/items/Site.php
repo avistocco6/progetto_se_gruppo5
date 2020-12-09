@@ -49,7 +49,14 @@ class Site {
         $sql = "INSERT INTO Site(branch, department)
                 VALUES(" . "'" . $branch . "'" . "," . "'" . $department . "'" . ")";
 
-        return $conn->query($sql) ? true : false;
+        $res = $conn->query($sql);
+
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
+        return $res;
     }
 
     /**
@@ -102,8 +109,13 @@ class Site {
         $res = $connector->query("UPDATE Site SET branch = " .
             "'" . $branch . "', department = " . "'" . $department ."'" . "WHERE sid = " . $id);
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 
     /**
@@ -117,7 +129,12 @@ class Site {
 
         $res = $connector->query("DELETE FROM Site WHERE sid =" . $id);
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 }

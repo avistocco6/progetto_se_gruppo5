@@ -6,7 +6,8 @@ include_once '..\items\Typology.php';
 
 class TypologyTest extends TestCase {
     public function testSave() {
-        $res = Typology::save("test");
+        $tp = Typology::getInstance();
+        $res = $tp->save("test");
         $this->assertEquals($res, true);
 
         $connector = new PgConnection();
@@ -19,7 +20,8 @@ class TypologyTest extends TestCase {
 
 
     function testGetTypologies() {
-        $json_string = Typology::getTypologies();
+        $tp = Typology::getInstance();
+        $json_string = $tp->getTypologies();
         $expected = file_get_contents('test_files\typologies.json');
         $this->assertEquals($expected, $json_string);
     }
@@ -33,10 +35,11 @@ class TypologyTest extends TestCase {
         $row = pg_fetch_row($res);
         $oldDesc = $row[0];
 
-        $ret = Typology::updateTypology(1, "test");
+        $tp = Typology::getInstance();
+        $ret = $tp->updateTypology(1, "test");
         $this->assertEquals($ret, true);
 
-        $ret = Typology::updateTypology(1, $oldDesc);
+        $ret = $tp->updateTypology(1, $oldDesc);
         $this->assertEquals($ret, true);
     }
 }

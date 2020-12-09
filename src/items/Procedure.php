@@ -44,7 +44,14 @@ class Procedure {
         $sql = "INSERT INTO MainProcedure(description)
                 VALUES(" . "'" . $description . "')";
 
-        return $conn->query($sql) ? true : false;
+        $res = $conn->query($sql);
+
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
+        return $res;
     }
 
     /**
@@ -62,9 +69,15 @@ class Procedure {
         }
 
         $sql = "INSERT INTO SPAssignment(ids, idp) VALUES(" . "'" . $skill_id . "'," . $procedure_id . ")";
-        return $connector->query($sql) ? true : false;
+        $res = $connector->query($sql);
+
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
 
         pg_close($conn);
+        return $res;
     }
 
     /**
@@ -116,9 +129,13 @@ class Procedure {
         $res = $connector->query("UPDATE MainProcedure SET description =" .
             "'" . $description . "' WHERE mpid = " . $id);
 
-        pg_close($conn);
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
 
-        return $res ? true : false;
+        pg_close($conn);
+        return $res;
     }
 
     /**
@@ -136,7 +153,12 @@ class Procedure {
 
         $res = $connector->query("DELETE FROM Procedure WHERE pid =" . $id);
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 }

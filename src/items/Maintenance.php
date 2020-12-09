@@ -24,19 +24,20 @@ class Maintenance {
      *
      * save a maintenance in the database
      *
-     * @param $idsite site id for maintenance as int
-     * @param $description maintenance description as string
-     * @param $estimatedtime estimated maintenance time as string in format hh:mm:ss
-     * @param $week week when maintenance is planned as int
-     * @param $interruptible true if maintenance is not interruptible, false if it is interruptible
-     * @param $idtypology typology id for maintenance as int
-     * @param $mtype maintenance type: 'planned actiity', 'unplanned activity' or 'EWO'
+     * @param $idsite
+     * @param $description
+     * @param $estimatedtime
+     * @param $week
+     * @param $interruptible
+     * @param $idtypology
+     * @param $mtype
      * @return bool true if correctly saved, false if not
      */
     public function save($idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype) {
-        if($idsite <= 0 || $week <= 0 || $description)
+        if($idsite <= 0 || $week <= 0 ||
+            $description == "" || $estimatedtime == "" ||
+            $idtypology <= 0 || $mtype == "")
             return false;
-
 
         $connector = new PgConnection();
         $conn = $connector->connect();
@@ -58,7 +59,14 @@ class Maintenance {
                 VALUES(" . "'" . $description . "'" . "," . "'" .$estimatedtime . "'" .
                     "," . $interruptible . "," . $week  . "," . $idtypology . "," . $idsite . ",'" . $mtype . "')";
 
-        return $conn->query($sql) ? true : false;
+        $res = $conn->query($sql);
+
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
+        return $res;
     }
 
     /**
@@ -191,8 +199,13 @@ class Maintenance {
             . $estimatedtime . "', week = " . "'" . $week . "', interruptible = " . "'" . $interruptible ."',"
             . " mtype = '" . $mtype . "'" .  "WHERE maid = " . $maid);
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 
     /**
@@ -206,7 +219,12 @@ class Maintenance {
 
         $res = $connector->query("DELETE FROM MainActivity WHERE maid =" . $maid);
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 }

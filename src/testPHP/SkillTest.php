@@ -7,7 +7,8 @@ include_once '..\items\Skill.php';
 class SkillTest extends TestCase
 {
     public function testSave() {
-        $res = Skill::save("test");
+        $skill = Skill::getInstance();
+        $res = $skill->save("test");
         $this->assertEquals($res, true);
 
         $connector = new PgConnection();
@@ -19,7 +20,8 @@ class SkillTest extends TestCase
     }
 
     function test_get_skills() {
-        $json_string = Skill::getSkills();
+        $skill = Skill::getInstance();
+        $json_string = $skill->getSkills();
         $expected = file_get_contents("test_files\skills.json");
         $this->assertEquals($expected, $json_string);
     }
@@ -33,10 +35,11 @@ class SkillTest extends TestCase
         $row = pg_fetch_row($res);
         $oldName = $row[0];
 
-        $ret = Skill::updateSkill(1, "test");
+        $skill = Skill::getInstance();
+        $ret = $skill->updateSkill(1, "test");
         $this->assertEquals($ret, true);
 
-        $ret = Skill::updateSkill(1, $oldName);
+        $ret = $skill->updateSkill(1, $oldName);
         $this->assertEquals($ret, true);
     }
 }

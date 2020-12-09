@@ -44,7 +44,14 @@ class Skill {
         $sql = "INSERT INTO Skill(skillname)
                 VALUES(" . "'" . $name . "'" . ")";
 
-        return $conn->query($sql) ? true : false;
+        $res = $conn->query($sql);
+
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
+        return $res;
     }
 
     /**
@@ -96,9 +103,13 @@ class Skill {
         $res = $connector->query("UPDATE Skill SET skillname =" .
             "'" . $name . "' WHERE skid = " . $id);
 
-        pg_close($conn);
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
 
-        return $res ? true : false;
+        pg_close($conn);
+        return $res;
     }
 
     /**
@@ -115,7 +126,12 @@ class Skill {
 
         $res = $connector->query("DELETE FROM Skill WHERE skid =" . $id);
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 }

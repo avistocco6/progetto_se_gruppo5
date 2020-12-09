@@ -49,7 +49,14 @@ class Material {
             $sql = "INSERT INTO Material(matname)
                     VALUES(" . "'" . $name . "'" . ")";
 
-        return $conn->query($sql) ? true : false;
+        $res = $conn->query($sql);
+
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
+        return $res;
     }
 
     /**
@@ -101,9 +108,13 @@ class Material {
         $res = $connector->query("UPDATE Material SET matname =" .
                         "'" . $name . "' WHERE mid = " . $id);
 
-        pg_close($conn);
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
 
-        return $res ? true : false;
+        pg_close($conn);
+        return $res;
     }
 
     /**
@@ -121,7 +132,12 @@ class Material {
 
         $res = $connector->query("DELETE FROM Material WHERE mid =" . $mid);
 
+        if(pg_affected_rows($res) > 0)
+            $res = true;
+        else
+            $res = false;
+
         pg_close($conn);
-        return $res ? true : false;
+        return $res;
     }
 }
