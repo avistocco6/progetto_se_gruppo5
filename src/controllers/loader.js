@@ -189,7 +189,7 @@ function loadSelected() {
                   row = row.replace(/{Skill}/ig, obj.name);
                   $('#skillsNeeded-rows').append(row);
                 });
-                /* When empty sites */
+                /* When empty activity */
                 if (data === null) {
                     alert("Error with activity chosen!")
                 }
@@ -202,6 +202,7 @@ function loadSelected() {
         });
 
 }
+
 function loadPlanned(week) {
     let json = '{ "week":' + week + ', "type": "planned activity"}';
     jQuery.ajax({
@@ -294,7 +295,7 @@ function loadPlanned(week) {
                         }
                     });
 
-                    /* When empty sites */
+                    /* When empty user */
                     if (data === null) {
                         alert("There are no users!")
                     }
@@ -302,6 +303,40 @@ function loadPlanned(week) {
                 else {
                     console.log(obj.error);
                     alert("Impossible to load users");
+                }
+            }
+        });
+    }
+
+
+    function loadMaintainer() {
+        jQuery.ajax({
+            type: "POST",
+            url: '../models/loader.php',
+            dataType: 'json',
+            data: {functionname: "loadMaintainer", arguments: []},
+
+            success: function (obj, textstatus) {
+                if( !('error' in obj) ) {
+                    let data = JSON.parse(obj.result);
+                    let maintstaticHtml = $("#maint-availab-template").html();
+                    let skillStaticHtml = $("#skillsNeeded-row-template").html();
+
+                    $.each(data, function (index, obj) {
+                        let row = staticHtml;
+                        row = row.replace(/{Skill}/ig, obj.skill);
+
+                        $('#skillsNeeded-rows').append(row);
+                    });
+
+                    /* When empty maintainer*/
+                    if (data === null) {
+                        alert("There are no maintainers!")
+                    }
+                }
+                else {
+                    console.log(obj.error);
+                    alert("Impossible to choose maintainer");
                 }
             }
         });
