@@ -18,7 +18,7 @@ create table Client (
 	clientname varchar(20),
 	ncompetence smallint default 0,
 	clientrole varchar(50) not null,
-	email varchar(50) not null,
+	email varchar(50) not null unique,
 	constraint pk_client primary key (username)
 );
 

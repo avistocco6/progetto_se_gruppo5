@@ -49,7 +49,7 @@
           Role: <select onchange="showbutton()" id="role" name="role">
                   <option value="-">Choose a role</option>
                   <option value="planner">Planner</option>
-                  <option value="maintainer">Mantainer</option>
+                  <option value="maintainer">Maintainer</option>
           </select>
         </label>
     		<table id="users">
@@ -116,7 +116,7 @@
           loadUsers();
           var x = document.getElementById("role").selectedIndex;
           var y = document.getElementsByTagName("option")[x].value;
-          if(y=='mantainer'){
+          if(y=='maintainer'){
             document.getElementById('buttonskill').style.display="inline";
           }
           else{

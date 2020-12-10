@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Choose Maintainer</title>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Team 5"/>
+        <meta name="description" content="Web application for maintenance activies."/>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+        <style type="text/css">
+         #week{
+            font-family: Lato;
+            font-size: 18px;
+            line-height: 18px;
+            width: 230px;
+            text-align: center;
+            background-color: white;
+            border: 1px solid #8492A6;
+            border-radius: 5px;
+            float:left;
+            margin: 10px;
+        }
+        #number, #dayavail{
+            background-color: #333;
+            border-radius: 5px;
+            width: 100px;
+            line-height: 20px;
+            text-align:center;
+            float:left;
+            margin-left:2px;
+            color:white;
+            margin: 10px;
+        }
+        #activity, #day{
+             font-family: Lato;
+            font-size: 15px;
+            line-height: 20px;
+            width: 200px;
+            text-align: center;
+            background-color: white;
+            border: 1px solid #8492A6;
+            border-radius: 5px;
+            float:left;
+            margin-left:2px;
+            margin: 10px;
+        }
+        #name{
+            background-color: #333;
+            border-radius: 5px;
+            width: 400px;
+            line-height: 20px;
+            text-align:center;
+            float:left;
+            margin-left:2px;
+            color:white;
+            margin: 10px;
+        }
+        #mainAvail {
+            background-color: #333;
+            height: 40px;
+            width: 76.3%;
+            float:right;
+            margin: 5px;
+            margin-top: 5px;
+            color:white;
+            text-align:center;
+            line-height: 10px;
+
+
+        }
+        .tab{
+            position: absolute;
+            top: 310px;
+            left: 20px;
+            height: 40px;
+            width: 24%;
+            float:left;
+            color:white;
+
+        }
+
+    </style>
+    </head>
+    <body>
+       <div class="row">
+                <div class="header">
+                    <p>
+                        <a href="plannerview.html"><img border="0" src="return.png" width="70" height="70"> </a>
+                    </p>
+                </div>
+                <div class="header">
+                    <h1> Choose a maintainer</h1>
+                </div>
+                <div class="header">
+                    <p>
+                        <a href="index.html"><img border="0" src="exit.png" width="70" height="70"> </a>
+                    </p>
+                </div>
+       </div>
+        <div class="column">
+                <div class="header2" style="margin: 0;">
+                    <div id= "week">
+                        <p> Week n° </p>
+                    </div>
+                    <div id="number">
+                        <p id="numWeek"></p>
+                    </div>
+                    <div id= "day">
+                        <p> Day </p>
+                    </div>
+                    <div id= "dayavail">
+                        <p id="dayName">  </p>
+                    </div>
+                     <div id="activity">
+                        <p>Activity to assign</p>
+                    </div>
+                    <div id="name">
+                        <p id="activityName"></p>
+                    </div>
+                     
+                </div>
+        </div>
+        <table class="tab">
+                      <tr>
+                        <th>Workspace Notes</th>
+                      </tr>
+                        <thead>
+                        <template id="workspace-row-template">
+                            <tr>
+                                <td>{Workspace Notes}</td>
+                            </tr>
+                        </template>
+                        </thead>
+
+                        <tbody id="workspace-rows">
+
+                        </tbody>
+                    </table>
+        <div class="column">
+                <div class="header3" style="margin: 0;">
+                    <div id= "mainAvail">
+                        <p> <b>Maintainer AVAILABILITY</b></p>
+                    </div>
+                </div>
+        </div>
+       
+
+        <table id="maint-availab" style=" width:70%; position: absolute; top:320; left: 25.7%" >
+          <thead>
+            <tr>
+              <th>Maintainer</th>
+              <th>Skills</th>
+              <th>Availab. 8:00-9:00</th>
+              <th>Availab. 9:00-10:00</th>
+              <th>Availab. 10:00-11:00</th>
+              <th>Availab. 11:00-12:00</th>
+              <th>Availab. 14:00-15:00</th>
+              <th>Availab. 15:00-16:00</th>
+              <th>Availab. 16:00-17:00</th>
+            </tr>
+            <template id="maint-availab-template">
+            <tr>
+              <td>{MainName}</td>
+              <td>{NumSkill}</td>
+              <td>
+                <button type="button">{Availab. 8}</button>
+              </td>
+              <td>
+                <button type="button">{Availab. 9}</button>
+              </td>
+              <td>
+                <button type="button">{Availab. 10}</button>
+              </td>
+              <td>
+                <button type="button">{Availab. 11}</button>
+              </td>
+              <td>
+                <button type="button">{Availab. 14}</button>
+              </td>
+              <td>
+                <button type="button">{Availab. 15}</button>
+              </td>
+              <td>
+                <button type="button">{Availab. 16}</button>
+              </td>
+              <td style="text-align:center;">
+
+            </tr>
+            </template>
+          </thead>
+          <tbody id="maint-availab-rows">
+
+          </tbody>
+        </table>
+
+       <br>
+       <br>
+       <br>
+        <a href="#"a><input type="button" value="send" name="send" style="margin: 10px; width: 100px;
+            height: 50px;top: 0;"></a>
+      <div class="footer">
+        <h2>Team 5</h2>
+      </div>
+    </body>
+</html>
+
+
+
