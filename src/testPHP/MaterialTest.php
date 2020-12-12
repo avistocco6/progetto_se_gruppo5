@@ -81,7 +81,7 @@ class MaterialTest extends TestCase {
         $ret = $material->removeMaterial(-5);
         $this->assertEquals($ret, false);
 
-        $res = $material->save($oldName);
+        $material->save($oldName);
 
         pg_close($conn);
     }

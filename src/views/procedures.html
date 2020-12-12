@@ -48,12 +48,14 @@
         <div class="column" style="text-align: center;">
             <table id="procedure">
               <tr>
+                <th style="text-align: center;"><h3>ID</h3></th>
                 <th style="text-align: center;"><h3>Procedures</h3></th>
                 <th style="text-align: center;"><h3>Edit</h3></th>
               </tr>
 
               <template id="procedures-row-template">
                 <tr>
+                  <td>{ID}</td>
                   <td>{Description}</td>
                   <td style="text-align:center;">
                       <a href="updateprocedure.html" onclick="passId();" class="btn btn-success btn-lg">
@@ -86,10 +88,12 @@
         $(document).ready(loadProcedures());
 
         function passId() {
-        $('#procedure').find('tr').click( function(){
-          localStorage.setItem("id",$(this).index()+1);
-        });
-      };
+            $('#materials').find('tr').click( function(){
+                let row = $(this).index()+1;
+                let id = document.getElementById('procedure').rows[row].cells[0].innerHTML;
+                localStorage.setItem("id", id);
+            });
+        };
       </script>
 
     </body>

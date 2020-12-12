@@ -130,7 +130,7 @@ class Material {
             return false;
         }
 
-        $res = $connector->query("DELETE FROM Material WHERE mid =" . $mid);
+        $res = $connector->query("DELETE FROM Material WHERE mid =" . $id);
 
         if(pg_affected_rows($res) > 0)
             $res = true;

@@ -12,6 +12,7 @@ function loadMaterials() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Material}/ig, obj.name);
                   $('#materials-rows').append(row);
                 });
@@ -43,6 +44,7 @@ function loadSkills() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Skill}/ig, obj.name);
                   $('#skills-rows').append(row);
                 });
@@ -75,6 +77,7 @@ function loadSites() {
 
                 $.each(data, function (index, obj) {
                     let row = staticHtml;
+                    row = row.replace(/{ID}/ig, obj.id);
                     row = row.replace(/{Branch}/ig, obj.factory);
                     row = row.replace(/{Department}/ig, obj.area);
 
@@ -109,6 +112,7 @@ function loadTypology() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Description}/ig, obj.description);
                   $('#typology-rows').append(row);
                 });
@@ -140,6 +144,7 @@ function loadProcedures() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  row = row.replace(/{ID}/ig, obj.id);
                   let name = obj.name.replace(/;/ig, "<br>");
                   row = row.replace(/{Description}/ig, name);
                   $('#procedures-rows').append(row);
@@ -341,3 +346,56 @@ function loadPlanned(week) {
             }
         });
     }
+
+function loadDailyAvail() {
+    let id =localStorage.getItem('id');
+    id = '{"id":' + id + "}";
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadDailyAvail", arguments: [id]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                let data = JSON.parse(obj.result);
+                let workspaceNotes = $("#workspace-row-template").html();
+                let mainAvail = $("maint-availab-template").html;
+                workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
+                $("#workspace-rows").append(workspaceNotes);
+
+                document.getElementById("numWeek").innerHTML = data.week;
+                document.getElementById("dayName").innerHTML = data.day;
+                document.getElementById("activityName").innerHTML  = data.id +
+                    " - " + data.site + " - " + data.typology + " - " + data.time;
+
+                $('#maint-availab-rows').children().remove();
+
+                $.each(data, function (index, obj) {
+                    let row = mainAvail;
+                    row = row.replace(/{MainName}/ig, obj.mainname);
+                    row = row.replace(/{NumSkill}/ig, obj.numskill);
+                    row = row.replace(/{Availab8}/ig, obj.availab8);
+                    row = row.replace(/{Availab9}/ig, obj.availab9);
+                    row = row.replace(/{Availab10}/ig, obj.availab10);
+                    row = row.replace(/{Availab11}/ig, obj.availab11);
+                    row = row.replace(/{Availab14}/ig, obj.availab14);
+                    row = row.replace(/{Availab15}/ig, obj.availab15);
+                    row = row.replace(/{Availab16}/ig, obj.availab16);
+                    $('#maint-availab-rows').append(row);
+                });
+
+                /* When empty availability */
+                if (data === null) {
+                    alert("Error with maintainer chosen!")
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load maintainer's availability");
+            }
+        }
+        });
+
+}
+

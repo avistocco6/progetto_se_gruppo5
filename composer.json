@@ -12,6 +12,7 @@
   "require": {
     "phpunit/dbunit": "3.*",
     "ext-json": "*",
-    "ext-pgsql": "*"
+    "ext-pgsql": "*",
+    "phpmetrics/phpmetrics": "v1.10.0"
   }
 }
