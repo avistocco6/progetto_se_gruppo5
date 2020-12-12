@@ -250,12 +250,13 @@ class User {
         $activity_skills = $connector->query("SELECT skid, skillname 
                                                        FROM SMAssignment JOIN Skill ON skid = idskill
                                                         WHERE maid = " . $activityid);
-        $maintainers_skills = $connector->query("SELECT C.username, COUNT(C.username)
+        $maintainers_skills = $connector->query("SELECT C.username, COUNT(C.username) 
                                                          FROM Client C LEFT JOIN Holding H ON H.username = C.username
+                                                         LEFT JOIN (SELECT skid
+                                                                    FROM Skill S JOIN SMAssignment SM ON SM.idskill = S.skid
+                                                                    WHERE SM.maid =" . $activityid . ") S ON skid = H.idskill    
+                                                         JOIN SMAssignment SM ON SM.idskill = H.idskill 
                                                          WHERE C.clientrole = 'maintainer'
-                                                             AND idskill IN (SELECT skid
-                                                                             FROM Skill S JOIN SMAssignment SM ON SM.idskill = S.skid
-                                                                             WHERE SM.maid =" . $activityid . ")
                                                          GROUP BY C.username
                                                          ORDER BY C.username;");
         $daily_avail = $connector->query("SELECT username, dataavail, percentavailab
@@ -263,8 +264,32 @@ class User {
                                                     WHERE dataavail <=" . "'" . $end . "'" . "
                                                     AND dataavail >=" . "'" . $start . "'" . "
                                                     AND clientrole = 'maintainer';"); // PRENDERE I GIORNI DI UN UTENTE ALLA VOLTA
-
-
+/*
+        if($daily_avail) {
+            $json_string = "[";
+            while($skills = pg_fetch_row($daily_avail)) {
+                var $skills_got = 0;
+                while ($avail = pg_fetch_row($maintainers_skills)) {
+                    if($avail[0] == $skills[0]) {
+                        $json_string = $json_string . "{\n" .'"username":' . '"' . $daily_avail[0] . '"' . ",\n" . '"name":' .
+                            '"' . $daily_avail[1] . '"' . ",\n" . '"password":' . '"' . $daily_avail[2] . '"' .",\n" . '"email":' . '"' .
+                            $daily_avail[3] . '"' . ",\n" . '"role":' . '"' . $daily_avail[4] . '"' ."\n}" . ",\n";
+                    }
+                    else {
+                        $json_string = $json_string . "{\n" .'"username":' . '"' . $daily_avail[0] . '"' . ",\n" .
+                            '"week" : [0, 0, 0, 0, 0, 0, 0]' ."\n}" . ",\n";
+                    }
+                }
+                $json_string = $json_string . "{\n" .'"username":' . '"' . $daily_avail[0] . '"' . ",\n" . '"name":' .
+                    '"' . $daily_avail[1] . '"' . ",\n" . '"password":' . '"' . $daily_avail[2] . '"' .",\n" . '"email":' . '"' .
+                    $daily_avail[3] . '"' . ",\n" . '"role":' . '"' . $daily_avail[4] . '"' ."\n}" . ",\n";
+            }
+            if(strlen($json_string) > 1) {
+                $json_string = substr($json_string, 0, strlen($json_string) - 2);
+                $json_string = $json_string . "]";
+            } else $json_string = null;
+        }
+*/
     }
 
     private function getStartEndDate($week, $year) {

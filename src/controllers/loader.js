@@ -12,6 +12,8 @@ function loadMaterials() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  console.log(obj.id);
+                  row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Material}/ig, obj.name);
                   $('#materials-rows').append(row);
                 });

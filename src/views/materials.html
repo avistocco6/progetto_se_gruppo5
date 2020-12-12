@@ -49,12 +49,14 @@
         <table id="materials">
           <thead>
             <tr>
+              <th style="text-align: center;"><h3>ID</h3></th>
               <th style="text-align: center;"><h3>Materials</h3></th>
               <th style="text-align: center;"><h3>Edit</h3></th>
               <th style="text-align: center;"><h3>Delete</h3></th>
             </tr>
             <template id="materials-row-template">
               <tr>
+                <td>{ID}</td>
                 <td>{Material}</td>
                 <td style="text-align:center;">
                   <a href="updatematerial.html" onclick="passId();" class="btn btn-success btn-lg">
@@ -92,7 +94,9 @@
 
       function passId() {
         $('#materials').find('tr').click( function(){
-          localStorage.setItem("id",$(this).index()+1);
+          let row = $(this).index();
+          let id = document.getElementById('materials').rows[row].cells[0];
+          localStorage.setItem("id", id);
         });
       };
     </script>
