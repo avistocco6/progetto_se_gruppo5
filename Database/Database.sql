@@ -103,7 +103,7 @@ create table DailyAvailability(
 	avail14_15 interval,
 	avail15_16 interval,
 	avail16_17 interval,
-	percentavailab interval,
+	percentavailab varchar(4),
 	constraint pk_DailyAvailability primary key (dataavail, username),
 	constraint fk_username_DailyAvailability_username_client foreign key (username)
 		references Client(username)

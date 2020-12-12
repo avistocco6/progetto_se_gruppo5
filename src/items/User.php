@@ -233,4 +233,46 @@ class User {
                 "AND username=" . "'" . $username . "'");
         return pg_num_rows($res) == 1;
     }
+
+    public function loadWeekPercentage($week, $activityid) {
+        $res = $this->getStartEndDate($week, (
+            new DateTime)->format("Y"));
+        $start = $res['start_date'];
+        $end = $res['end_date'];
+
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+        if($conn == null) {
+            return false;
+        }
+
+        $mantainers = $connector->query("SELECT username FROM Client WHERE clientrole = 'maintainer'");
+        $activity_skills = $connector->query("SELECT skid, skillname 
+                                                       FROM SMAssignment JOIN Skill ON skid = idskill
+                                                        WHERE maid = " . $activityid);
+        $maintainers_skills = $connector->query("SELECT C.username, COUNT(C.username)
+                                                         FROM Client C LEFT JOIN Holding H ON H.username = C.username
+                                                         WHERE C.clientrole = 'maintainer'
+                                                             AND idskill IN (SELECT skid
+                                                                             FROM Skill S JOIN SMAssignment SM ON SM.idskill = S.skid
+                                                                             WHERE SM.maid =" . $activityid . ")
+                                                         GROUP BY C.username
+                                                         ORDER BY C.username;");
+        $daily_avail = $connector->query("SELECT username, dataavail, percentavailab
+                                                    FROM Client NATURAL JOIN DailyAvailability
+                                                    WHERE dataavail <=" . "'" . $end . "'" . "
+                                                    AND dataavail >=" . "'" . $start . "'" . "
+                                                    AND clientrole = 'maintainer';"); // PRENDERE I GIORNI DI UN UTENTE ALLA VOLTA
+
+
+    }
+
+    private function getStartEndDate($week, $year) {
+        $dateTime = new DateTime();
+        $dateTime->setISODate($year, $week);
+        $result['start_date'] = $dateTime->format('d-m-Y');
+        $dateTime->modify('+6 days');
+        $result['end_date'] = $dateTime->format('d-m-Y');
+        return $result;
+    }
 }
