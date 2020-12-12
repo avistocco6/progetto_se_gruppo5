@@ -15,7 +15,7 @@ if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'
 if( !isset($aResult['error']) ) {
 
     switch($_POST['functionname']) {
-        case 'updateMaterial':
+        case 'removeMaterial':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
@@ -32,7 +32,7 @@ if( !isset($aResult['error']) ) {
                 $aResult['result'] = $mat->removeMaterial($id);
             }
             break;
-        case 'updateSkill':
+        case 'removeSkill':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
@@ -48,7 +48,7 @@ if( !isset($aResult['error']) ) {
                 $aResult['result'] = $sk->removeSkill($id);
             }
             break;
-        case 'updateTypology':
+        case 'removeTypology':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
@@ -64,7 +64,7 @@ if( !isset($aResult['error']) ) {
                 $aResult['result'] = $typol->removeTypology($id);
             }
             break;
-        case 'updateSite':
+        case 'removeSite':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
@@ -80,7 +80,7 @@ if( !isset($aResult['error']) ) {
                 $aResult['result'] = $site_->removeSite($id);
             }
             break;
-        case 'updateProcedure':
+        case 'removeProcedure':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }
@@ -96,7 +96,7 @@ if( !isset($aResult['error']) ) {
                 $aResult['result'] = $proc->removeProcedure($id);
             }
             break;
-        case 'updateActivity':
+        case 'removeActivity':
             if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
                 $aResult['error'] = 'Error in arguments!';
             }

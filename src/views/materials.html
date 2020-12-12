@@ -51,13 +51,19 @@
             <tr>
               <th style="text-align: center;"><h3>Materials</h3></th>
               <th style="text-align: center;"><h3>Edit</h3></th>
+              <th style="text-align: center;"><h3>Delete</h3></th>
             </tr>
             <template id="materials-row-template">
               <tr>
                 <td>{Material}</td>
                 <td style="text-align:center;">
                   <a href="updatematerial.html" onclick="passId();" class="btn btn-success btn-lg">
-                    <span class="glyphicon glyphicon-edit"></span>  
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </a>
+                </td>
+                <td style="text-align:center;">
+                  <a href="removematerial.html" onclick="passId();" class="btn btn-success btn-lg">
+                    <span class="glyphicon glyphicon-edit"></span>
                   </a>
                 </td>
               </tr>
