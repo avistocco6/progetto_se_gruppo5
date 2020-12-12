@@ -1,7 +1,7 @@
 function removeMaterial() {
     let id =localStorage.getItem('id');
-    id = '{"id": ' + id + '}';
     console.log(id);
+    id = '{"id": ' + id + '}';
     jQuery.ajax({
         type: "POST",
         url: '../models/remover.php',

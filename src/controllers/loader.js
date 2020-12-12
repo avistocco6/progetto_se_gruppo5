@@ -12,7 +12,6 @@ function loadMaterials() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
-                  console.log(obj.id);
                   row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Material}/ig, obj.name);
                   $('#materials-rows').append(row);
@@ -45,6 +44,7 @@ function loadSkills() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Skill}/ig, obj.name);
                   $('#skills-rows').append(row);
                 });
@@ -77,6 +77,7 @@ function loadSites() {
 
                 $.each(data, function (index, obj) {
                     let row = staticHtml;
+                    row = row.replace(/{ID}/ig, obj.id);
                     row = row.replace(/{Branch}/ig, obj.factory);
                     row = row.replace(/{Department}/ig, obj.area);
 
@@ -111,6 +112,7 @@ function loadTypology() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Description}/ig, obj.description);
                   $('#typology-rows').append(row);
                 });
@@ -142,6 +144,7 @@ function loadProcedures() {
 
                 $.each(data, function (index, obj) {
                   let row = staticHtml;
+                  row = row.replace(/{ID}/ig, obj.id);
                   let name = obj.name.replace(/;/ig, "<br>");
                   row = row.replace(/{Description}/ig, name);
                   $('#procedures-rows').append(row);

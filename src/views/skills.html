@@ -45,11 +45,13 @@
             <table id="skills">
                 <thead>
                     <tr>
+                        <th style="text-align: center;"><h3>ID</h3></th>
                         <th style="text-align: center;"><h3>Skills</h3></th>
                         <th style="text-align: center;"><h3>Edit</h3></th>
                     </tr>
                     <template id="skills-row-template">
                         <tr>
+                            <td>{ID}</td>
                             <td>{Skill}</td>
                             <td style="text-align:center;">
                                 <a href="updateskill.html" onclick="passId();" class="btn btn-success btn-lg">
@@ -79,11 +81,13 @@
 
     <script type="application/javascript">
       $(document).ready(loadSkills());
-    
+
       function passId() {
-        $('#skills').find('tr').click( function(){
-          localStorage.setItem("id",$(this).index()+1);
-        });
+          $('#materials').find('tr').click( function(){
+              let row = $(this).index()+1;
+              let id = document.getElementById('skills').rows[row].cells[0].innerHTML;
+              localStorage.setItem("id", id);
+          });
       };
     </script>
 

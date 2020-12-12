@@ -94,8 +94,8 @@
 
       function passId() {
         $('#materials').find('tr').click( function(){
-          let row = $(this).index();
-          let id = document.getElementById('materials').rows[row].cells[0];
+          let row = $(this).index()+1;
+          let id = document.getElementById('materials').rows[row].cells[0].innerHTML;
           localStorage.setItem("id", id);
         });
       };
