@@ -66,7 +66,7 @@
                         <td>{Branch}</td>
                         <td>{Department}</td>
                         <td style="text-align:center;">
-                          <a href="updateprocedure.html" onclick="passId();" class="btn btn-success btn-lg">
+                          <a href="updatesite.html" onclick="passId();" class="btn btn-success btn-lg">
                             <span class="glyphicon glyphicon-edit"></span>  
                           </a>
                        </td>
@@ -97,8 +97,8 @@
           $(document).ready(loadSites());
 
           function passId() {
-              $('#materials').find('tr').click( function(){
-                  let row = $(this).index()+1;
+              $('#sites-rows').find('tr').click( function(){
+                  let row = $(this).index()+2;
                   let id = document.getElementById('site').rows[row].cells[0].innerHTML;
                   localStorage.setItem("id", id);
               });

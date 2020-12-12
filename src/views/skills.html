@@ -83,7 +83,7 @@
       $(document).ready(loadSkills());
 
       function passId() {
-          $('#materials').find('tr').click( function(){
+          $('#skills-rows').find('tr').click( function(){
               let row = $(this).index()+1;
               let id = document.getElementById('skills').rows[row].cells[0].innerHTML;
               localStorage.setItem("id", id);

@@ -88,7 +88,7 @@
       $(document).ready(loadTypology());
 
       function passId() {
-          $('#materials').find('tr').click( function(){
+          $('#typology-rows').find('tr').click( function(){
               let row = $(this).index()+1;
               let id = document.getElementById('skills').rows[row].cells[0].innerHTML;
               localStorage.setItem("id", id);

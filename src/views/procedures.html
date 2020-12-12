@@ -88,7 +88,7 @@
         $(document).ready(loadProcedures());
 
         function passId() {
-            $('#materials').find('tr').click( function(){
+            $('#procedures-rows').find('tr').click( function(){
                 let row = $(this).index()+1;
                 let id = document.getElementById('procedure').rows[row].cells[0].innerHTML;
                 localStorage.setItem("id", id);
