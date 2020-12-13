@@ -2,6 +2,7 @@
 <html>
     <head>
     	<title> Skills Management </title>
+        <!-- The system must allow a System Administrator to view a list of competences related to a specific task. -->
     	<meta charset="utf-8"/>
     	<meta name="author" content="Team 5"/>
     	<meta name="description" content="Web application for maintenance activies."/>
@@ -48,6 +49,7 @@
                         <th style="text-align: center;"><h3>ID</h3></th>
                         <th style="text-align: center;"><h3>Skills</h3></th>
                         <th style="text-align: center;"><h3>Edit</h3></th>
+                        <th style="text-align: center;"><h3>Delete</h3></th>
                     </tr>
                     <template id="skills-row-template">
                         <tr>
@@ -56,6 +58,11 @@
                             <td style="text-align:center;">
                                 <a href="updateskill.html" onclick="passId();" class="btn btn-success btn-lg">
                                     <span class="glyphicon glyphicon-edit"></span>  
+                                </a>
+                            </td>
+                            <td style="text-align:center;">
+                                <a href="removeskill.html" onclick="passId();" class="btn btn-success btn-lg">
+                                    <span class="glyphicon glyphicon-edit"></span>
                                 </a>
                             </td>
                         </tr>
