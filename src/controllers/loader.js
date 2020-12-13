@@ -410,8 +410,10 @@ function loadPlanned(week) {
 
             success: function (obj, textstatus) {
                 if( !('error' in obj) ) {
-                    let skills = JSON.parse(obj.result);
-                    let maintainerInfo = JSON.parse(obj.result);
+                    let data = JSON.parse(obj.result);
+                    console.log(data);
+                    let skills = JSON.parse(data.skills);
+                    let maintainerInfo = JSON.parse(data.maintainers);
                     let skills_template = $("#skillsNeeded-row-template").html();
                     let maintainerInfo_template = $("#maint-availab-template").html();
 
