@@ -315,26 +315,44 @@ function loadPlanned(week) {
 
 
     function loadMaintainer() {
+        let id = localStorage.getItem('id');
+        id = '{"id":' + id + "}";
         jQuery.ajax({
             type: "POST",
             url: '../models/loader.php',
             dataType: 'json',
-            data: {functionname: "loadMaintainer", arguments: []},
+            data: {functionname: "loadMaintainer", arguments: [id]},
 
             success: function (obj, textstatus) {
                 if( !('error' in obj) ) {
                     let data = JSON.parse(obj.result);
                     let maintstaticHtml = $("#maint-availab-template").html();
                     let skillStaticHtml = $("#skillsNeeded-row-template").html();
+                    skillStaticHtml = skillStaticHtml.replace(/{Skill}/ig, data.skillStaticHtml);
+                    $("#skillsNeeded-rows").append(skillStaticHtml);
+
+                    document.getElementById("numWeek").innerHTML = data.week;
+                    document.getElementById("activityName").innerHTML = data.id +
+                        " - " + data.site + " - " + data.typology + " - " + data.time;
+
+                    $('#skillsNeeded-rows').children().remove();
 
                     $.each(data, function (index, obj) {
-                        let row = staticHtml;
-                        row = row.replace(/{Skill}/ig, obj.skill);
+                        let row = maintstaticHtml;
+                        row = row.replace(/{MainName}/ig, obj.mainname);
+                        row = row.replace(/{NumSkill}/ig, obj.numskill);
+                        row = row.replace(/{Availab. Mon}/ig, obj.availab8);
+                        row = row.replace(/{Availab. Tue}/ig, obj.availab9);
+                        row = row.replace(/{Availab. Wed}/ig, obj.availab10);
+                        row = row.replace(/{Availab. Thu}/ig, obj.availab11);
+                        row = row.replace(/{Availab. Fri}/ig, obj.availab14);
+                        row = row.replace(/{Availab. Sat}/ig, obj.availab15);
+                        row = row.replace(/{Availab. Sun}/ig, obj.availab16);
+                        $('#maint-availab-rows').append(row);
 
-                        $('#skillsNeeded-rows').append(row);
                     });
 
-                    /* When empty maintainer*/
+                    /* When empty availability*/
                     if (data === null) {
                         alert("There are no maintainers!")
                     }
