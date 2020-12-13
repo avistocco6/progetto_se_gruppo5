@@ -112,6 +112,22 @@ if( !isset($aResult['error']) ) {
                 $aResult['result'] = $maintenance->removeActivity($maid);
             }
             break;
+        case 'removeUser':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            $user = json_decode($_POST['arguments'][0], true);
+
+            if($user == null) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            else{
+                $user_ = User::getInstance();
+                $username = $user['username'];
+
+                $aResult['result'] = $user_->removeUser($username);
+            }
+            break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;
