@@ -347,55 +347,93 @@ function loadPlanned(week) {
         });
     }
 
-function loadDailyAvail() {
-    let id =localStorage.getItem('id');
-    id = '{"id":' + id + "}";
-    jQuery.ajax({
-        type: "POST",
-        url: '../models/loader.php',
-        dataType: 'json',
-        data: {functionname: "loadDailyAvail", arguments: [id]},
+    function loadDailyAvail() {
+        let id = localStorage.getItem('id');
+        id = '{"id":' + id + "}";
+        jQuery.ajax({
+            type: "POST",
+            url: '../models/loader.php',
+            dataType: 'json',
+            data: {functionname: "loadDailyAvail", arguments: [id]},
 
-        success: function (obj, textstatus) {
-            if( !('error' in obj) ) {
-                let data = JSON.parse(obj.result);
-                let workspaceNotes = $("#workspace-row-template").html();
-                let mainAvail = $("maint-availab-template").html;
-                workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
-                $("#workspace-rows").append(workspaceNotes);
+            success: function (obj, textstatus) {
+                if (!('error' in obj)) {
+                    let data = JSON.parse(obj.result);
+                    let workspaceNotes = $("#workspace-row-template").html();
+                    let mainAvail = $("maint-availab-template").html;
+                    workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
+                    $("#workspace-rows").append(workspaceNotes);
 
-                document.getElementById("numWeek").innerHTML = data.week;
-                document.getElementById("dayName").innerHTML = data.day;
-                document.getElementById("activityName").innerHTML  = data.id +
-                    " - " + data.site + " - " + data.typology + " - " + data.time;
+                    document.getElementById("numWeek").innerHTML = data.week;
+                    document.getElementById("dayName").innerHTML = data.day;
+                    document.getElementById("activityName").innerHTML = data.id +
+                        " - " + data.site + " - " + data.typology + " - " + data.time;
 
-                $('#maint-availab-rows').children().remove();
+                    $('#maint-availab-rows').children().remove();
 
-                $.each(data, function (index, obj) {
-                    let row = mainAvail;
-                    row = row.replace(/{MainName}/ig, obj.mainname);
-                    row = row.replace(/{NumSkill}/ig, obj.numskill);
-                    row = row.replace(/{Availab8}/ig, obj.availab8);
-                    row = row.replace(/{Availab9}/ig, obj.availab9);
-                    row = row.replace(/{Availab10}/ig, obj.availab10);
-                    row = row.replace(/{Availab11}/ig, obj.availab11);
-                    row = row.replace(/{Availab14}/ig, obj.availab14);
-                    row = row.replace(/{Availab15}/ig, obj.availab15);
-                    row = row.replace(/{Availab16}/ig, obj.availab16);
-                    $('#maint-availab-rows').append(row);
-                });
+                    $.each(data, function (index, obj) {
+                        let row = mainAvail;
+                        row = row.replace(/{MainName}/ig, obj.mainname);
+                        row = row.replace(/{NumSkill}/ig, obj.numskill);
+                        row = row.replace(/{Availab8}/ig, obj.availab8);
+                        row = row.replace(/{Availab9}/ig, obj.availab9);
+                        row = row.replace(/{Availab10}/ig, obj.availab10);
+                        row = row.replace(/{Availab11}/ig, obj.availab11);
+                        row = row.replace(/{Availab14}/ig, obj.availab14);
+                        row = row.replace(/{Availab15}/ig, obj.availab15);
+                        row = row.replace(/{Availab16}/ig, obj.availab16);
+                        $('#maint-availab-rows').append(row);
+                    });
 
-                /* When empty availability */
-                if (data === null) {
-                    alert("Error with maintainer chosen!")
+                    /* When empty availability */
+                    if (data === null) {
+                        alert("Error with maintainer chosen!")
+                    }
+                } else {
+                    console.log(obj.error);
+                    alert("Impossible to load maintainer's availability");
                 }
             }
-            else {
-                console.log(obj.error);
-                alert("Impossible to load maintainer's availability");
-            }
-        }
         });
+    }
 
-}
+    function loadWeekPercentage() {
+        let week = localStorage.getItem("week");
+        let id = localStorage.getItem("id");
+        let json = '{"week":' + week + ',"id":' + id + "}";
+        console.log(json);
+        jQuery.ajax({
+            type: "POST",
+            url: '../models/loader.php',
+            dataType: 'json',
+            data: {functionname: "loadWeekPercentage", arguments: [json]},
+
+            success: function (obj, textstatus) {
+                if( !('error' in obj) ) {
+                    let skills = JSON.parse(obj.result);
+                    let maintainerInfo = JSON.parse(obj.result);
+                    let skills_template = $("#skillsNeeded-row-template").html();
+                    let maintainerInfo_template = $("#maint-availab-template").html();
+
+                    $.each(skills, function (index, obj) {
+                        let row = skills_template;
+                        row = row.replace(/{Skill}/ig, obj.skill);
+                        $('#skillsNeeded-rows').append(row);
+                    });
+
+                    /* When empty skills */
+                    if (skills === null) {
+                        let row = skills_template;
+                        row = row.replace(/{Skill}/ig, "No specific skill needed");
+                        $('#skillsNeeded-rows').append(row);
+                    }
+                }
+                else {
+                    console.log(obj.error);
+                    alert("Impossible to load maintainer's availability");
+                }
+            }
+        });
+    }
+
 

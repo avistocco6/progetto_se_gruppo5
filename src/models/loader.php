@@ -65,6 +65,20 @@ if( !isset($aResult['error']) ) {
                 $aResult['result'] = $maintenance->loadActivity($id);
             }
             break;
+        case 'loadWeekPercentage':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            else {
+                $item = json_decode($_POST['arguments'][0], true);
+                $user = User::getInstance();
+                $week = $item['week'];
+                $id = $item['id'];
+                $aResult['result'] = $user->loadWeekPercentage($week, $id);
+                break;
+            }
+            break;
+
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;

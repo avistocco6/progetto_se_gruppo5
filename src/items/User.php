@@ -246,7 +246,6 @@ class User {
             return false;
         }
 
-        $mantainers = $connector->query("SELECT username FROM Client WHERE clientrole = 'maintainer'");
         $activity_skills = $connector->query("SELECT skid, skillname 
                                                        FROM SMAssignment JOIN Skill ON skid = idskill
                                                         WHERE maid = " . $activityid);
@@ -264,32 +263,27 @@ class User {
                                                     WHERE dataavail <=" . "'" . $end . "'" . "
                                                     AND dataavail >=" . "'" . $start . "'" . "
                                                     AND clientrole = 'maintainer';"); // PRENDERE I GIORNI DI UN UTENTE ALLA VOLTA
-/*
-        if($daily_avail) {
-            $json_string = "[";
-            while($skills = pg_fetch_row($daily_avail)) {
-                var $skills_got = 0;
-                while ($avail = pg_fetch_row($maintainers_skills)) {
-                    if($avail[0] == $skills[0]) {
-                        $json_string = $json_string . "{\n" .'"username":' . '"' . $daily_avail[0] . '"' . ",\n" . '"name":' .
-                            '"' . $daily_avail[1] . '"' . ",\n" . '"password":' . '"' . $daily_avail[2] . '"' .",\n" . '"email":' . '"' .
-                            $daily_avail[3] . '"' . ",\n" . '"role":' . '"' . $daily_avail[4] . '"' ."\n}" . ",\n";
-                    }
-                    else {
-                        $json_string = $json_string . "{\n" .'"username":' . '"' . $daily_avail[0] . '"' . ",\n" .
-                            '"week" : [0, 0, 0, 0, 0, 0, 0]' ."\n}" . ",\n";
-                    }
-                }
-                $json_string = $json_string . "{\n" .'"username":' . '"' . $daily_avail[0] . '"' . ",\n" . '"name":' .
-                    '"' . $daily_avail[1] . '"' . ",\n" . '"password":' . '"' . $daily_avail[2] . '"' .",\n" . '"email":' . '"' .
-                    $daily_avail[3] . '"' . ",\n" . '"role":' . '"' . $daily_avail[4] . '"' ."\n}" . ",\n";
+
+        if($activity_skills) {
+            $skill_num = pg_affected_rows($activity_skills);
+            $skills_json = "[";
+            while($row = pg_fetch_row($activity_skills)) {
+                $skills_json = $skills_json . "{\n" .'"skill":' . '"' . $row[1] . '"'."\n}" . ",\n";
             }
-            if(strlen($json_string) > 1) {
-                $json_string = substr($json_string, 0, strlen($json_string) - 2);
-                $json_string = $json_string . "]";
-            } else $json_string = null;
+            if(strlen($skills_json) > 1) {
+                $skills_json = substr($skills_json, 0, strlen($skills_json) - 2);
+                $skills_json = $skills_json . "]";
+            } else $skills_json = null;
         }
-*/
+        else{
+            $skill_num = 0;
+            $skills_json = null;
+        }
+
+        if($daily_avail and $maintainers_skills) {
+
+        }
+        return $skills_json;
     }
 
     private function getStartEndDate($week, $year) {
