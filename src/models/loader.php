@@ -74,7 +74,7 @@ if( !isset($aResult['error']) ) {
                 $user = User::getInstance();
                 $week = $item['week'];
                 $id = $item['id'];
-                $aResult['result'] = $user->loadWeekPercentage($week, $id);
+                $aResult['result'] = json_encode($user->loadWeekPercentage($week, $id));
                 break;
             }
             break;

@@ -280,10 +280,30 @@ class User {
             $skills_json = null;
         }
 
+        $mant_json = null;
+        /*
         if($daily_avail and $maintainers_skills) {
-
+            while($avail_row = pg_fetch_row($daily_avail)) {
+                $skill_acquired = '0/0';
+                while($skills_row = pg_fetch_row($maintainers_skills)) {
+                    if($skills_row[0] == $avail_row[0]) {
+                        $skill_acquired = $skills_row[1] + '/' + $skill_num;
+                        break;
+                    }
+                }
+                $mant_json = "[";
+                $mant_json = $mant_json . "{\n" .'"username":' . '"' . $avail_row[0] . '"' .
+                                            ',"skills_acquired":' . '"' . $skill_acquired . '"' . "\n}" . ",\n";
+                if(strlen($mant_json) > 1) {
+                    $mant_json = substr($mant_json, 0, strlen($skills_json) - 2);
+                    $mant_json = $mant_json . "]";
+                } else $mant_json = null;
+            }
         }
-        return $skills_json;
+*/
+        $ret['skills'] = $skills_json;
+        $ret['maintainers'] = $mant_json;
+        return $ret;
     }
 
     private function getStartEndDate($week, $year) {
