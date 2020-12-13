@@ -29,28 +29,30 @@ class MaterialTest extends TestCase {
     function testGetMaterials() {
         $material = Material::getInstance();
         $json_string = $material->getMaterials();
-        echo $json_string;
         $expected = file_get_contents("test_files\materials.json");
         $this->assertEquals($expected, $json_string);
         
     }
 
     function testUpdateMaterial() {
+        $material = Material::getInstance();
+        $material->save("testM");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT matname FROM Material where mid = 2");
+        $res = $connector->query("SELECT mid FROM Material
+                                    WHERE matname = 'testM'");
 
-        $row = pg_fetch_row($res);
-        $oldName = $row[0];
+        $n = pg_fetch_row($res)[0];
 
-        $material = Material::getInstance();
-        $ret = $material->updateMaterial(2, $oldName);
+        $ret = $material->updateMaterial($n, "testNM");
         $this->assertEquals($ret, true);
 
-        $ret = $material->updateMaterial(2, "testUpdate");
+        $ret = $material->updateMaterial($n, "testUpdate");
         $this->assertEquals($ret, true);
 
+        $material->removeMaterial($n);
         $ret = $material->updateMaterial(-3, "testUpdate");
         $this->assertEquals($ret, false);
 
@@ -60,30 +62,27 @@ class MaterialTest extends TestCase {
         $ret = $material->updateMaterial(2, "");
         $this->assertEquals($ret, false);
 
-        pg_close($conn);
-
     }
 
 
     function testRemoveMaterial() {
+        $material = Material::getInstance();
+        $material->save("testM");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT matname FROM Material where mid = 1");
+        $res = $connector->query("SELECT mid FROM Material
+                                    WHERE matname = 'testM'");
 
-        $row = pg_fetch_row($res);
-        $oldName = $row[0];
+        $n = pg_fetch_row($res)[0];
 
-        $material = Material::getInstance();
-        $ret = $material->removeMaterial(1);
+        $ret = $material->removeMaterial($n);
         $this->assertEquals($ret, true);
 
         $ret = $material->removeMaterial(-5);
         $this->assertEquals($ret, false);
 
-        $material->save($oldName);
-
-        pg_close($conn);
     }
 
 }

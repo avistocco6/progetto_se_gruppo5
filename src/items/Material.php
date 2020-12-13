@@ -34,11 +34,26 @@ class Material {
             return false;
         }
 
+        if(!$this->checkMaterial($name, $connector))
+            return false;
+
         $res = $this->dbInsert($connector, $name, $activity);
 
         pg_close($conn);
 
         return $res;
+    }
+
+    private function checkMaterial($name, $connector) {
+        if($name == "")
+            return false;
+        $res = $connector->query("SELECT * FROM Material WHERE matname = "
+            . "'" . $name . "'");
+
+        if(pg_num_rows($res) > 0)
+            return false;
+
+        return true;
     }
 
     private function dbInsert($conn, $name, $activity) {
@@ -105,6 +120,11 @@ class Material {
             return false;
         }
 
+        if(!$this->checkMaterial($name, $connector))
+            return false;
+        if($id < 1)
+            return false;
+
         $res = $connector->query("UPDATE Material SET matname =" .
                         "'" . $name . "' WHERE mid = " . $id);
 
@@ -130,6 +150,9 @@ class Material {
             return false;
         }
 
+        if($id < 1)
+            return false;
+
         $res = $connector->query("DELETE FROM Material WHERE mid =" . $id);
 
         if(pg_affected_rows($res) > 0)
@@ -140,4 +163,5 @@ class Material {
         pg_close($conn);
         return $res;
     }
+
 }
