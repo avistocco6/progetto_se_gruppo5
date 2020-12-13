@@ -10,9 +10,8 @@
     }
   ],
   "require": {
-    "phpunit/dbunit": "3.*",
+    "phpunit/phpunit": "9.4.4",
     "ext-json": "*",
-    "ext-pgsql": "*",
-    "phpmetrics/phpmetrics": "v1.10.0"
+    "ext-pgsql": "*"
   }
 }

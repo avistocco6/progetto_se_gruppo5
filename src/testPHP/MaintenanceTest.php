@@ -48,12 +48,8 @@ class MaintenanceTest extends TestCase
 
         $res = pg_query("DELETE FROM MainActivity where description = 'testDesc'");
 
-        $ret = $man->save(2, "replacement of robot 23 welding cables", "1:00:00",
-            12, true, 2, 'planned activity');
-        $this->assertEquals($ret, false);
-
-        $ret = $man->save(2, "testDesc", "1:00:00",
-            12,2, 'planned activity');
+        $ret = $man->save(2, "replacement of robot 23 welding cables", "00:30:00",
+            23, true, 2, 'planned activity');
         $this->assertEquals($ret, false);
 
         $ret = $man->save(-3, "testDesc", "1:00:00",
@@ -78,44 +74,33 @@ class MaintenanceTest extends TestCase
 
         $ret = $man->save(2, "testDesc", "1:00:00",
             12,true, -3, "");
-        $this->assertEquals($ret, false);                                           
-        pg_close($conn);
+        $this->assertEquals($ret, false);
+
     }
     function testUpdate() {
-        $connector = new PgConnection();
-        $conn = $connector->connect();
 
-        $res = pg_query("SELECT description, idsite, idtypology,
-                    estimatedtime, week, interruptible, mtype FROM MainActivity where maid = 1");
-
-        $row = pg_fetch_row($res);
-        $oldDesc = $row[0];
-        $idSite = $row[1];
-        $idTyp = $row[2];
-        $estTime = $row[3];
-        $week = $row[4];
-        $interruptible = $row[5];
-        $mtype = $row[6];
 
         $man = Maintenance::getInstance();
-        $ret = $man->updateActivity(1, "test", 1, 1,
+
+        $ret = $man->save(2, "testDesc", "1:00:00",
+            12, true, 2, 'planned activity');
+
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+        $res = $connector->query("SELECT maid FROM MainActivity
+                                    WHERE description = 'testDesc'");
+
+        $n = pg_fetch_row($res)[0];
+
+        $ret = $man->updateActivity($n, "test", 1, 1,
             "11:11:11", 1, false, 'planned activity');
         $this->assertEquals($ret, true);
 
-        $man = Maintenance::getInstance();
-        $ret = $man->updateActivity(1, $oldDesc, $idSite, $idTyp,
-            $estTime, $week, $interruptible, $mtype);
-        $this->assertEquals($ret, true);
-
-
+        $man->removeActivity($n);
 
         $ret = $man->updateActivity(2, "replacement of robot 23 welding cables", 2, 2,
-            "1:00:00", 12, true, 'planned activity');
-        $this->assertEquals($ret, false);  
-
-        $ret = $man->updateActivity(2, "testDesc", 2, 2,
-            "1:00:00", 12,'planned activity');
-        $this->assertEquals($ret, false);   
+            "00:30:00", 23, true, 'planned activity');
+        $this->assertEquals($ret, false);
 
         $ret = $man->updateActivity(2, "testDesc", 2, 2,
             "1:00:00", 12, true, "");
@@ -145,36 +130,29 @@ class MaintenanceTest extends TestCase
             "1:00:00", 12, true, 'planned activity');
         $this->assertEquals($ret, false);
 
-        pg_close($conn);                                                 
     }
 
 
     function testRemove(){
 
+        $man = Maintenance::getInstance();
+        $ret = $man->save(2, "testDesc", "1:00:00",
+            12, true, 2, 'planned activity');
+
         $connector = new PgConnection();
         $conn = $connector->connect();
+        $res = $connector->query("SELECT maid FROM MainActivity
+                                    WHERE description = 'testDesc'");
 
-        $res = pg_query("SELECT description, idsite, idtypology,
-                    estimatedtime, week, interruptible, mtype FROM MainActivity where maid = 2");
-
-        $row = pg_fetch_row($res);
-        $oldDesc = $row[0];
-        $idSite = $row[1];
-        $idTyp = $row[2];
-        $estTime = $row[3];
-        $week = $row[4];
-        $interruptible = $row[5];
-        $mtype = $row[6];
+        $n = pg_fetch_row($res)[0];
 
 
-        $man = Maintenance::getInstance();
-        $ret = $man->removeActivity(2);
+        $ret = $man->removeActivity($n);
         $this->assertEquals($ret, true);        
 
         $ret = $man->removeActivity(-3);
         $this->assertEquals($ret, false); 
 
-        $res = $man ->save($idSite,$oldDesc,$estTime,$week,$interruptible,$idTyp,$mtype);
     }
 }
 

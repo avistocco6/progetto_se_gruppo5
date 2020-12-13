@@ -39,12 +39,35 @@ class Maintenance {
             $idtypology <= 0 || $mtype == "")
             return false;
 
+        if($estimatedtime[0] == '-')
+            return false;
+
+        if($week > 53)
+            return false;
+
+        $interruptible = $interruptible ? 'true' : 'false';
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
         if($conn == null) {
             return false;
         }
+
+        $res = $connector->query("SELECT * FROM MainActivity
+                                    WHERE idsite = ".$idsite." AND
+                                    idtypology = ".$idtypology." AND
+                                    description = '".$description."' AND
+                                    estimatedtime = '".$estimatedtime."' AND
+                                    interruptible = ".$interruptible." AND
+                                    week = ".$week." AND
+                                    mtype ='".$mtype."'");
+
+        if(pg_num_rows($res) >0){
+            pg_close($conn);
+            return false;
+        }
+
 
         $res = $this->db_insert($connector, $idsite, $description, $estimatedtime, $week, $interruptible, $idtypology, $mtype);
 
@@ -76,29 +99,35 @@ class Maintenance {
      * @return string|null
      */
     public function getByWeek($week, $type) {
-      $connector = new PgConnection();
-      $conn = $connector->connect();
+        if($week <= 0 or
+           $week > 53 or
+           $type = "") {
+            return null;
+        }
 
-      $res = pg_query("SELECT maid, branch, department, Typology.description, estimatedtime
-                      FROM MainActivity, Site, Typology
-                      WHERE idtypology = tid AND idsite = sid AND mtype = '" . $type .
-                      "' AND week = " . $week . "ORDER BY maid;");
+        $connector = new PgConnection();
+        $conn = $connector->connect();
 
-      if(!$res) return null;
+        $res = pg_query("SELECT maid, branch, department, Typology.description, estimatedtime
+                          FROM MainActivity, Site, Typology
+                          WHERE idtypology = tid AND idsite = sid AND mtype = '" . $type .
+                          "' AND week = " . $week . "ORDER BY maid;");
 
-      $json_string = "[";
-      while($row = pg_fetch_row($res)) {
-          $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"area":' .
-              '"' . $row[1] . " - " . $row[2] . '"' . ",\n" . '"type":' . '"' . $row[3] . '"' .
-              ",\n" . '"estimated_time":' . '"' . $row[4] . '"' . "\n}" . ",\n";
-      }
-      if(strlen($json_string) > 1) {
-          $json_string = substr($json_string, 0, strlen($json_string) - 2);
-          $json_string = $json_string . "]";
-      } else $json_string = null;
-      pg_close($conn);
+        if(!$res) return null;
 
-      return $json_string;
+        $json_string = "[";
+        while($row = pg_fetch_row($res)) {
+            $json_string = $json_string . "{\n" .'"id":' . $row[0] . ",\n" . '"area":' .
+                '"' . $row[1] . " - " . $row[2] . '"' . ",\n" . '"type":' . '"' . $row[3] . '"' .
+                ",\n" . '"estimated_time":' . '"' . $row[4] . '"' . "\n}" . ",\n";
+        }
+        if(strlen($json_string) > 1) {
+            $json_string = substr($json_string, 0, strlen($json_string) - 2);
+            $json_string = $json_string . "]";
+        } else $json_string = null;
+        pg_close($conn);
+
+        return $json_string;
   }
 
     /**
@@ -107,6 +136,9 @@ class Maintenance {
      * @return string|null
      */
   public function loadActivity($id) {
+      if($id < 1)
+          return null;
+
       $connector = new PgConnection();
       $conn = $connector->connect();
 
@@ -191,9 +223,37 @@ class Maintenance {
      * @return bool
      */
     public function updateActivity($maid, $description, $idsite, $idtypology, $estimatedtime, $week, $interruptible, $mtype) {
+        if($idsite <= 0 || $week <= 0 ||
+            $description == "" || $estimatedtime == "" ||
+            $idtypology <= 0 || $mtype == "")
+            return false;
+
+        if($estimatedtime[0] == '-')
+            return false;
+
+        if($week > 53)
+            return false;
+
         $connector = new PgConnection();
         $conn = $connector->connect();
+
+        if($conn == null) {
+            return false;
+        }
         $interruptible = $interruptible ? 'true' : 'false';
+        $res = $connector->query("SELECT * FROM MainActivity
+                                    WHERE idsite = ".$idsite." AND
+                                    idtypology = ".$idtypology." AND
+                                    description = '".$description."' AND
+                                    estimatedtime = '".$estimatedtime."' AND
+                                    interruptible = ".$interruptible." AND
+                                    week = ".$week." AND
+                                    mtype ='".$mtype."'");
+        if(pg_num_rows($res) >0){
+            pg_close($conn);
+            return false;
+        }
+
         $res = $connector->query("UPDATE MainActivity SET description = " .
             "'" . $description . "', idsite = " . "'" . $idsite . "', idtypology = " . "'" . $idtypology ."', estimatedtime = '"
             . $estimatedtime . "', week = " . "'" . $week . "', interruptible = " . "'" . $interruptible ."',"
