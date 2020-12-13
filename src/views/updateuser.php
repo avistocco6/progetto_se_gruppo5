@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    	<title> User Management </title>
+        <!-- A System Administrator must be able to  modify system users,
+         assign them username, password, and a specific role. The role can be:
+        - Planner (maintenance manager)
+        - Maintainer
+        -->
+    	<meta charset="utf-8"/>
+    	<meta name="author" content="Team 5"/>
+    	<meta name="description" content="Web application for maintenance activies."/>
+    	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    	<link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+    	<style type="text/css">
+	    	a{
+	    		text-decoration: none;
+	    		color: black;
+  			}
+  			a:visited{
+  				color: black;
+  			}
+    	</style>
+    </head>
+    <body>
+    	<div class="row">
+            <div class="header" >
+                <p>
+                  <a href="usermanagement.php"><img border="0" src="return.png" width="70" height="70"> </a>
+                </p>
+            </div>
+            <div class="header" >
+                <h1> User Management </h1>
+            </div> 
+            <div class="header">
+              <p>
+                <a href="index.php"><img border="0" src="exit.png" width="70" height="70"> </a>
+              </p>  
+            </div> 
+      </div>   
+    	<div class="column" style="text-align: center;">
+    		<form class="modal-content" >
+          <h1>Update user</h1>
+          <fieldset>
+            <div class="container">
+              <p>
+                <label for="email"><b>Change Email: </b></label>
+                <input id="email" type="text" placeholder="Enter Email" name="email" required>
+              </p>
+              <p>
+                <label for="psw"> <b>Change Password: </b> </label>
+                <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
+              </p>
+                <button onclick="updateUser()">Save</button>
+            </div>
+          </fieldset>
+        </form>
+    	</div>	
+    	<div class="footer" style="position: absolute;">
+        <h2>Team 5</h2>
+      </div>
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <!-- Custom JS -->
+        <script type="text/javascript" src="../controllers/updater.js"></script>
+
+
+    <script type="text/javascript">
+        function reload(){
+            window.location.replace('usermanagement.html');
+        }    
+    </script>
+    </body>
+</html>    

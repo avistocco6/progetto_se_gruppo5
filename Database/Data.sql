@@ -99,6 +99,73 @@ insert into DailyAvailability(dataavail,username,percentavailab)
 values ('24-11-2020','Topolino3','100%');
 
 
+insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,avail11_12,avail14_15,avail15_16,avail16_17,percentavailab)
+values('01-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
+insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,avail11_12,avail14_15,avail15_16,avail16_17,percentavailab)
+values ('01-06-2020','Paperino2','00:00:00','00:00:00','00:10:00','1:00:00','00:00:00','00:00:00','00:25:00','20%');
+insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,avail11_12,avail14_15,avail15_16,avail16_17,percentavailab)
+values ('01-06-2020','Topolino3','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','0%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('02-06-2020','Pippo1','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('02-06-2020','Paperino2','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('02-06-2020','Topolino3','20%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('03-06-2020','Pippo1','20%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('03-06-2020','Paperino2','80%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('03-06-2020','Topolino3','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('04-06-2020','Pippo1','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('04-06-2020','Paperino2','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('04-06-2020','Topolino3','20%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('05-06-2020','Pippo1','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('05-06-2020','Paperino2','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('05-06-2020','Topolino3','80%');
+
+
+
+insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,avail11_12,avail14_15,avail15_16,avail16_17,percentavailab)
+values('30-12-2019','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
+insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,avail11_12,avail14_15,avail15_16,avail16_17,percentavailab)
+values ('30-12-2019','Paperino2','00:00:00','00:00:00','00:10:00','1:00:00','00:00:00','00:00:00','00:25:00','20%');
+insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,avail11_12,avail14_15,avail15_16,avail16_17,percentavailab)
+values ('30-12-2019','Topolino3','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','0%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('31-12-2019','Pippo1','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('31-12-2019','Paperino2','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('31-12-2019','Topolino3','20%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('01-01-2020','Pippo1','20%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('01-01-2020','Paperino2','80%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('01-01-2020','Topolino3','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('02-01-2020','Pippo1','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('02-01-2020','Paperino2','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('02-01-2020','Topolino3','20%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('03-01-2020','Pippo1','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('03-01-2020','Paperino2','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('03-01-2020','Topolino3','80%');
+
+
+
+
 --------------------------------------INSERT INTO MAINACTIVITY
 insert into MainActivity(description,estimatedtime,interruptible,mtype,week,workspacenotes,idtypology,idsite)
 values ('replacement of robot 23 welding cables','00:30:00',true,'planned activity',23,

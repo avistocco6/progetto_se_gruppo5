@@ -280,29 +280,36 @@ class User {
             $skills_json = null;
         }
 
-        $mant_json = null;
-        /*
-        if($daily_avail and $maintainers_skills) {
-            while($avail_row = pg_fetch_row($daily_avail)) {
-                $skill_acquired = '0/0';
-                while($skills_row = pg_fetch_row($maintainers_skills)) {
-                    if($skills_row[0] == $avail_row[0]) {
-                        $skill_acquired = $skills_row[1] + '/' + $skill_num;
-                        break;
-                    }
-                }
-                $mant_json = "[";
-                $mant_json = $mant_json . "{\n" .'"username":' . '"' . $avail_row[0] . '"' .
-                                            ',"skills_acquired":' . '"' . $skill_acquired . '"' . "\n}" . ",\n";
-                if(strlen($mant_json) > 1) {
-                    $mant_json = substr($mant_json, 0, strlen($skills_json) - 2);
-                    $mant_json = $mant_json . "]";
-                } else $mant_json = null;
+        if($maintainers_skills) {
+            while($skills_row = pg_fetch_row($maintainers_skills)) {
+                $maintainers[$skills_row[0]] = $skills_row[1];
             }
         }
-*/
+
+        if($daily_avail) {
+            $mant_json = "[";
+            while($avail_row = pg_fetch_row($daily_avail)) {
+                $skill_acquired = '0/0';
+                if($maintainers_skills)
+                    foreach ($maintainers as $main => $skills) {
+                        if($main == $avail_row[0]) {
+                            $skill_acquired = $skills . '/' . $skill_num;
+                            break;
+                        }
+                    }
+                $mant_json = $mant_json . "{\n" .'"username":' . '"' . $avail_row[0] . '"' .
+                                            ',"skillsAcquired":' . '"' . $skill_acquired . '"' . "\n}" . ",\n";
+            }
+            if(strlen($mant_json) > 1) {
+                $mant_json = substr($mant_json, 0, strlen($mant_json) - 2);
+                $mant_json = $mant_json . "]";
+            } else $mant_json = null;
+
+        }
+
         $ret['skills'] = $skills_json;
         $ret['maintainers'] = $mant_json;
+
         return $ret;
     }
 

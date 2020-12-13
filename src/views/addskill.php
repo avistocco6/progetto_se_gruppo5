@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    	<title> Add Skill </title>
+        <!-- The system must allow a System Administrator to create
+        a list of competences related to a specific task.  -->
+    	<meta charset="utf-8"/>
+    	<meta name="author" content="Team 5"/>
+    	<meta name="description" content="Web application for maintenance activies."/>
+    	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+        <style>
+            a{
+              text-decoration: none;
+              color: black;
+            }
+            a:visited{
+              color: black;
+            }
+            textarea {
+              width: 100%;
+              height: 150px;
+              padding: 12px 20px;
+              box-sizing: border-box;
+              border: 2px solid #ccc;
+              border-radius: 4px;
+              background-color: #f8f8f8;
+              font-size: 16px;
+              resize: none;
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="row">
+            <div class="header" >
+                <p>
+                  <a href="managedb.php"><img border="0" src="return.png" width="70" height="70"> </a>
+                </p>
+            </div>
+            <div class="header" >
+                <h1> Skills Management </h1>
+            </div> 
+            <div class="header">
+              <p>
+                <a href="index.php"><img border="0" src="exit.png" width="70" height="70"> </a>
+              </p>  
+            </div> 
+        </div>  
+        <div class="column" style="text-align: center;">
+                <fieldset>
+                    <legend><h2>Add skill</h2></legend>
+                    <p>
+                        <label for="new-skill">
+                            New Skill: <input id = "new-skill" type="text" name="skill" required/>
+                        </label>
+                    </p>
+                    <p>
+                        <button onclick="addSkill()">Save</button>
+                    </p>
+                </fieldset>
+        </div>
+        <div class="footer">
+          <h2>Team 5</h2>
+        </div>  
+    </body>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../controllers/saver.js"></script>
+
+</html>

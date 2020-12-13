@@ -428,9 +428,11 @@ function loadPlanned(week) {
 
             success: function (obj, textstatus) {
                 if( !('error' in obj) ) {
+                    console.log(obj);
                     let data = JSON.parse(obj.result);
                     console.log(data);
                     let skills = JSON.parse(data.skills);
+                    console.log(skills);
                     let maintainerInfo = JSON.parse(data.maintainers);
                     let skills_template = $("#skillsNeeded-row-template").html();
                     let maintainerInfo_template = $("#maint-availab-template").html();
@@ -440,13 +442,24 @@ function loadPlanned(week) {
                         row = row.replace(/{Skill}/ig, obj.skill);
                         $('#skillsNeeded-rows').append(row);
                     });
-
                     /* When empty skills */
                     if (skills === null) {
                         let row = skills_template;
                         row = row.replace(/{Skill}/ig, "No specific skill needed");
                         $('#skillsNeeded-rows').append(row);
                     }
+
+                    $.each(maintainerInfo, function (index, obj) {
+                        let row = maintainerInfo_template;
+                        row = row.replace(/{Username}/ig, maintainerInfo.username);
+                        row = row.replace(/{NumSkill}/ig, maintainerInfo.skills_acquired);
+                        $('#maint-availab-rows').append(row);
+                    });
+                    /* When empty skills */
+                    if (skills === null) {
+                        alert("No maintainer avaible on this week!");
+                    }
+
                 }
                 else {
                     console.log(obj.error);

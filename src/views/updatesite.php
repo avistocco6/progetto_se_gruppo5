@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    	<title> Update Site </title>
+        <!--The system must allow to modify sites, which are composed of factory site (branch offices)
+        and area (or department) inside the factory.  -->
+    	<meta charset="utf-8"/>
+    	<meta name="author" content="Team 5"/>
+    	<meta name="description" content="Web application for maintenance activies."/>
+    	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+        <style>
+            a{
+              text-decoration: none;
+              color: black;
+            }
+            a:visited{
+              color: black;
+            }
+            input{
+              width: 200px;
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="row">
+            <div class="header" >
+                <p>
+                  <a href="managedb.php"><img border="0" src="return.png" width="70" height="70"> </a>
+                </p>
+            </div>
+            <div class="header" >
+                <h1> Sites Management </h1>
+            </div> 
+            <div class="header">
+              <p>
+                <a href="index.php"><img border="0" src="exit.png" width="70" height="70"> </a>
+              </p>  
+            </div> 
+        </div> 
+        <div class="column" style="text-align: center;">
+            <fieldset>
+                <legend><h2>Update site</h2></legend>
+                <p>
+                    <label for="factory">
+                        Factory: <input id = factory type="text" name="factory" required/>
+                    </label>
+                </p>
+                <p>
+                    <label for="area">
+                        Area: <input id="area" type="text" name="area" required/>
+                    </label>
+                </p>
+                <p>
+                    <button onclick="updateSite()">Update</button>
+                </p>
+            </fieldset>
+
+        </div>
+        <div class="footer">
+          <h2>Team 5</h2>
+        </div>  
+    </body>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../controllers/updater.js"></script>
+
+</html>
