@@ -138,9 +138,9 @@ function removeTypology() {
 
 }
 function removeActivity() {
-    let id =localStorage.getItem('id');
-    console.log(id);
+    var id =localStorage.getItem('id');
     id = '{"id": ' + id + '}';
+    console.log(id);
     jQuery.ajax({
         type: "POST",
         url: '../models/remover.php',
@@ -166,8 +166,8 @@ function removeActivity() {
 }
 function removeUser() {
     let username =localStorage.getItem('username');
-    console.log(user);
-    user = '{"username": ' + username + '}';
+    console.log(username);
+    user = '{"username": ' + '"' + username + '"}';
     jQuery.ajax({
         type: "POST",
         url: '../models/remover.php',

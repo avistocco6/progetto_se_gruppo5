@@ -120,7 +120,7 @@ class User {
             return false;
         }
 
-        $res = $connector->query("DELETE FROM Client WHERE username =" . $username);
+        $res = $connector->query("DELETE FROM Client WHERE username =" . "'" . $username . "'");
 
         if(pg_affected_rows($res) > 0)
             $res = true;

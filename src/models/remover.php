@@ -107,7 +107,7 @@ if( !isset($aResult['error']) ) {
             }
             else{
                 $maintenance = Maintenance::getInstance();
-                $maid = $activity['maid'];
+                $maid = $activity['id'];
 
                 $aResult['result'] = $maintenance->removeActivity($maid);
             }
