@@ -151,7 +151,7 @@ class Procedure {
             return false;
         }
 
-        $res = $connector->query("DELETE FROM Procedure WHERE pid =" . $id);
+        $res = $connector->query("DELETE FROM MainProcedure WHERE mpid =" . $id);
 
         if(pg_affected_rows($res) > 0)
             $res = true;
