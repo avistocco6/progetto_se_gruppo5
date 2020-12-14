@@ -186,6 +186,8 @@ function loadSelected() {
                 document.getElementById("numWeek").innerHTML = data.week;
                 document.getElementById("activityName").innerHTML  = data.id +
                     " - " + data.site + " - " + data.typology + " - " + data.time;
+                localStorage.setItem('name', data.id +
+                    " - " + data.site + " - " + data.typology + " - " + data.time);
                 $("#workspace-rows").append(workspaceNotes);
                 $("#intervDescription-rows").append(desc);
 
@@ -427,7 +429,6 @@ function loadPlanned(week) {
 
             success: function (obj, textstatus) {
                 let data = JSON.parse(obj);
-                console.log(data);
                 if(data['error'] == 0) {
                     let skills = data['skills'];
                     let maintainerInfo = data['maintainers'];
@@ -446,12 +447,47 @@ function loadPlanned(week) {
                         $('#skillsNeeded-rows').append(row);
                     }
 
+                    var currUser = "";
+                    var rows = [];
                     $.each(maintainerInfo, function (index, obj) {
                         let row = maintainerInfo_template;
-                        row = row.replace(/{MainName}/ig, obj.username);
-                        row = row.replace(/{NumSkill}/ig, obj.skillsAcquired);
-                        $('#maint-availab-rows').append(row);
+
+                        if (currUser != obj.username) {
+                            $('#maint-availab-rows').append(rows[currUser]);
+                            rows[obj.username] = row;
+                            currUser = obj.username;
+                            rows[currUser] = rows[currUser].replace(/{MainName}/ig, currUser);
+                            rows[currUser] = rows[currUser].replace(/{NumSkill}/ig, obj.skillsAcquired);
+                        }
+
+
+                        var d = new Date(obj.day);
+                        var day = d.getDay();
+                        switch (day) {
+                            case 1:
+                                rows[currUser] = rows[currUser].replace(/{Mon}/ig, obj.availab);
+                                break;
+                            case 2:
+                                rows[currUser] = rows[currUser].replace(/{Tue}/ig, obj.availab);
+                                break;
+                            case 3:
+                                rows[currUser] = rows[currUser].replace(/{Wed}/ig, obj.availab);
+                                break;
+                            case 4:
+                                rows[currUser] = rows[currUser].replace(/{Thu}/ig, obj.availab);
+                                break;
+                            case 5:
+                                rows[currUser] = rows[currUser].replace(/{Fri}/ig, obj.availab);
+                                break;
+                            case 6:
+                                rows[currUser] = rows[currUser].replace(/{Sat}/ig, obj.availab);
+                                break;
+                            case 0:
+                                rows[currUser] = rows[currUser].replace(/{Sun}/ig, obj.availab);
+                                break;
+                        }
                     });
+                    $('#maint-availab-rows').append(rows[currUser]);
                     /* When empty skills */
                     if (maintainerInfo-length == 0) {
                         alert("No maintainer avaible on this week!");

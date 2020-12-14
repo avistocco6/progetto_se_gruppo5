@@ -129,6 +129,18 @@ insert into DailyAvailability(dataavail,username,percentavailab)
 values ('05-06-2020','Paperino2','100%');
 insert into DailyAvailability(dataavail,username,percentavailab)
 values ('05-06-2020','Topolino3','80%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('06-06-2020','Pippo1','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('06-06-2020','Paperino2','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('06-06-2020','Topolino3','20%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('07-06-2020','Pippo1','50%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('07-06-2020','Paperino2','100%');
+insert into DailyAvailability(dataavail,username,percentavailab)
+values ('07-06-2020','Topolino3','80%');
 
 
 

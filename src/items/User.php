@@ -322,7 +322,7 @@ class User {
         if($daily_avail) {
             $mant_json = '[';
             while($avail_row = pg_fetch_row($daily_avail)) {
-                $skill_acquired = '0/0';
+                $skill_acquired = '0/'.$skill_num;
                 if($maintainers_skills)
                     foreach ($maintainers as $main => $skills) {
                         if($main == $avail_row[0]) {
@@ -330,8 +330,10 @@ class User {
                             break;
                         }
                     }
+                $days = [];
                 $mant_json = $mant_json . "{\n" .'"username":' . '"' . $avail_row[0] . '",'."\n"
-                    .'"skillsAcquired":'.'"'.$skill_acquired.'"'."\n}" . ",\n";
+                    .'"skillsAcquired":'.'"'.$skill_acquired.'"'.",\n".'"day":"'.$avail_row[1].'",'
+                    ."\n".'"availab":"'.$avail_row[2].'"'."\n}" . ",\n";
             }
             if(strlen($mant_json) > 1) {
                 $mant_json = substr($mant_json, 0, strlen($mant_json) - 2);

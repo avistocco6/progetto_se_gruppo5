@@ -94,58 +94,31 @@
         <th>Availab. Sat</th>
         <th>Availab. Sun</th>
       </tr>
-      <tr>
-        <td>{MainName}</td>
-        <td>{NumSkill}</td>
-        <td>
-          <button type="button" onclick="passId(1)">{Availab. Mon}</button>
-        </td>
-        <td>
-          <button type="button" onclick="passId(2)">{Availab. Tue}</button>
-        </td>
-        <td>
-          <button type="button" onclick="passId(3)">{Availab. Wed}</button>
-        </td>
-        <td>
-          <button type="button" onclick="passId(4)">{Availab. Thu}</button>
-        </td>
-        <td>
-          <button type="button" onclick="passId(5)">{Availab. Fri}</button>
-        </td>
-        <td>
-          <button type="button" onclick="passId(6)">{Availab. Sat}</button>
-        </td>
-        <td>
-          <button type="button" onclick="passId(7)">{Availab. Sun}</button>
-        </td>
-        <td style="text-align:center;">
-
-        </tr>
 
         <template id="maint-availab-template">
           <tr>
             <td>{MainName}</td>
             <td>{NumSkill}</td>
             <td>
-              <button type="button" onclick="passId('Mon')">{Availab. Mon}</button>
+              <button type="button" onclick="passId('Mon')">{Mon}</button>
             </td>
             <td>
-              <button type="button" onclick="passId('Tue')">{Availab. Tue}</button>
+              <button type="button" onclick="passId('Tue')">{Tue}</button>
             </td>
             <td>
-              <button type="button" onclick="passId('Wed')">{Availab. Wed}</button>
+              <button type="button" onclick="passId('Wed')">{Wed}</button>
             </td>
             <td>
-              <button type="button" onclick="passId('Thu')">{Availab. Thu}</button>
+              <button type="button" onclick="passId('Thu')">{Thu}</button>
             </td>
             <td>
-              <button type="button" onclick="passId('Fri')">{Availab. Fri}</button>
+              <button type="button" onclick="passId('Fri')">{Fri}</button>
             </td>
             <td>
-              <button type="button" onclick="passId('Sat')">{Availab. Sat}</button>
+              <button type="button" onclick="passId('Sat')">{Sat}</button>
             </td>
             <td>
-              <button type="button" onclick="passId('Sun')">{Availab. Sun}</button>
+              <button type="button" onclick="passId('Sun')">{Sun}</button>
             </td>
             <td style="text-align:center;">
 
@@ -169,8 +142,12 @@
       <!-- Custom JS -->
       <script type="text/javascript" src="../controllers/loader.js"></script>
       <script>
+       $(document).ready(function () {
+           loadWeekPercentage();
+           document.getElementById("numWeek").innerHTML = localStorage.getItem("week");
+           document.getElementById("activityName").innerHTML = localStorage.getItem("name");
+       })
 
-       $(document).ready(loadWeekPercentage());
        <!-- Function to get Maintainers' Username -->
        function passId(day) {
          $('#maint-availab').find('tr').click( function(){
