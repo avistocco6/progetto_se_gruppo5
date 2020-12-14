@@ -32,10 +32,8 @@ class Site {
         if($conn == null) {
             return false;
         }
-
-        if($conn == null) {
+        if(!$this->checkSite($branch, $department, $connector))
             return false;
-        }
 
         $res = $this->dbInsert($connector, $branch, $department);
 
@@ -44,6 +42,17 @@ class Site {
         return $res;
     }
 
+    private function checkSite($branch, $department, $connector) {
+        if($branch == "" or $department == "")
+            return false;
+        $res = $connector->query("SELECT * FROM Site WHERE department = "
+            . "'" . $department . "' AND branch = " . "'" . $branch . "'");
+
+        if(pg_num_rows($res) > 0)
+            return false;
+
+        return true;
+    }
 
     private function dbInsert($conn, $branch, $department) {
         $sql = "INSERT INTO Site(branch, department)
@@ -106,6 +115,10 @@ class Site {
             return false;
         }
 
+        if(!$this->checkSite($branch, $department, $connector))
+            return false;
+        if($id < 1)
+            return false;
         $res = $connector->query("UPDATE Site SET branch = " .
             "'" . $branch . "', department = " . "'" . $department ."'" . "WHERE sid = " . $id);
 
@@ -124,9 +137,14 @@ class Site {
      * @return bool
      */
     public function removeSite($id) {
+        if($id < 1)
+            return false;
+
         $connector = new PgConnection();
         $conn = $connector->connect();
-
+        if($conn == null) {
+            return false;
+        }
         $res = $connector->query("DELETE FROM Site WHERE sid =" . $id);
 
         if(pg_affected_rows($res) > 0)

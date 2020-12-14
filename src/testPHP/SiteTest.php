@@ -17,6 +17,12 @@ class SiteTest extends TestCase {
         $res = $site->save("Fisciano", "test");
         $this->assertEquals($res, true);
 
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = pg_query("DELETE FROM Site where branch = 'test' OR department = 'test'");
+
+
         $res = $site->save("Fisciano", "Molding");
         $this->assertEquals($res, false);
 
@@ -43,60 +49,56 @@ class SiteTest extends TestCase {
 
     function testUpdateSite() {
         $site = Site::getInstance();
+        $site->save("testS", "testS");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = $connector->query("SELECT branch, department FROM Site where sid = 2");
+        $res = $connector->query("SELECT sid FROM Site
+                                    WHERE branch = 'testS'");
 
-        $row = pg_fetch_row($res);
-        $oldBranch = $row[0];
-        $oldDepartment = $row[1];
+        $n = pg_fetch_row($res)[0];
 
-        $ret = $site->updateSite(2, "test", "test");
+        $ret = $site->updateSite($n, "test", "test");
         $this->assertEquals($ret, true);
 
-        $ret = $site->updateSite(2, $oldBranch, $oldDepartment);
+
+        $ret = $site->updateSite($n, "Fisciano", "test");
         $this->assertEquals($ret, true);
 
-        $ret = $site->updateSite(2, "Fisciano", "test");
+        $ret = $site->updateSite($n, "test", "Molding");
         $this->assertEquals($ret, true);
 
-        $ret = $site->updateSite(2, "test", "Molding");
-        $this->assertEquals($ret, true);
-
-        $ret = $site->updateSite(2, "", "Molding");
+        $ret = $site->updateSite($n, "", "Molding");
         $this->assertEquals($ret, false);
 
-        $ret = $site->updateSite(2, "Fisciano", "");
+        $ret = $site->updateSite($n, "Fisciano", "");
         $this->assertEquals($ret, false);
 
         $ret = $site->updateSite(-3, "test", "test");
         $this->assertEquals($ret, false);
 
-
+        $site->removeSite($n);
     }
 
     function testRemoveSite(){
         $site = Site::getInstance();
+        $site->save("test", "test");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = $connector->query("SELECT branch, department FROM Site where sid = 2");
+        $res = $connector->query("SELECT sid FROM Site
+                                    WHERE branch = 'test'");
 
-        $row = pg_fetch_row($res);
-        $oldBranch = $row[0];
-        $oldDepartment = $row[1];
+        $n = pg_fetch_row($res)[0];
 
 
-        $ret = $site->removeSite(2);
+        $ret = $site->removeSite($n);
         $this->assertEquals($ret, true);
 
         $ret = $site->removeSite(-3);
         $this->assertEquals($ret, false);
 
-        $ret = $site->save(2, $oldBranch, $oldDepartment);
-     
-
-        pg_close($conn);
     }
 }

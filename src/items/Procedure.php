@@ -33,11 +33,26 @@ class Procedure {
             return false;
         }
 
+        if(!$this->checkProcedure($description, $connector))
+            return false;
+
         $res = $this->dbInsert($connector, $description);
 
         pg_close($conn);
 
         return $res;
+    }
+
+    private function checkProcedure($desc, $connector) {
+        if($desc == "")
+            return false;
+        $res = $connector->query("SELECT * FROM MainProcedure WHERE description = "
+            . "'" . $desc . "'");
+
+        if(pg_num_rows($res) > 0)
+            return false;
+
+        return true;
     }
 
     private function dbInsert($conn, $description) {
@@ -126,6 +141,11 @@ class Procedure {
             return false;
         }
 
+        if(!$this->checkProcedure($description, $connector))
+            return false;
+        if($id < 1)
+            return false;
+
         $res = $connector->query("UPDATE MainProcedure SET description =" .
             "'" . $description . "' WHERE mpid = " . $id);
 
@@ -150,6 +170,8 @@ class Procedure {
         if($conn == null) {
             return false;
         }
+        if($id < 1)
+            return false;
 
         $res = $connector->query("DELETE FROM MainProcedure WHERE mpid =" . $id);
 

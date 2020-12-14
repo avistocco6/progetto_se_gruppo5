@@ -40,19 +40,21 @@ class ProcedureTest extends TestCase
 
     function testUpdateProcedure() {
         $procedure = Procedure::getInstance();
+
+        $procedure->save("testDesc");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT description FROM MainProcedure where mpid = 2");
+        $res = $connector->query("SELECT mpid FROM MainProcedure
+                                    WHERE description = 'testDesc'");
 
-        $row = pg_fetch_row($res);
-        $oldDesc = $row[0];
+        $n = pg_fetch_row($res)[0];
 
-        $ret = $procedure->updateProcedure(2, "testDesc");
+        $ret = $procedure->updateProcedure($n, "testD");
         $this->assertEquals($ret, true);
 
-        $ret = $procedure->updateProcedure(2, $oldDesc);
-        $this->assertEquals($ret, true);
+        $procedure->removeProcedure($n);
 
         $ret = $procedure->updateProcedure(2, "unscrew the affected part; remove the cables; remove the residues; apply new cables.");
         $this->assertEquals($ret, false);
@@ -62,30 +64,26 @@ class ProcedureTest extends TestCase
 
         $ret = $procedure->updateProcedure(2, "");
         $this->assertEquals($ret, false);
-        
-        pg_close($conn);
     }
 
 
     function testRemoveProcedure(){
         $procedure = Procedure::getInstance();
+        $procedure->save("testP");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = pg_query("SELECT description FROM MainProcedure where mid = 2");
+        $res = $connector->query("SELECT mpid FROM MainProcedure
+                                    WHERE description = 'testP'");
 
-        $row = pg_fetch_row($res);
-        $oldName = $row[0];
+        $n = pg_fetch_row($res)[0];
 
-        $ret = $procedure->removeProcedure(2);
+        $ret = $procedure->removeProcedure($n);
         $this->assertEquals($ret, true);
 
         $ret = $procedure->removeProcedure(-3);
         $this->assertEquals($ret, false);
-
-        $res = $procedure->save($oldName);
-
-        pg_close($conn);
     }
 
 }
