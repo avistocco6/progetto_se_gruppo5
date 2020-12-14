@@ -13,7 +13,13 @@ class TypologyTest extends TestCase {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = $connector->query("DELETE FROM Typology where description = 'test'");
+        $res = pg_query("DELETE FROM Typology where description = 'test'");
+
+        $res = $tp->save("Electric");
+        $this->assertEquals($res, false);
+
+        $res = $tp->save("");
+        $this->assertEquals($res, false);
 
         pg_close($conn);
     }
@@ -27,19 +33,50 @@ class TypologyTest extends TestCase {
     }
 
     function testUpdateTypology() {
+        $tp = Typology::getInstance();
+        $tp->save("testT");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = $connector->query("SELECT description FROM Typology where tid = 1");
+        $res = $connector->query("SELECT tid FROM Typology
+                                    WHERE description = 'testT'");
 
-        $row = pg_fetch_row($res);
-        $oldDesc = $row[0];
+        $n = pg_fetch_row($res)[0];
 
+        $ret = $tp->updateTypology($n, "testDesc");
+        $this->assertEquals($ret, true);
+
+        $tp->removeTypology($n);
+
+        $ret = $tp->updateTypology(-3, "testDesc");
+        $this->assertEquals($ret, false);
+
+        $ret = $tp->updateTypology($n, "Electric");
+        $this->assertEquals($ret, false);
+
+        $ret = $tp->updateTypology($n, "");
+        $this->assertEquals($ret, false);
+
+    }
+
+    function testRemoveTypology() {
         $tp = Typology::getInstance();
-        $ret = $tp->updateTypology(1, "test");
+        $tp->save("testT");
+
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("SELECT tid FROM Typology
+                                    WHERE description = 'testT'");
+
+        $n = pg_fetch_row($res)[0];
+
+        $ret = $tp->removeTypology($n);
         $this->assertEquals($ret, true);
 
-        $ret = $tp->updateTypology(1, $oldDesc);
-        $this->assertEquals($ret, true);
+        $ret = $tp->removeTypology(-5);
+        $this->assertEquals($ret, false);
+
     }
 }

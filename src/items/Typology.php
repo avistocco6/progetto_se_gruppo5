@@ -32,12 +32,26 @@ class Typology {
         if($conn == null) {
             return false;
         }
+        if(!$this->checkTypology($description, $connector))
+            return false;
 
         $res = $this->dbInsert($connector, $description);
 
         pg_close($conn);
 
         return $res;
+    }
+
+    private function checkTypology($desc, $connector) {
+        if($desc == "")
+            return false;
+        $res = $connector->query("SELECT * FROM Typology WHERE description = "
+            . "'" . $desc . "'");
+
+        if(pg_num_rows($res) > 0)
+            return false;
+
+        return true;
     }
 
     private function dbInsert($conn, $description) {
@@ -98,6 +112,8 @@ class Typology {
         if($conn == null) {
             return false;
         }
+        if(!$this->checkTypology($description, $connector) or $id < 1)
+            return false;
 
         $res = $connector->query("UPDATE Typology SET description =" .
             "'" . $description . "' WHERE tid = " . $id);
@@ -117,6 +133,8 @@ class Typology {
      * @return bool
      */
     public function removeTypology($id) {
+        if($id < 1)
+            return false;
         $connector = new PgConnection();
         $conn = $connector->connect();
         if($conn == null) {

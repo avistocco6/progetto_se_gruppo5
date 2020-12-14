@@ -14,7 +14,13 @@ class SkillTest extends TestCase
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = $connector->query("DELETE FROM Skill where skillname = 'test'");
+        $res = pg_query("DELETE FROM Skill where skillname = 'test'");
+
+        $res = $skill->save("PAV Certification");
+        $this->assertEquals($res, false);
+
+        $res = $skill->save("");
+        $this->assertEquals($res, false);
 
         pg_close($conn);
     }
@@ -27,19 +33,49 @@ class SkillTest extends TestCase
     }
 
     function test_update_skill() {
+        $skill = Skill::getInstance();
+        $skill->save("testS");
+
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = $connector->query("SELECT skillname FROM Skill where skid = 1");
+        $res = $connector->query("SELECT skid FROM Skill
+                                    WHERE skillname = 'testS'");
 
-        $row = pg_fetch_row($res);
-        $oldName = $row[0];
+        $n = pg_fetch_row($res)[0];
 
+        $ret = $skill->updateSkill($n, "test");
+        $this->assertEquals($ret, true);
+
+        $skill->removeSkill($n);
+
+        $ret = $skill->updateSkill(-3, "test");
+        $this->assertEquals($ret, false);
+
+        $ret = $skill->updateSkill($n, "PAV Certification");
+        $this->assertEquals($ret, false);
+
+        $ret = $skill->updateSkill($n, "");
+        $this->assertEquals($ret, false);
+    }
+
+    function testRemoveSkill() {
         $skill = Skill::getInstance();
-        $ret = $skill->updateSkill(1, "test");
+        $skill->save("testS");
+
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        $res = $connector->query("SELECT skid FROM Skill
+                                    WHERE skillname = 'testS'");
+
+        $n = pg_fetch_row($res)[0];
+
+        $ret = $skill->removeSkill($n);
         $this->assertEquals($ret, true);
 
-        $ret = $skill->updateSkill(1, $oldName);
-        $this->assertEquals($ret, true);
+        $ret = $skill->removeSkill(-5);
+        $this->assertEquals($ret, false);
+
     }
 }

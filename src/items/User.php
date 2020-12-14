@@ -1,6 +1,7 @@
 <?php
 
 include_once '..\PgConnection.php';
+include_once 'Skill.php';
 
 class User {
     private static $instance = null;
@@ -37,7 +38,8 @@ class User {
         if($conn == null) {
             return false;
         }
-
+        if(!$this->checkUser($username, $password, $role, $email, $connector))
+            return false;
         $res = $this->db_insert($connector, $username, $password, $role, $name, $email);
 
         pg_close($conn);
@@ -45,6 +47,28 @@ class User {
         return $res;
     }
 
+    private function checkUser($username, $password, $role, $email, $connector) {
+        if($password == "" or
+            $role == "" or
+            $email == "")
+            return false;
+        $res = $connector->query("SELECT * FROM Client WHERE username = "
+            . "'" . $username . "' AND pass = " ."'".$password."' AND clientrole = ".
+                "'".$role."' AND email = "."'".$email."'");
+
+        if(pg_num_rows($res) > 0)
+            return false;
+
+        return $this->checkUsername($username, $connector);
+    }
+    private function checkUsername($username, $connector) {
+        if($username == "")
+            return false;
+        $res = $connector->query("SELECT username FROM Client WHERE Username = "."'".$username."'");
+        if(pg_num_rows($res) > 0)
+            return false;
+        return true;
+    }
     private function db_insert($conn, $username, $password, $role, $name, $email) {
         $sql = "INSERT INTO Client(username, pass, clientname, clientrole, email)
                 VALUES(". "'" . $username . "'," . "'" . $password . "'," .
@@ -70,6 +94,11 @@ class User {
         if($conn == null) {
             return false;
         }
+        $skill = Skill::getInstance();
+        if(!$skill->checkSkill($skillname, $connector))
+            return false;
+        if(!$this->checkUsername($username, $connector))
+            return false;
 
         $ret = $connector->query("SELECT clientrole, ncompetence FROM Client where username =" . "'" . $username . "'");
 
@@ -139,6 +168,8 @@ class User {
      * @return bool
      */
     public function updatePassword($username, $password) {
+        if($password == "")
+            return false;
         $connector = new PgConnection();
         $conn = $connector->connect();
         if($conn == null) {
@@ -164,6 +195,8 @@ class User {
      * @return bool
      */
     public function updateEmail($username, $email) {
+        if($email == "")
+            return false;
         $connector = new PgConnection();
         $conn = $connector->connect();
         if($conn == null) {

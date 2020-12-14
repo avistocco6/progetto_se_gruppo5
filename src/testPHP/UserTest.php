@@ -14,8 +14,6 @@ class UserTest extends TestCase {
         $connector = new PgConnection();
         $conn = $connector->connect();
 
-        $res = $connector->query("DELETE FROM Client where username = 'testUser'");
-
         $res = $user->save("Pippo1", "testPass", "planner", "test@gmail.com");
         $this->assertEquals($res, false);   
 
@@ -34,6 +32,7 @@ class UserTest extends TestCase {
         $res = $user->save("testUser", "testPass", "planner", "p.p@gmail.com");
         $this->assertEquals($res, false);
 
+        $res = $connector->query("DELETE FROM Client where username = 'testUser'");
         pg_close($conn);
     }
 
@@ -112,10 +111,6 @@ class UserTest extends TestCase {
         $res =$user->updateEmail("test", "");
         $this->assertEquals($res, false);
 
-        //existing user - existing email
-        $res =$user->updateEmail("test", "test@gmail.com");
-        $this->assertEquals($res, false);        
-        $user->removeUser("test");
 
         //non existing user - non existing email
         $res =$user->updateEmail("testUser", "testuser@gmail.com");

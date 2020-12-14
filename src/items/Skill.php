@@ -32,12 +32,26 @@ class Skill {
         if($conn == null) {
             return false;
         }
+        if(!$this->checkSkill($name, $connector))
+            return false;
 
         $res = $this->dbInsert($connector, $name);
 
         pg_close($conn);
 
         return $res;
+    }
+
+    public function checkSkill($name, $connector) {
+        if($name == "")
+            return false;
+        $res = $connector->query("SELECT * FROM Skill WHERE skillname = "
+            . "'" . $name . "'");
+
+        if(pg_num_rows($res) > 0)
+            return false;
+
+        return true;
     }
 
     private function dbInsert($conn, $name) {
@@ -100,6 +114,11 @@ class Skill {
             return false;
         }
 
+        if(!$this->checkSkill($name, $connector))
+            return false;
+        if($id < 1)
+            return false;
+
         $res = $connector->query("UPDATE Skill SET skillname =" .
             "'" . $name . "' WHERE skid = " . $id);
 
@@ -118,6 +137,8 @@ class Skill {
      * @return bool
      */
     public function removeSkill($id) {
+        if($id < 1)
+            return false;
         $connector = new PgConnection();
         $conn = $connector->connect();
         if($conn == null) {
