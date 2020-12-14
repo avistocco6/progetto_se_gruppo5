@@ -299,14 +299,14 @@ class User {
 
         if($activity_skills) {
             $skill_num = pg_affected_rows($activity_skills);
-            $skills_json = "[";
+            $skills_json = '[';
             while($row = pg_fetch_row($activity_skills)) {
                 $skills_json = $skills_json . "{\n" .'"skill":' . '"' . $row[1] . '"'."\n}" . ",\n";
             }
             if(strlen($skills_json) > 1) {
                 $skills_json = substr($skills_json, 0, strlen($skills_json) - 2);
-                $skills_json = $skills_json . "]";
-            } else $skills_json = null;
+                $skills_json = $skills_json . ']';
+            } else $skills_json = "[]";
         }
         else{
             $skill_num = 0;
@@ -320,7 +320,7 @@ class User {
         }
 
         if($daily_avail) {
-            $mant_json = "[";
+            $mant_json = '[';
             while($avail_row = pg_fetch_row($daily_avail)) {
                 $skill_acquired = '0/0';
                 if($maintainers_skills)
@@ -330,18 +330,19 @@ class User {
                             break;
                         }
                     }
-                $mant_json = $mant_json . "{\n" .'"username":' . '"' . $avail_row[0] . '"' .
-                                            ',"skillsAcquired":' . '"' . $skill_acquired . '"' . "\n}" . ",\n";
+                $mant_json = $mant_json . "{\n" .'"username":' . '"' . $avail_row[0] . '",'."\n"
+                    .'"skillsAcquired":'.'"'.$skill_acquired.'"'."\n}" . ",\n";
             }
             if(strlen($mant_json) > 1) {
                 $mant_json = substr($mant_json, 0, strlen($mant_json) - 2);
                 $mant_json = $mant_json . "]";
-            } else $mant_json = null;
+            } else $mant_json = "[]";
 
         }
 
-        $ret['skills'] = $skills_json;
         $ret['maintainers'] = $mant_json;
+        $ret['skills'] = $skills_json;
+
 
         return $ret;
     }

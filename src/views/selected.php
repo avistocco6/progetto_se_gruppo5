@@ -50,7 +50,7 @@
             <div id="name">
               <p id="activityName"></p>
             </div>
-            <a href="choosemaintainer.php"a><input onclick="passInfo()" type="button" value="forward" name="forward" style="margin: 10px; width: 100px;
+            <a href="choosemaintainer.php"a><input type="button" value="forward" name="forward" style="margin: 10px; width: 100px;
             height: 50px;"></a>
           </div>
           <div class="content">
@@ -117,13 +117,6 @@
     <script type="text/javascript" src="../controllers/loader.js"></script>
     <script type="application/javascript">
       $(document).ready(loadSelected());
-
-      function passInfo() {
-        let week = document.getElementById("number").innerHTML.value;
-        let id = document.getElementById('name').innerHTML.value[0];
-        localStorage.setItem("week", week);
-        localStorage.setItem("id", id);
-      }
     </script>
 
 

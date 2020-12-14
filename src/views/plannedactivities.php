@@ -130,6 +130,7 @@
           $('#activities').find('tr').click( function(){
             let id = document.getElementById("activities").rows[$(this).index()+1].cells[0].innerHTML;
             localStorage.setItem("id", id);
+            localStorage.setItem("week", document.getElementById('week-select').value)
           });
         };
 

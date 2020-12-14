@@ -313,7 +313,6 @@ function loadPlanned(week) {
         });
     }
 
-
     function loadMaintainer() {
         let id = localStorage.getItem('id');
         id = '{"id":' + id + "}";
@@ -352,7 +351,7 @@ function loadPlanned(week) {
 
                     });
 
-                    /* When empty availability*/
+                    // When empty availability
                     if (data === null) {
                         alert("There are no maintainers!")
                     }
@@ -403,7 +402,7 @@ function loadPlanned(week) {
                         $('#maint-availab-rows').append(row);
                     });
 
-                    /* When empty availability */
+                    // When empty availability
                     if (data === null) {
                         alert("Error with maintainer chosen!")
                     }
@@ -416,8 +415,8 @@ function loadPlanned(week) {
     }
 
     function loadWeekPercentage() {
-        let week = localStorage.getItem("week");
         let id = localStorage.getItem("id");
+        let week = localStorage.getItem('week');
         let json = '{"week":' + week + ',"id":' + id + "}";
         console.log(json);
         jQuery.ajax({
@@ -427,13 +426,11 @@ function loadPlanned(week) {
             data: {functionname: "loadWeekPercentage", arguments: [json]},
 
             success: function (obj, textstatus) {
-                if( !('error' in obj) ) {
-                    console.log(obj);
-                    let data = JSON.parse(obj.result);
-                    console.log(data);
-                    let skills = JSON.parse(data.skills);
-                    console.log(skills);
-                    let maintainerInfo = JSON.parse(data.maintainers);
+                let data = JSON.parse(obj);
+                console.log(data);
+                if(data['error'] == 0) {
+                    let skills = data['skills'];
+                    let maintainerInfo = data['maintainers'];
                     let skills_template = $("#skillsNeeded-row-template").html();
                     let maintainerInfo_template = $("#maint-availab-template").html();
 
@@ -443,7 +440,7 @@ function loadPlanned(week) {
                         $('#skillsNeeded-rows').append(row);
                     });
                     /* When empty skills */
-                    if (skills === null) {
+                    if (skills.length == 0) {
                         let row = skills_template;
                         row = row.replace(/{Skill}/ig, "No specific skill needed");
                         $('#skillsNeeded-rows').append(row);
@@ -451,12 +448,12 @@ function loadPlanned(week) {
 
                     $.each(maintainerInfo, function (index, obj) {
                         let row = maintainerInfo_template;
-                        row = row.replace(/{Username}/ig, maintainerInfo.username);
-                        row = row.replace(/{NumSkill}/ig, maintainerInfo.skills_acquired);
+                        row = row.replace(/{MainName}/ig, obj.username);
+                        row = row.replace(/{NumSkill}/ig, obj.skillsAcquired);
                         $('#maint-availab-rows').append(row);
                     });
                     /* When empty skills */
-                    if (skills === null) {
+                    if (maintainerInfo-length == 0) {
                         alert("No maintainer avaible on this week!");
                     }
 

@@ -101,7 +101,7 @@ class Maintenance {
     public function getByWeek($week, $type) {
         if($week <= 0 or
            $week > 53 or
-           $type = "") {
+           $type == "") {
             return null;
         }
 
