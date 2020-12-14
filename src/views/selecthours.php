@@ -82,13 +82,13 @@
 
           </tbody>
         </table>
-        <div class="column">
+        <div id="column" class="column">
           <div class="header3" style="margin: 0;">
             <div id= "mainAvail">
               <p> <b>Maintainer AVAILABILITY</b></p>
             </div>
           </div>
-        </div>
+        
         
 
         <table id="maint-availab" style=" width:70%; position: absolute; top:320; left: 25.7%" >
@@ -138,14 +138,18 @@
 
             </tbody>
           </table>
-
+          </div>
           <br>
           <br>
           <br>
-          <a href="#"a><input type="button" value="send" name="send" style="margin: 10px; width: 100px;
+          <a href="#"a><input type="button" value="confirm" onclick="review();" id="confirm" name="confirm" style="margin: 10px; width: 100px;
+          height: 50px;top: 0; ">
+          </a>
+          <br>
+          <a href="#"a><input type="button" value="send" id="send" name="send" style="display:none; float:right;margin: 10px; width: 100px;
           height: 50px;top: 0;">
-        </a>
-        <div class="footer">
+          </a>
+        <div class="footer" style="position: fixed;">
           <h2>Team 5</h2>
         </div>
 
@@ -155,7 +159,16 @@
         <!-- Custom JS -->
         <script type="text/javascript" src="../controllers/loader.js"></script>
         <script type="application/javascript">
-          $(document).ready(loadDailyAvail());
+          $(document).ready(loadSelected());
+
+          function review(){
+            var button = document.getElementById('confirm');
+            button.style.display='none';
+            var tab = document.getElementById('column');
+            tab.style.display='none';
+            var x = document.getElementById('send');
+            x.style.display="block";
+          }
         </script>
 
       </body>
