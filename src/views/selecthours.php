@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Choose Maintainer</title>
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Maintainer</title>
         <!--The system must allow selecting among the days of the week that the Maintainer has  availability and show
          the following information: week number, date (selected day), activity to assign (activity ID, area, typology,
           estimated intervention time), workspace  notes, maintainer name, maintainer availability percentage,
@@ -12,149 +12,84 @@
           At this point, the system must allow to select the slot of availability time (to assign the schedule in
           minutes) in which the maintenance activity will be assigned and program the activity. -->
 
-        <meta charset="utf-8"/>
-        <meta name="author" content="Team 5"/>
-        <meta name="description" content="Web application for maintenance activies."/>
-        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
-        <style type="text/css">
-         #week{
-            font-family: Lato;
-            font-size: 18px;
-            line-height: 18px;
-            width: 230px;
-            text-align: center;
-            background-color: white;
-            border: 1px solid #8492A6;
-            border-radius: 5px;
-            float:left;
-            margin: 10px;
-        }
-        #number, #dayavail{
-            background-color: #333;
-            border-radius: 5px;
-            width: 100px;
-            line-height: 20px;
-            text-align:center;
-            float:left;
-            margin-left:2px;
-            color:white;
-            margin: 10px;
-        }
-        #activity, #day{
-             font-family: Lato;
-            font-size: 15px;
-            line-height: 20px;
-            width: 200px;
-            text-align: center;
-            background-color: white;
-            border: 1px solid #8492A6;
-            border-radius: 5px;
-            float:left;
-            margin-left:2px;
-            margin: 10px;
-        }
-        #name{
-            background-color: #333;
-            border-radius: 5px;
-            width: 400px;
-            line-height: 20px;
-            text-align:center;
-            float:left;
-            margin-left:2px;
-            color:white;
-            margin: 10px;
-        }
-        #mainAvail {
-            background-color: #333;
-            height: 40px;
-            width: 76.3%;
-            float:right;
-            margin: 5px;
-            margin-top: 5px;
-            color:white;
-            text-align:center;
-            line-height: 10px;
-
-
-        }
-        .tab{
-            position: absolute;
-            top: 310px;
-            left: 20px;
-            height: 40px;
-            width: 24%;
-            float:left;
-            color:white;
-
-        }
-
-    </style>
-    </head>
-    <body>
-       <div class="row">
-                <div class="header">
-                    <p>
-                        <a href="plannerview.php"><img border="0" src="return.png" width="70" height="70"> </a>
-                    </p>
-                </div>
-                <div class="header">
-                    <h1> Choose a maintainer</h1>
-                </div>
-                <div class="header">
-                    <p>
-                        <a href="index.php"><img border="0" src="exit.png" width="70" height="70"> </a>
-                    </p>
-                </div>
-       </div>
+          <meta charset="utf-8"/>
+          <meta name="author" content="Team 5"/>
+          <meta name="description" content="Web application for maintenance activies."/>
+          <link rel="preconnect" href="https://fonts.gstatic.com">
+          <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+          <link rel="stylesheet" type="text/css" href="showstyle.css"/>
+          <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        </head>
+        <body>
+         <div class="row">
+          <div class="header">
+          </div>
+          <div class="header" >
+            <h1> Choose Maintainer </h1>
+          </div> 
+          <div class="header">
+            <!--Script per cambiare lo stile della pagina in caso di accesso di un utente-->
+          <?php
+          session_start();
+          if(!empty($_SESSION["username"])){
+            $username = $_SESSION["username"];
+            $html = <<< HTML
+            <p style="text-align: center;"> $username </p>
+            <hr>
+            <p style="text-align: center;"><a href="logout.php"> Logout </a><p>
+            HTML;
+            echo $html;
+          }
+          ?>  
+          </div> 
+        </div>
         <div class="column">
-                <div class="header2" style="margin: 0;">
-                    <div id= "week">
-                        <p> Week n° </p>
-                    </div>
-                    <div id="number">
-                        <p id="numWeek"></p>
-                    </div>
-                    <div id= "day">
-                        <p> Day </p>
-                    </div>
-                    <div id= "dayavail">
-                        <p id="dayName">  </p>
-                    </div>
-                     <div id="activity">
-                        <p>Activity to assign</p>
-                    </div>
-                    <div id="name">
-                        <p id="activityName"></p>
-                    </div>
-                     
-                </div>
+          <div class="header2" style="margin: 0;">
+            <div id= "week">
+              <p> Week n° </p>
+            </div>
+            <div id="number">
+              <p id="numWeek"></p>
+            </div>
+            <div id= "day">
+              <p> Day </p>
+            </div>
+            <div id= "dayavail">
+              <p id="dayName">  </p>
+            </div>
+            <div id="activity">
+              <p>Activity to assign</p>
+            </div>
+            <div id="name">
+              <p id="activityName"></p>
+            </div>
+            
+          </div>
         </div>
         <table class="tab">
-                      <tr>
-                        <th>Workspace Notes</th>
-                      </tr>
-                        <thead>
-                        <template id="workspace-row-template">
-                            <tr>
-                                <td>{Workspace Notes}</td>
-                            </tr>
-                        </template>
-                        </thead>
+          <tr>
+            <th>Workspace Notes</th>
+          </tr>
+          <thead>
+            <template id="workspace-row-template">
+              <tr>
+                <td>{Workspace Notes}</td>
+              </tr>
+            </template>
+          </thead>
 
-                        <tbody id="workspace-rows">
+          <tbody id="workspace-rows">
 
-                        </tbody>
-                    </table>
+          </tbody>
+        </table>
         <div class="column">
-                <div class="header3" style="margin: 0;">
-                    <div id= "mainAvail">
-                        <p> <b>Maintainer AVAILABILITY</b></p>
-                    </div>
-                </div>
+          <div class="header3" style="margin: 0;">
+            <div id= "mainAvail">
+              <p> <b>Maintainer AVAILABILITY</b></p>
+            </div>
+          </div>
         </div>
-       
+        
 
         <table id="maint-availab" style=" width:70%; position: absolute; top:320; left: 25.7%" >
           <thead>
@@ -170,50 +105,51 @@
               <th>Availab. 16:00-17:00</th>
             </tr>
             <template id="maint-availab-template">
-            <tr>
-              <td>{MainName}</td>
-              <td>{NumSkill}</td>
-              <td>
-                <button type="button">{Availab8}</button>
-              </td>
-              <td>
-                <button type="button">{Availab9}</button>
-              </td>
-              <td>
-                <button type="button">{Availab10}</button>
-              </td>
-              <td>
-                <button type="button">{Availab11}</button>
-              </td>
-              <td>
-                <button type="button">{Availab14}</button>
-              </td>
-              <td>
-                <button type="button">{Availab15}</button>
-              </td>
-              <td>
-                <button type="button">{Availab16}</button>
-              </td>
-              <td style="text-align:center;">
+              <tr>
+                <td>{MainName}</td>
+                <td>{NumSkill}</td>
+                <td>
+                  <button type="button">{Availab8}</button>
+                </td>
+                <td>
+                  <button type="button">{Availab9}</button>
+                </td>
+                <td>
+                  <button type="button">{Availab10}</button>
+                </td>
+                <td>
+                  <button type="button">{Availab11}</button>
+                </td>
+                <td>
+                  <button type="button">{Availab14}</button>
+                </td>
+                <td>
+                  <button type="button">{Availab15}</button>
+                </td>
+                <td>
+                  <button type="button">{Availab16}</button>
+                </td>
+                <td style="text-align:center;">
 
-            </tr>
-            </template>
-          </thead>
-          <tbody id="maint-availab-rows">
+                </tr>
+              </template>
+            </thead>
+            <tbody id="maint-availab-rows">
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
 
-       <br>
-       <br>
-       <br>
-        <a href="#"a><input type="button" value="send" name="send" style="margin: 10px; width: 100px;
-            height: 50px;top: 0;"></a>
-      <div class="footer">
-        <h2>Team 5</h2>
-      </div>
+          <br>
+          <br>
+          <br>
+          <a href="#"a><input type="button" value="send" name="send" style="margin: 10px; width: 100px;
+          height: 50px;top: 0;">
+        </a>
+        <div class="footer">
+          <h2>Team 5</h2>
+        </div>
 
-            <!-- jQuery -->
+        <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
         <!-- Custom JS -->
@@ -222,8 +158,8 @@
           $(document).ready(loadDailyAvail());
         </script>
 
-    </body>
-</html>
+      </body>
+      </html>
 
 
 

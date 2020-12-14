@@ -1,48 +1,65 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-    	<title> Management Area </title>
-    	<meta charset="utf-8"/>
-    	<meta name="author" content="Team 5"/>
-    	<meta name="description" content="Web application for maintenance activies."/>
-    	<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div class="row">
-            <div class="header" >
-            </div>
-        	<div class="header">
-        		<h1> Welcome to the Management Area </h1>
-                <!--The system must allow a System Administrator to manage (create, view, modify or delete) a list of competences related to a specific task.  
-                The system must allow to manage (create, view, modify or delete) areas, which are composed of factory views (branch offices) and area or department (inside the factory).
-                The system must allow to manage (create, view, modify or delete) a list of materials, to be used during the maintenance activity. 
-                The system must allow to manage (create, view, modify or delete) a list of Maintenance procedures. 
-                For each Maintenance Procedure, the system must allow to assign the specific competencies required to perform the maintenance activity. 
-                The system must allow to manage (create, view, modify or delete) maintenance typologies   
-                     as Electrical, electronic, hydraulic, mechanical. 
-                -->
-            </div>
-            <div class="header" >  
-                <p>
-                    <a href="index.php"><img border="0" src="exit.png" width="70" height="70"> </a>
-                </p>  
-            </div>
-        </div>    
-        <div class="topnav">
-            <a href="skills.php">Skills</a>
-            <a href="sites.php">Sites</a>
-            <a href="typology.php">Maintenance Typology</a>
-            <a href="materials.php">Materials</a>
-            <a href="procedures.php">Procedures</a>
-            <a style="float: right;" href="usermanagement.php">Users Management</a>
-        </div>
-        <div class="column">
-            <h1>Select from the top navigation bar.</h1>
-        </div>
-            <div class="footer" style="position: absolute;">
-                <h2>Team 5</h2>
-            </div>
-    </body>
+<head>
+ <title> Management Area </title>
+ <meta charset="utf-8"/>
+ <meta name="author" content="Team 5"/>
+ <meta name="description" content="Web application for maintenance activies."/>
+ <link rel="preconnect" href="https://fonts.gstatic.com">
+ <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+
+ <style type="text/css">
+
+  .btn{
+    background-color: #3bb0bb;
+    border-color:white; 
+  }
+  .row{
+    margin-left: 0px; 
+    margin-right: 0px;
+  }
+</style>
+</head>
+<body>
+  <div class="row">
+   <div class="header">
+   </div>
+   <div class="header" >
+    <h1> Management Area </h1>
+  </div> 
+  <div class="header">
+    <!--Script per cambiare lo stile della pagina in caso di accesso di un utente-->
+    <?php
+    session_start();
+    if(!empty($_SESSION["username"])){
+      $username = $_SESSION["username"];
+      $html = <<< HTML
+      <p style="text-align: center;"> $username </p>
+      <hr>
+      <p style="text-align: center;"><a href="logout.php"> Logout </a><p>
+      HTML;
+      echo $html;
+    }
+    ?> 
+  </div> 
+</div>    
+<div class="topnav">
+  <a href="skills.php">Skills</a>
+  <a href="sites.php">Sites</a>
+  <a href="typology.php">Maintenance Typology</a>
+  <a href="materials.php">Materials</a>
+  <a href="procedures.php">Procedures</a>
+  <a style="float: right;" href="usermanagement.php">Users Management</a>
+</div>
+<div class="column">
+  <h1>Select from the top navigation bar.</h1>
+</div>
+<div class="footer" style="position: absolute;">
+  <h2>Team 5</h2>
+</div>
+</body>
 </html>

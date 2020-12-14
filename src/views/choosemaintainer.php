@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Choose Maintainer</title>
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Maintainer</title>
         <!--Once a specific activity has been verified, the system must allow to assign the scheduled activity
         to a specific Maintainer, according to his availability. To do this, the system must  show the following
          information: week number, activity to assign (activity ID, area,  typology, estimated intervention time),
@@ -18,239 +18,173 @@
         <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet">
-        <style type="text/css">
-         #week{
-            font-family: Lato;
-            font-size: 18px;
-            line-height: 18px;
-            width: 230px;
-            text-align: center;
-            background-color: white;
-            border: 1px solid #8492A6;
-            border-radius: 5px;
-            float:left;
-            margin: 10px;
-        }
-        #number{
-            background-color: #333;
-            border-radius: 5px;
-            width: 100px;
-            line-height: 20px;
-            text-align:center;
-            float:left;
-            margin-left:2px;
-            color:white;
-            margin: 10px;
-        }
-        #activity{
-             font-family: Lato;
-            font-size: 15px;
-            line-height: 20px;
-            width: 200px;
-            text-align: center;
-            background-color: white;
-            border: 1px solid #8492A6;
-            border-radius: 5px;
-            float:left;
-            margin-left:2px;
-            margin: 10px;
-        }
-        #name{
-            background-color: #333;
-            border-radius: 5px;
-            width: 400px;
-            line-height: 20px;
-            text-align:center;
-            float:left;
-            margin-left:2px;
-            color:white;
-            margin: 10px;
-        }
-        #mainAvail {
-            background-color: #333;
-            height: 40px;
-            width: 76.3%;
-            float:right;
-            margin: 5px;
-            margin-top: 5px;
-            color:white;
-            text-align:center;
-            line-height: 10px;
-
-
-        }
-        .tab{
-            position: absolute;
-            top: 310px;
-            left: 20px;
-            height: 40px;
-            width: 24%;
-            float:left;
-            color:white;
-
-        }
-
-    </style>
-    </head>
-    <body>
+        <link rel="stylesheet" type="text/css" href="showstyle.css"/>
+      </head>
+      <body>
        <div class="row">
-                <div class="header">
-                    <p>
-                        <a href="plannerview.php"><img border="0" src="return.png" width="70" height="70"> </a>
-                    </p>
-                </div>
-                <div class="header">
-                    <h1> Choose a maintainer</h1>
-                </div>
-                <div class="header">
-                    <p>
-                        <a href="index.php"><img border="0" src="exit.png" width="70" height="70"> </a>
-                    </p>
-                </div>
-       </div>
-        <div class="column">
-                <div class="header2" style="margin: 0;">
-                    <div id= "week">
-                        <p> Week n° </p>
-                    </div>
-                    <div id="number">
-                        <p id="numWeek"></p>
-                    </div>
-                     <div id="activity">
-                        <p>Activity to assign</p>
-                    </div>
-                    <div id="name">
-                        <p id="activityName"></p>
-                    </div>
-                </div>
+        <div class="header">
         </div>
-        <div class="column">
-                <div class="header3" style="margin: 0;">
-                    <div id= "mainAvail">
-                        <p> <b>Maintainer AVAILABILITY</b></p>
-                    </div>
-                </div>
+        <div class="header" >
+          <h1> Choose Maintainer </h1>
+        </div> 
+        <div class="header">
+          <!--Script per cambiare lo stile della pagina in caso di accesso di un utente-->
+           <?php
+          session_start();
+          if(!empty($_SESSION["username"])){
+            $username = $_SESSION["username"];
+            $html = <<< HTML
+            <p style="text-align: center;"> $username </p>
+            <hr>
+            <p style="text-align: center;"><a href="logout.php"> Logout </a><p>
+            HTML;
+            echo $html;
+          }
+          ?>   
+        </div> 
+      </div>
+      <div class="column">
+        <div class="header2" style="margin: 0;">
+          <div id= "week">
+            <p> Week n° </p>
+          </div>
+          <div id="number">
+            <p id="numWeek"></p>
+          </div>
+          <div id="activity">
+            <p>Activity to assign</p>
+          </div>
+          <div id="name">
+            <p id="activityName"></p>
+          </div>
         </div>
-       <table class="tab">
-           <th>Skills Needed</th>
-           <thead>
-           <template id="skillsNeeded-row-template"><tr>
-               <td>{Skill}</td>
-           </tr>
-           </template>
-           </thead>
+      </div>
+      <div class="column">
+        <div class="header3" style="margin: 0;">
+          <div id= "mainAvail">
+            <p> <b>Maintainer AVAILABILITY</b></p>
+          </div>
+        </div>
+      </div>
+      <table class="tab">
+       <th>Skills Needed</th>
+       <thead>
+         <template id="skillsNeeded-row-template"><tr>
+           <td>{Skill}</td>
+         </tr>
+       </template>
+     </thead>
 
-           <tbody id="skillsNeeded-rows">
+     <tbody id="skillsNeeded-rows">
 
-           </tbody>
+     </tbody>
 
-       </table>
+   </table>
 
-        <table id="maint-availab" style=" width:70%; position: absolute; top:320; left: 25.7%" >
-          <thead>
-            <tr>
-              <th>Maintainer</th>
-              <th>Skills</th>
-              <th>Availab. Mon</th>
-              <th>Availab. Tue</th>
-              <th>Availab. Wed</th>
-              <th>Availab. Thu</th>
-              <th>Availab. Fri</th>
-              <th>Availab. Sat</th>
-              <th>Availab. Sun</th>
+   <table id="maint-availab" style=" width:70%; position: absolute; top:320; left: 25.7%" >
+    <thead>
+      <tr>
+        <th>Maintainer</th>
+        <th>Skills</th>
+        <th>Availab. Mon</th>
+        <th>Availab. Tue</th>
+        <th>Availab. Wed</th>
+        <th>Availab. Thu</th>
+        <th>Availab. Fri</th>
+        <th>Availab. Sat</th>
+        <th>Availab. Sun</th>
+      </tr>
+      <tr>
+        <td>{MainName}</td>
+        <td>{NumSkill}</td>
+        <td>
+          <button type="button" onclick="passId(1)">{Availab. Mon}</button>
+        </td>
+        <td>
+          <button type="button" onclick="passId(2)">{Availab. Tue}</button>
+        </td>
+        <td>
+          <button type="button" onclick="passId(3)">{Availab. Wed}</button>
+        </td>
+        <td>
+          <button type="button" onclick="passId(4)">{Availab. Thu}</button>
+        </td>
+        <td>
+          <button type="button" onclick="passId(5)">{Availab. Fri}</button>
+        </td>
+        <td>
+          <button type="button" onclick="passId(6)">{Availab. Sat}</button>
+        </td>
+        <td>
+          <button type="button" onclick="passId(7)">{Availab. Sun}</button>
+        </td>
+        <td style="text-align:center;">
+
+        </tr>
+
+        <template id="maint-availab-template">
+          <tr>
+            <td>{MainName}</td>
+            <td>{NumSkill}</td>
+            <td>
+              <button type="button" onclick="passId('Mon')">{Availab. Mon}</button>
+            </td>
+            <td>
+              <button type="button" onclick="passId('Tue')">{Availab. Tue}</button>
+            </td>
+            <td>
+              <button type="button" onclick="passId('Wed')">{Availab. Wed}</button>
+            </td>
+            <td>
+              <button type="button" onclick="passId('Thu')">{Availab. Thu}</button>
+            </td>
+            <td>
+              <button type="button" onclick="passId('Fri')">{Availab. Fri}</button>
+            </td>
+            <td>
+              <button type="button" onclick="passId('Sat')">{Availab. Sat}</button>
+            </td>
+            <td>
+              <button type="button" onclick="passId('Sun')">{Availab. Sun}</button>
+            </td>
+            <td style="text-align:center;">
+
             </tr>
-            <tr>
-                <td>{MainName}</td>
-                <td>{NumSkill}</td>
-                <td>
-                    <button type="button" onclick="passId(1)">{Availab. Mon}</button>
-                </td>
-                <td>
-                    <button type="button" onclick="passId(2)">{Availab. Tue}</button>
-                </td>
-                <td>
-                    <button type="button" onclick="passId(3)">{Availab. Wed}</button>
-                </td>
-                <td>
-                    <button type="button" onclick="passId(4)">{Availab. Thu}</button>
-                </td>
-                <td>
-                    <button type="button" onclick="passId(5)">{Availab. Fri}</button>
-                </td>
-                <td>
-                    <button type="button" onclick="passId(6)">{Availab. Sat}</button>
-                </td>
-                <td>
-                    <button type="button" onclick="passId(7)">{Availab. Sun}</button>
-                </td>
-                <td style="text-align:center;">
+          </template>
+        </thead>
+        <tbody id="maint-availab-rows">
 
-            </tr>
-
-            <template id="maint-availab-template">
-            <tr>
-              <td>{Username}</td>
-              <td>{NumSkill}</td>
-              <td>
-                <button type="button" onclick="passId('Mon')">{Availab. Mon}</button>
-              </td>
-              <td>
-                <button type="button" onclick="passId('Tue')">{Availab. Tue}</button>
-              </td>
-              <td>
-                <button type="button" onclick="passId('Wed')">{Availab. Wed}</button>
-              </td>
-              <td>
-                <button type="button" onclick="passId('Thu')">{Availab. Thu}</button>
-              </td>
-              <td>
-                <button type="button" onclick="passId('Fri')">{Availab. Fri}</button>
-              </td>
-              <td>
-                <button type="button" onclick="passId('Sat')">{Availab. Sat}</button>
-              </td>
-              <td>
-                <button type="button" onclick="passId('Sun')">{Availab. Sun}</button>
-              </td>
-              <td style="text-align:center;">
-
-            </tr>
-            </template>
-          </thead>
-          <tbody id="maint-availab-rows">
-
-          </tbody>
-        </table>
-
-       <br>
-       <br>
-       <br>
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <br>
       <div class="footer">
         <h2>Team 5</h2>
       </div>
 
-       <!-- jQuery -->
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <!-- jQuery -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-       <!-- Custom JS -->
-       <script type="text/javascript" src="../controllers/loader.js"></script>
-       <script>
+      <!-- Custom JS -->
+      <script type="text/javascript" src="../controllers/loader.js"></script>
+      <script>
 
-           $(document).ready(loadWeekPercentage());
-           <!-- Function to get Maintainers' Username -->
-           function passId(day) {
-               $('#maint-availab').find('tr').click( function(){
-                   let row = $(this).index();
-                   let username = document.getElementById("maint-availab").rows[row].cells[0].innerHTML;
+       $(document).ready(loadWeekPercentage());
+       <!-- Function to get Maintainers' Username -->
+       function passId(day) {
+         $('#maint-availab').find('tr').click( function(){
+           let row = $(this).index();
+                   let username = document.getElementById("maint-availab").rows[row].cells[0].innerHTML;//.columns[1].value;
                    console.log(day, username, row);
                    localStorage.setItem("id",$(this).index());
 
-               });
-           };
-       </script>
+                 });
+       };
+     </script>
 
-    </body>
-</html>
+   </body>
+   </html>
 
 
 
