@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <title>Choose Maintainer</title>
@@ -29,14 +28,14 @@
         </div> 
         <div class="header">
           <!--Script per cambiare lo stile della pagina in caso di accesso di un utente-->
-           <?php
+          <?php
           session_start();
           if(!empty($_SESSION["username"])){
             $username = $_SESSION["username"];
             $html = <<< HTML
             <p style="text-align: center;"> $username </p>
             <hr>
-            <p style="text-align: center;"><a href="logout.php"> Logout </a><p>
+            <p style="text-align: center;"><a href="logout.php"> Logout </a></p>
             HTML;
             echo $html;
           }
@@ -57,84 +56,73 @@
           <div id="name">
             <p id="activityName"></p>
           </div>
+          <a href="choosemaintainer.php"a><input type="button" value="forward" name="forward" style="margin: 10px; width: 100px;
+          height: 50px;"></a>
+        </div>
+        <div class="content">
+          <table class="tab1" style="float: left;">
+            <th>Skills Needed</th>
+            <thead>
+              <template id="skillsNeeded-row-template">
+                <tr>
+                  <td>{Skill}</td>
+                </tr>
+              </template>
+            </thead>
+
+            <tbody id="skillsNeeded-rows">
+
+            </tbody>
+          </table>
+          <table id="maint-availab" style=" float: right; clear: left; top:320; left: 25.7%; overflow: hidden;" >
+            <thead>
+              <tr>
+                <th>Maintainer</th>
+                <th>Skills</th>
+                <th>Availab. Mon</th>
+                <th>Availab. Tue</th>
+                <th>Availab. Wed</th>
+                <th>Availab. Thu</th>
+                <th>Availab. Fri</th>
+                <th>Availab. Sat</th>
+                <th>Availab. Sun</th>
+              </tr>
+
+              <template id="maint-availab-template">
+                <tr>
+                  <td>{MainName}</td>
+                  <td>{NumSkill}</td>
+                  <td>
+                    <button type="button" onclick="passId('Mon')">{Mon}</button>
+                  </td>
+                  <td>
+                    <button type="button" onclick="passId('Tue')">{Tue}</button>
+                  </td>
+                  <td>
+                    <button type="button" onclick="passId('Wed')">{Wed}</button>
+                  </td>
+                  <td>
+                    <button type="button" onclick="passId('Thu')">{Thu}</button>
+                  </td>
+                  <td>
+                    <button type="button" onclick="passId('Fri')">{Fri}</button>
+                  </td>
+                  <td>
+                    <button type="button" onclick="passId('Sat')">{Sat}</button>
+                  </td>
+                  <td>
+                    <button type="button" onclick="passId('Sun')">{Sun}</button>
+                  </td>
+                </tr>
+              </template>
+            </thead>
+            <tbody id="maint-availab-rows">
+
+            </tbody>
+          </table>
+          
         </div>
       </div>
-      <div class="column">
-        <div class="header3" style="margin: 0;">
-          <div id= "mainAvail">
-            <p> <b>Maintainer AVAILABILITY</b></p>
-          </div>
-        </div>
-      </div>
-      <table class="tab">
-       <th>Skills Needed</th>
-       <thead>
-         <template id="skillsNeeded-row-template"><tr>
-           <td>{Skill}</td>
-         </tr>
-       </template>
-     </thead>
-
-     <tbody id="skillsNeeded-rows">
-
-     </tbody>
-
-   </table>
-
-   <table id="maint-availab" style=" width:70%; position: absolute; top:320; left: 25.7%" >
-    <thead>
-      <tr>
-        <th>Maintainer</th>
-        <th>Skills</th>
-        <th>Availab. Mon</th>
-        <th>Availab. Tue</th>
-        <th>Availab. Wed</th>
-        <th>Availab. Thu</th>
-        <th>Availab. Fri</th>
-        <th>Availab. Sat</th>
-        <th>Availab. Sun</th>
-      </tr>
-
-        <template id="maint-availab-template">
-          <tr>
-            <td>{MainName}</td>
-            <td>{NumSkill}</td>
-            <td>
-              <button type="button" onclick="passId('Mon')">{Mon}</button>
-            </td>
-            <td>
-              <button type="button" onclick="passId('Tue')">{Tue}</button>
-            </td>
-            <td>
-              <button type="button" onclick="passId('Wed')">{Wed}</button>
-            </td>
-            <td>
-              <button type="button" onclick="passId('Thu')">{Thu}</button>
-            </td>
-            <td>
-              <button type="button" onclick="passId('Fri')">{Fri}</button>
-            </td>
-            <td>
-              <button type="button" onclick="passId('Sat')">{Sat}</button>
-            </td>
-            <td>
-              <button type="button" onclick="passId('Sun')">{Sun}</button>
-            </td>
-            <td style="text-align:center;">
-
-            </tr>
-          </template>
-        </thead>
-        <tbody id="maint-availab-rows">
-
-        </tbody>
-       <tfoot>
-
-       </tfoot>
-      </table>
-      <br>
-      <br>
-      <br>
       <div class="footer">
         <h2>Team 5</h2>
       </div>
@@ -165,7 +153,3 @@
      </script>
 
    </body>
-   </html>
-
-
-
