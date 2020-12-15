@@ -453,6 +453,16 @@ function loadPlanned(week) {
                         let row = maintainerInfo_template;
 
                         if (currUser != obj.username) {
+                            // if some days are not present in db
+                            if(currUser != ""){
+                                rows[currUser] = rows[currUser].replace(/{Mon}/ig, "0%");
+                                rows[currUser] = rows[currUser].replace(/{Tue}/ig, "0%");
+                                rows[currUser] = rows[currUser].replace(/{Wed}/ig, "0%");
+                                rows[currUser] = rows[currUser].replace(/{Thu}/ig, "0%");
+                                rows[currUser] = rows[currUser].replace(/{Fri}/ig, "0%");
+                                rows[currUser] = rows[currUser].replace(/{Sat}/ig, "0%");
+                                rows[currUser] = rows[currUser].replace(/{Sun}/ig, "0%");
+                            }
                             $('#maint-availab-rows').append(rows[currUser]);
                             rows[obj.username] = row;
                             currUser = obj.username;
