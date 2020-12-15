@@ -128,6 +128,9 @@
         <tbody id="maint-availab-rows">
 
         </tbody>
+       <tfoot>
+
+       </tfoot>
       </table>
       <br>
       <br>
@@ -148,16 +151,17 @@
            document.getElementById("activityName").innerHTML = localStorage.getItem("name");
        })
 
-       <!-- Function to get Maintainers' Username -->
+       // Function to get Maintainers Username
        function passId(day) {
          $('#maint-availab').find('tr').click( function(){
            let row = $(this).index();
-                   let username = document.getElementById("maint-availab").rows[row].cells[0].innerHTML;
-                   console.log(day, username, row);
-                   localStorage.setItem("id",$(this).index());
+           let username = document.getElementById("maint-availab").rows[row].cells[0].innerHTML;
+           console.log(day, username, row);
+           localStorage.setItem("id",$(this).index());
 
-                 });
+          });
        };
+
      </script>
 
    </body>

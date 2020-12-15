@@ -76,11 +76,23 @@ if( !isset($aResult['error']) ) {
                 $id = $item['id'];
                 $res = $user->loadWeekPercentage($week, $id);
                 $aResult ='{"error": 0,"skills":'.$res['skills'].',"maintainers":'.$res["maintainers"].'}';
-                //$aResult['result'] = json_encode($res);
                 break;
             }
             break;
-
+        case 'loadDaylyAvail':
+            if( !is_array($_POST['arguments']) || (count($_POST['arguments']) < 1) ) {
+                $aResult['error'] = 'Error in arguments!';
+            }
+            else {
+                $item = json_decode($_POST['arguments'][0], true);
+                $user = User::getInstance();
+                $week = $item['week'];
+                $username = $item['username'];
+                $day = $item['day'];
+                $aResult = $user->loadDaylyAvail($week, $day, $username);
+                break;
+            }
+            break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;

@@ -357,4 +357,35 @@ class User {
         $result['end_date'] = $dateTime->format('d-m-Y');
         return $result;
     }
+
+    public function loadDaylyAvail($week, $day, $username) {
+        if($week < 1 or $day < 1 or $day > 7)
+            return false;
+
+        $connector = new PgConnection();
+        $conn = $connector->connect();
+
+        if($conn == null) {
+            return false;
+        }
+
+        $dateTime = new DateTime();
+        $res = $dateTime->setISODate((new DateTime)->format("Y"), $week, $day);
+        $date = $res->format('d-m-Y');
+
+        $res = $connector->query("SELECT * FROM DailyAvailability WHERE dataavail = " .
+                            "'". $date . "' AND username = '". $username ."'");
+
+        if(pg_num_rows($res) != 1)
+            return false;
+
+        $res = pg_fetch_row($res);
+        $json_string = '{"username":"'.$res[1].'","avail8_9":"'.$res[2].
+            '",avail9_10":"'.$res[3].'","avail10_11":"'.$res[4].
+            '",avail11_12":"'.$res[5].'","avail14_15":"'.$res[6].
+            '",avail15_16":"'.$res[7].'","avail16_17":"'.$res[8].
+            '"}';
+
+        return $json_string;
+    }
 }
