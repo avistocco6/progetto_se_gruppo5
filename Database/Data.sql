@@ -105,42 +105,42 @@ insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,a
 values ('01-06-2020','Paperino2','00:00:00','00:00:00','00:10:00','1:00:00','00:00:00','00:00:00','00:25:00','20%');
 insert into DailyAvailability(dataavail,username,avail8_9,avail9_10,avail10_11,avail11_12,avail14_15,avail15_16,avail16_17,percentavailab)
 values ('01-06-2020','Topolino3','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','00:00:00','0%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('02-06-2020','Pippo1','100%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('02-06-2020','Paperino2','50%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('02-06-2020','Topolino3','20%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('03-06-2020','Pippo1','20%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('03-06-2020','Paperino2','80%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('03-06-2020','Topolino3','100%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('04-06-2020','Pippo1','100%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('04-06-2020','Paperino2','50%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('04-06-2020','Topolino3','20%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('05-06-2020','Pippo1','50%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('05-06-2020','Paperino2','100%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('05-06-2020','Topolino3','80%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('06-06-2020','Pippo1','100%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('06-06-2020','Paperino2','50%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('06-06-2020','Topolino3','20%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('07-06-2020','Pippo1','50%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('07-06-2020','Paperino2','100%');
-insert into DailyAvailability(dataavail,username,percentavailab)
-values ('07-06-2020','Topolino3','80%');
+insert into DailyAvailability
+values ('02-06-2020','Pippo1','00:50:00','00:20:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
+insert into DailyAvailability
+values ('02-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:20:00','00:30:00','1:00:00','00:35:00','50%');
+insert into DailyAvailability
+values ('02-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','00:20:00','1:00:00','00:35:00','20%');
+insert into DailyAvailability
+values ('03-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:35:00','1:00:00','1:00:00','00:35:00','20%');
+insert into DailyAvailability
+values ('03-06-2020','Paperino2','00:55:00','00:50:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
+insert into DailyAvailability
+values ('03-06-2020','Topolino3','00:52:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
+insert into DailyAvailability
+values ('04-06-2020','Pippo1','00:53:00','00:30:00','1:00:00','00:44:00','1:00:00','1:00:00','00:35:00','100%');
+insert into DailyAvailability
+values ('04-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','50%');
+insert into DailyAvailability
+values ('04-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','20%');
+insert into DailyAvailability
+values ('05-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:44:00','1:00:00','1:00:00','00:35:00','50%');
+insert into DailyAvailability
+values ('05-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
+insert into DailyAvailability
+values ('05-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
+insert into DailyAvailability
+values ('06-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
+insert into DailyAvailability
+values ('06-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','50%');
+insert into DailyAvailability
+values ('06-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','20%');
+insert into DailyAvailability
+values ('07-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','50%');
+insert into DailyAvailability
+values ('07-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
+insert into DailyAvailability
+values ('07-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
 
 
 

@@ -317,47 +317,39 @@ function loadPlanned(week) {
 
 
     function loadDailyAvail() {
-        let id = localStorage.getItem('id');
-        id = '{"id":' + id + "}";
+        let week = localStorage.getItem('week');
+        let username = localStorage.getItem('username');
+        let day = localStorage.getItem('day');
+        //let json = '{"username":"'+username+'","day":"'+day+'","week":"'+week+'"}';
+        let json = '{"username":"Pippo1","day":"3","week":"23"}';
         jQuery.ajax({
             type: "POST",
             url: '../models/loader.php',
             dataType: 'json',
-            data: {functionname: "loadDailyAvail", arguments: [id]},
+            data: {functionname: "loadDaylyAvail", arguments: [json]},
 
             success: function (obj, textstatus) {
-                if (!('error' in obj)) {
-                    let data = JSON.parse(obj.result);
-                    let workspaceNotes = $("#workspace-row-template").html();
-                    let mainAvail = $("maint-availab-template").html;
-                    workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
-                    $("#workspace-rows").append(workspaceNotes);
-
-                    document.getElementById("numWeek").innerHTML = data.week;
-                    document.getElementById("dayName").innerHTML = data.day;
-                    document.getElementById("activityName").innerHTML = data.id +
-                        " - " + data.site + " - " + data.typology + " - " + data.time;
-
-                    $('#maint-availab-rows').children().remove();
-
-                    $.each(data, function (index, obj) {
-                        let row = mainAvail;
-                        row = row.replace(/{MainName}/ig, obj.mainname);
-                        row = row.replace(/{NumSkill}/ig, obj.numskill);
-                        row = row.replace(/{Availab8}/ig, obj.availab8);
-                        row = row.replace(/{Availab9}/ig, obj.availab9);
-                        row = row.replace(/{Availab10}/ig, obj.availab10);
-                        row = row.replace(/{Availab11}/ig, obj.availab11);
-                        row = row.replace(/{Availab14}/ig, obj.availab14);
-                        row = row.replace(/{Availab15}/ig, obj.availab15);
-                        row = row.replace(/{Availab16}/ig, obj.availab16);
-                        $('#maint-availab-rows').append(row);
-                    });
+                data = JSON.parse(obj);
+                console.log(data);
+                if (!('error' in data)) {
+                    var row = $("#maint-availab-template").html();
 
                     // When empty availability
                     if (data === null) {
-                        alert("Error with maintainer chosen!")
+                        alert("Error with maintainer chosen!");
+                        return;
                     }
+
+                    row = row.replace(/{MainName}/ig, data.username);
+                    row = row.replace(/{Availab8}/ig, data.avail8_9);
+                    row = row.replace(/{Availab9}/ig, data.avail9_10);
+                    row = row.replace(/{Availab10}/ig, data.avail10_11);
+                    row = row.replace(/{Availab11}/ig, data.avail11_12);
+                    row = row.replace(/{Availab14}/ig, data.avail14_15);
+                    row = row.replace(/{Availab15}/ig, data.avail15_16);
+                    row = row.replace(/{Availab16}/ig, data.avail16_17);
+                    $('#maint-availab-rows').append(row);
+
                 } else {
                     console.log(obj.error);
                     alert("Impossible to load maintainer's availability");

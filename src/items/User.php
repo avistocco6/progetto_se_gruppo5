@@ -381,9 +381,9 @@ class User {
 
         $res = pg_fetch_row($res);
         $json_string = '{"username":"'.$res[1].'","avail8_9":"'.$res[2].
-            '",avail9_10":"'.$res[3].'","avail10_11":"'.$res[4].
-            '",avail11_12":"'.$res[5].'","avail14_15":"'.$res[6].
-            '",avail15_16":"'.$res[7].'","avail16_17":"'.$res[8].
+            '","avail9_10":"'.$res[3].'","avail10_11":"'.$res[4].
+            '","avail11_12":"'.$res[5].'","avail14_15":"'.$res[6].
+            '","avail15_16":"'.$res[7].'","avail16_17":"'.$res[8].
             '"}';
 
         return $json_string;

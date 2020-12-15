@@ -85,17 +85,17 @@
         <div id="column" class="column">
           <div class="header3" style="margin: 0;">
             <div id= "mainAvail">
-              <p> <b>Maintainer AVAILABILITY</b></p>
+              <p> <b>MAINTAINER AVAILABILITY</b></p>
             </div>
           </div>
-        
+        </div>
         
 
         <table id="maint-availab" style=" width:70%; position: absolute; top:320; left: 25.7%" >
           <thead>
+
             <tr>
               <th>Maintainer</th>
-              <th>Skills</th>
               <th>Availab. 8:00-9:00</th>
               <th>Availab. 9:00-10:00</th>
               <th>Availab. 10:00-11:00</th>
@@ -106,30 +106,28 @@
             </tr>
             <template id="maint-availab-template">
               <tr>
-                <td>{MainName}</td>
-                <td>{NumSkill}</td>
-                <td>
+                <td style="text-align:center;">{MainName}</td>
+                <td style="text-align:center;">
                   <button type="button">{Availab8}</button>
                 </td>
-                <td>
+                <td style="text-align:center;">
                   <button type="button">{Availab9}</button>
                 </td>
-                <td>
+                <td style="text-align:center;">
                   <button type="button">{Availab10}</button>
                 </td>
-                <td>
+                <td style="text-align:center;">
                   <button type="button">{Availab11}</button>
                 </td>
-                <td>
+                <td style="text-align:center;">
                   <button type="button">{Availab14}</button>
-                </td>
-                <td>
+                </td >
+                <td style="text-align:center;">
                   <button type="button">{Availab15}</button>
                 </td>
-                <td>
+                <td style="text-align:center;">
                   <button type="button">{Availab16}</button>
                 </td>
-                <td style="text-align:center;">
 
                 </tr>
               </template>
@@ -138,7 +136,6 @@
 
             </tbody>
           </table>
-          </div>
           <br>
           <br>
           <br>
@@ -159,8 +156,11 @@
         <!-- Custom JS -->
         <script type="text/javascript" src="../controllers/loader.js"></script>
         <script type="application/javascript">
-          $(document).ready(loadSelected());
-
+            $(document).ready(function () {
+                loadDailyAvail();
+                document.getElementById("numWeek").innerHTML = localStorage.getItem("week");
+                document.getElementById("activityName").innerHTML = localStorage.getItem("name");
+            })
           function review(){
             var button = document.getElementById('confirm');
             button.style.display='none';
