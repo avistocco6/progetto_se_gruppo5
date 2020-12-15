@@ -295,7 +295,8 @@ class User {
                                                     FROM Client NATURAL JOIN DailyAvailability
                                                     WHERE dataavail <=" . "'" . $end . "'" . "
                                                     AND dataavail >=" . "'" . $start . "'" . "
-                                                    AND clientrole = 'maintainer';"); // PRENDERE I GIORNI DI UN UTENTE ALLA VOLTA
+                                                    AND clientrole = 'maintainer'
+                                                    ORDER BY username;"); // PRENDERE I GIORNI DI UN UTENTE ALLA VOLTA
 
         if($activity_skills) {
             $skill_num = pg_affected_rows($activity_skills);
