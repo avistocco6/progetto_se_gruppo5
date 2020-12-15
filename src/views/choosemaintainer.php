@@ -74,7 +74,7 @@
 
             </tbody>
           </table>
-          <table id="maint-availab" style=" float: right; clear: left; top:320; left: 25.7%; overflow: hidden;" >
+          <table id="maint-availab">
             <thead>
               <tr>
                 <th>Maintainer</th>
