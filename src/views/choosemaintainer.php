@@ -91,29 +91,29 @@
 
     					<template id="maint-availab-template">
     						<tr>
-    							<td>{MainName}</td>
-    							<td>{NumSkill}</td>
-    							<td>
-    								<button type="button" onclick="passId('Mon')">{Mon}</button>
+    							<td style="text-align:center;">{MainName}</td>
+    							<td style="text-align:center;">{NumSkill}</td>
+    							<td style="text-align:center;">
+    								<button type="button" onclick="passId('1')">{Mon}</button>
     							</td>
-    							<td>
-    								<button type="button" onclick="passId('Tue')">{Tue}</button>
+    							<td style="text-align:center;">
+    								<button type="button" onclick="passId('2')">{Tue}</button>
     							</td>
-    							<td>
-    								<button type="button" onclick="passId('Wed')">{Wed}</button>
+    							<td style="text-align:center;">
+    								<button type="button" onclick="passId('3')">{Wed}</button>
     							</td>
-    							<td>
-    								<button type="button" onclick="passId('Thu')">{Thu}</button>
+    							<td style="text-align:center;">
+    								<button type="button" onclick="passId('4')">{Thu}</button>
     							</td>
-    							<td>
-    								<button type="button" onclick="passId('Fri')">{Fri}</button>
+    							<td style="text-align:center;">
+    								<button type="button" onclick="passId('5')">{Fri}</button>
     							</td>
-    							<td>
-    								<button type="button" onclick="passId('Sat')">{Sat}</button>
+    							<td style="text-align:center;">
+    								<button type="button" onclick="passId('6')">{Sat}</button>
     							</td>
-    							<td>
-    								<button type="button" onclick="passId('Sun')">{Sun}</button>
-    							</td>
+    							<td style="text-align:center;">
+    								<button type="button" onclick="passId('7')">{Sun}</button>
+    							</td >
     						</tr>
     					</template>
     				</thead>
@@ -144,10 +144,11 @@
        function passId(day) {
        	$('#maint-availab').find('tr').click( function(){
        		let row = $(this).index();
-       		let username = document.getElementById("maint-availab").rows[row].cells[0].innerHTML;
-       		console.log(day, username, row);
+       		let username = document.getElementById("maint-availab-rows").rows[row].cells[0].innerHTML;
        		localStorage.setItem("id",$(this).index());
-
+            localStorage.setItem("username", username);
+            localStorage.setItem('day', day);
+            window.open('selecthours.php', "_self");
        	});
        };
 

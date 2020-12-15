@@ -320,8 +320,8 @@ function loadPlanned(week) {
         let week = localStorage.getItem('week');
         let username = localStorage.getItem('username');
         let day = localStorage.getItem('day');
-        //let json = '{"username":"'+username+'","day":"'+day+'","week":"'+week+'"}';
-        let json = '{"username":"Pippo1","day":"3","week":"23"}';
+        let json = '{"username":"'+username+'","day":"'+day+'","week":"'+week+'"}';
+
         jQuery.ajax({
             type: "POST",
             url: '../models/loader.php',
