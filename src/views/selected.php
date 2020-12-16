@@ -50,7 +50,7 @@
             <div id="name">
               <p id="activityName"></p>
             </div>
-            <a href="choosemaintainer.php"a><input type="button" value="forward" name="forward" style="margin: 10px; width: 100px;
+            <a href="choosemaintainer.php"a><input type="button" value="forward" name="forward" onclick="saveNotes()" style="margin: 10px; width: 100px;
             height: 50px;"></a>
           </div>
           <div class="content">
@@ -61,7 +61,7 @@
               <thead>
                 <template id="workspace-row-template">
                   <tr>
-                    <td>{Workspace Notes}</td>
+                    <td id="notes">{Workspace Notes}</td>
                   </tr>
                 </template>
               </thead>
@@ -117,6 +117,11 @@
     <script type="text/javascript" src="../controllers/loader.js"></script>
     <script type="application/javascript">
       $(document).ready(loadSelected());
+
+      function saveNotes() {
+          let notes = document.getElementById("notes").innerHTML;
+          localStorage.setItem("notes", notes);
+      }
     </script>
 
 
