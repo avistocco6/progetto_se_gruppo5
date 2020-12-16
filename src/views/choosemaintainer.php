@@ -145,8 +145,10 @@
        	$('#maint-availab').find('tr').click( function(){
        		let row = $(this).index();
        		let username = document.getElementById("maint-availab-rows").rows[row].cells[0].innerHTML;
+            let skills = document.getElementById("maint-availab-rows").rows[row].cells[1].innerHTML;
        		localStorage.setItem("id",$(this).index());
             localStorage.setItem("username", username);
+            localStorage.setItem("skills", skills);
             localStorage.setItem('day', day);
             window.open('selecthours.php', "_self");
        	});

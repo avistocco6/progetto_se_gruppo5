@@ -82,9 +82,6 @@
 
   				</tbody>
   			</table>
-  			<a href="#"a><input type="button" value="send" id="send" name="send" style="float: left;visibility: hidden; width: 100px;
-  				height: 50px;">
-  			</a>
   			<table id="maint-availab">
   				<thead>
   					<tr>
@@ -104,25 +101,25 @@
   						<tr>
   							<td style="text-align:center;">{MainName}</td>
   							<td style="text-align:center;">
-  								<button type="button" onclick="changeColor(this);">{Availab8}</button>
+  								<button type="button" onclick="changeColor(this, '8');">{Availab8}</button>
   							</td>
   							<td style="text-align:center;">
-  								<button type="button" onclick="changeColor(this);">{Availab9}</button>
+  								<button type="button" onclick="changeColor(this, '9');">{Availab9}</button>
   							</td>
   							<td style="text-align:center;">
-  								<button type="button" onclick="changeColor(this);">{Availab10}</button>
+  								<button type="button" onclick="changeColor(this, '10');">{Availab10}</button>
   							</td>
   							<td style="text-align:center;">
-  								<button type="button" onclick="changeColor(this);">{Availab11}</button>
+  								<button type="button" onclick="changeColor(this, '11');">{Availab11}</button>
   							</td>
   							<td style="text-align:center;">
-  								<button type="button" onclick="changeColor(this);">{Availab14}</button>
+  								<button type="button" onclick="changeColor(this, '14');">{Availab14}</button>
   							</td >
   							<td style="text-align:center;">
-  								<button type="button" onclick="changeColor(this);">{Availab15}</button>
+  								<button type="button" onclick="changeColor(this, '15');">{Availab15}</button>
   							</td>
   							<td style="text-align:center;">
-  								<button type="button" onclick="changeColor(this);">{Availab16}</button>
+  								<button type="button" onclick="changeColor(this, '16');">{Availab16}</button>
   							</td>
 
   						</tr>
@@ -134,7 +131,7 @@
   			</table>
   			<br>
   			<div class="button" style="position: center;">
-  				<a href="#"a><input type="button" value="confirm" disabled onclick="review();" id="confirm" name="confirm" style="float:left; height: 50px; width: 100px;">
+  				<a href="#"a><input type="button" value="confirm" disabled onclick="window.location.replace('review.php');" id="confirm" name="confirm" style="float:left; height: 50px; width: 100px;">
   				</a>
   				
   		</div>
@@ -191,15 +188,13 @@
 	function review(){
 		var button = document.getElementById('confirm');
 		button.style.visibility='hidden';
-		var tab = document.getElementById('maint-availab');
-		tab.style.visibility='hidden';
-		var x = document.getElementById('send');
-		x.style.visibility="visible";
 	}
-	function changeColor(button){
+	function changeColor(button, hour){
 		button.style.color="green";
 		var confirm = document.getElementById('confirm');
 		confirm.disabled=false;
+		localStorage.setItem("hour", hour);
+		localStorage.setItem("min", button.innerHTML);
 	}
 </script>
 
