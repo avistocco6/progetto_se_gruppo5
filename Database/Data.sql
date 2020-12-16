@@ -133,17 +133,17 @@ values ('05-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:0
 insert into DailyAvailability
 values ('05-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
 insert into DailyAvailability
-values ('06-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
+values ('06-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','20%');
 insert into DailyAvailability
 values ('06-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','50%');
 insert into DailyAvailability
-values ('06-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','20%');
+values ('06-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
 insert into DailyAvailability
-values ('07-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','50%');
+values ('07-06-2020','Pippo1','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
 insert into DailyAvailability
-values ('07-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
+values ('07-06-2020','Paperino2','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
 insert into DailyAvailability
-values ('07-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','80%');
+values ('07-06-2020','Topolino3','00:50:00','00:30:00','1:00:00','00:40:00','1:00:00','1:00:00','00:35:00','100%');
 
 
 
@@ -234,12 +234,21 @@ values('Pippo1',003);
 insert into Holding(username,idskill)
 values('Paperino2',001);
 insert into Holding(username,idskill)
+values('Paperino2',002);
+insert into Holding(username,idskill)
 values('Paperino2',006);
 insert into Holding(username,idskill)
 values('Paperino2',007);
 insert into Holding(username,idskill)
 values('Paperino2',008);
-
+insert into Holding(username,idskill)
+values('Topolino3',001);
+insert into Holding(username,idskill)
+values('Topolino3',002);
+insert into Holding(username,idskill)
+values('Topolino3',003);
+insert into Holding(username,idskill)
+values('Topolino3',004);
 -----------------------------------------------INSERT INTO SPASSIGNMENT
 insert into SPAssignment(ids,idp)
 values(001,001);
@@ -265,6 +274,12 @@ values(009,002);
 
 -----------------------------------------------INSERT INTO SMASSIGNMENT
 insert into SMAssignment(idskill,maid)
+values(001,001);
+insert into SMAssignment(idskill,maid)
 values(002,001);
 insert into SMAssignment(idskill,maid)
-values(001,001);
+values(003,001);
+insert into SMAssignment(idskill,maid)
+values(004,001);
+insert into SMAssignment(idskill,maid)
+values(005,001);
