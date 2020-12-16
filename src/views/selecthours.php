@@ -147,7 +147,7 @@
   <br>
   
 </a>
-<div class="footer" style="position: fixed;">
+<div class="footer" >
 	<h2>Team 5</h2>
 </div>
 
