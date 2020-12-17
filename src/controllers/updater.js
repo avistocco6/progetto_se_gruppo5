@@ -1,3 +1,4 @@
+//updateMaterial allows to modify material, calling updateMaterial from models package, according to MVC Architecture
 function updateMaterial() {
     let id =localStorage.getItem('id');
     let name = document.getElementById('new-material').value;
@@ -26,6 +27,7 @@ function updateMaterial() {
     });
     document.getElementById("new-material").value = "";
 }
+//updateSkill allows to modify a skill, calling updateSkill from models package, according to MVC Architecture
 
 function updateSkill() {
     let id =localStorage.getItem('id');
@@ -55,7 +57,7 @@ function updateSkill() {
     });
     document.getElementById("new-skill").value = "";
 }
-
+//updateSite allows to modify factory and area, calling updateSite from models package, according to MVC Architecture
 function updateSite() {
     let id =localStorage.getItem('id');
     let factory= document.getElementById('factory').value;
@@ -87,7 +89,7 @@ function updateSite() {
     document.getElementById("area").value = "";
     document.getElementById("factory").value = "";
 }
-
+//updateTypology allows to modify typology of an activity, calling updateTypology from models package, according to MVC Architecture
 function updateTypology() {
     let id =localStorage.getItem('id');
     let description= document.getElementById('new-typology').value;
@@ -116,7 +118,7 @@ function updateTypology() {
     });
     document.getElementById("new-typology").value = "";
 }
-
+//updateProcedure allows to modify description of a procedure, calling updateProcedure from models package, according to MVC Architecture
 function updateProcedure() {
     let id =localStorage.getItem('id');
     let description= document.getElementById('new-procedure').value;
@@ -145,6 +147,7 @@ function updateProcedure() {
     document.getElementById("new-procedure").value = "";
 }
 
+//updateActivity can modify all the information about a planned activity, calling updateActivity from models package, according to MVC Architecture
 function updateActivity() {
     let id =localStorage.getItem('id');
     let typology = document.getElementById("typology-rows").selectedIndex+1;
@@ -194,7 +197,7 @@ function updateActivity() {
     document.getElementById('description').value = "";
     document.getElementById('estimatedtime').value = "";
 }
-
+//updateUser allows to modify email and/or password of the user, calling updateEmail/updatePassword from models package, according to MVC Architecture
 function updateUser() {
     let username =localStorage.getItem('username');
     let email = document.getElementById("email").value;

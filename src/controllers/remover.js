@@ -1,3 +1,6 @@
+
+//removeMaterial can remove a specific material from the database, calling removeMaterial in models package, according to the MVC architecture 
+
 function removeMaterial() {
     let id =localStorage.getItem('id');
     console.log(id);
@@ -26,6 +29,7 @@ function removeMaterial() {
 
 }
 
+//removeProcedure can remove a specific procedure from the database, calling removeProcedure in models package, according to the MVC architecture 
 function removeProcedure() {
     let id =localStorage.getItem('id');
     console.log(id);
@@ -53,7 +57,7 @@ function removeProcedure() {
     });
 
 }
-
+//removeSite can remove a specific site from the database, calling removeSite in models package, according to the MVC architecture 
 function removeSite() {
     let id =localStorage.getItem('id');
     console.log(id);
@@ -82,6 +86,7 @@ function removeSite() {
 
 }
 
+//removeSkill can remove a specific skill from the database, calling removeSkill in models package, according to the MVC architecture 
 function removeSkill() {
     let id =localStorage.getItem('id');
     console.log(id);
@@ -110,6 +115,7 @@ function removeSkill() {
 
 }
 
+//removeTypology can remove a specific typology from the database, calling removeTypology in models package, according to the MVC architecture 
 function removeTypology() {
     let id =localStorage.getItem('id');
     console.log(id);
@@ -137,6 +143,8 @@ function removeTypology() {
     });
 
 }
+
+//removeActivity can remove a specific planned activity from the database, calling removeActivity in models package, according to the MVC architecture 
 function removeActivity() {
     var id =localStorage.getItem('id');
     id = '{"id": ' + id + '}';
@@ -164,6 +172,8 @@ function removeActivity() {
     });
 
 }
+
+//removeUser can remove a specific user from the database, calling removeUser in models package, according to the MVC architecture 
 function removeUser() {
     let username =localStorage.getItem('username');
     console.log(username);

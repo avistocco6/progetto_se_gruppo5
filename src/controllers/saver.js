@@ -1,3 +1,6 @@
+//addMaterial takes data from view and calls saveMaterial function in models package to store information 
+//in the database, according to the MVC architecture 
+
 function addMaterial() {
     let name = document.getElementById("new-material").value;
     let material = '{"name":' + '"' + name + '", "activity": null}';
@@ -24,6 +27,8 @@ function addMaterial() {
     document.getElementById("new-material").value = "";
 }
 
+//addSkill takes data from view and calls saveSkill function in models package to store information 
+//in the database, according to the MVC architecture 
 function addSkill() {
     let name = document.getElementById("new-skill").value;
     let skill = '{"name":' + '"' + name + '"}';
@@ -50,6 +55,9 @@ function addSkill() {
     document.getElementById("new-skill").value = "";
 }
 
+
+//addSite takes data from view and calls saveSite function in models package to store information 
+//in the database, according to the MVC architecture 
 function addSite() {
     let factory = document.getElementById("factory").value;
     let area = document.getElementById("area").value;
@@ -79,6 +87,8 @@ function addSite() {
     document.getElementById("area").value = "";
 }
 
+//addProcedure takes data from view and calls saveProcedure function in models package to store information
+//in the database, according to the MVC architecture 
 function addProcedure() {
     let desc = document.getElementById("new-procedure").value;
     let procedure = '{"description":' + '"' + desc + '"}';
@@ -105,6 +115,8 @@ function addProcedure() {
     document.getElementById("new-procedure").value = "";
 }
 
+//addTypology takes data from view and calls saveTypology function in models package to store information
+//in the database, according to the MVC architecture 
 function addTypology() {
     let name = document.getElementById("new-typology").value;
     let typology = '{"description":' + '"' + name + '"}';
@@ -130,6 +142,9 @@ function addTypology() {
     });
     document.getElementById("new-typology").value = "";
 }
+
+//addActivity takes data from view and calls saveActivity function in models package to store information
+//in the database, according to the MVC architecture 
 
 function addActivity(){
 
@@ -179,6 +194,9 @@ function addActivity(){
     document.getElementById('time').value = "";
 }
 
+//addUser takes data from view and calls saveUser function in models package to store information
+//in the database, according to the MVC architecture 
+
 function addUser() {
     let username = document.getElementById("username").value;
     let name = document.getElementById("name").value;
@@ -214,6 +232,7 @@ function addUser() {
     document.getElementsByName("psw").value = "";
 }
 
+//assignSkill allow to assign a particular skill to a maintainer, calling assignSkill in models package according to the MVC architecture 
 
 function assignSkill() {
     let username = localStorage.getItem('username');

@@ -1,3 +1,6 @@
+
+//loadMaterials allows to load information about material form the database, 
+//calling loadMaterials from models package, according to MVC Architecture
 function loadMaterials() {
     jQuery.ajax({
         type: "POST",
@@ -15,7 +18,7 @@ function loadMaterials() {
                   row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Material}/ig, obj.name);
                   $('#materials-rows').append(row);
-                });
+              });
 
                 /* When empty material */
                 if (data === null) {
@@ -30,6 +33,8 @@ function loadMaterials() {
     });
 }
 
+//loadSkills allows to load information about skills form the database,
+// calling loadSkills from models package, according to MVC Architecture
 function loadSkills() {
     jQuery.ajax({
         type: "POST",
@@ -47,7 +52,7 @@ function loadSkills() {
                   row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Skill}/ig, obj.name);
                   $('#skills-rows').append(row);
-                });
+              });
 
                 /* When empty skill */
                 if (data === null) {
@@ -62,7 +67,7 @@ function loadSkills() {
     });
 }
 
-
+//loadSites allows to load information about sites form the database, calling loadSites from models package, according to MVC Architecture
 function loadSites() {
     jQuery.ajax({
         type: "POST",
@@ -97,7 +102,7 @@ function loadSites() {
     });
 }
 
-
+//loadTypology allows to load information about typologies form the database, calling loadTypology from models package, according to MVC Architecture
 function loadTypology() {
     jQuery.ajax({
         type: "POST",
@@ -115,7 +120,7 @@ function loadTypology() {
                   row = row.replace(/{ID}/ig, obj.id);
                   row = row.replace(/{Description}/ig, obj.description);
                   $('#typology-rows').append(row);
-                });
+              });
 
                 /* When empty sites */
                 if (data === null) {
@@ -129,7 +134,7 @@ function loadTypology() {
         }
     });
 }
-
+//loadProcedures allows to load information about procedures form the database, calling loadProcedures from models package, according to MVC Architecture
 function loadProcedures() {
     jQuery.ajax({
         type: "POST",
@@ -148,7 +153,7 @@ function loadProcedures() {
                   let name = obj.name.replace(/;/ig, "<br>");
                   row = row.replace(/{Description}/ig, name);
                   $('#procedures-rows').append(row);
-                });
+              });
                 /* When empty sites */
                 if (data === null) {
                     alert("There are no procedures!")
@@ -162,7 +167,7 @@ function loadProcedures() {
     });
 }
 
-
+//loadSelected allows to load information about the selected activity form the database, calling loadSelected from models package, according to MVC Architecture
 function loadSelected() {
     let id =localStorage.getItem('id');
     id = '{"id":' + id + "}";
@@ -185,7 +190,7 @@ function loadSelected() {
 
                 document.getElementById("numWeek").innerHTML = data.week;
                 document.getElementById("activityName").innerHTML  = data.id +
-                    " - " + data.site + " - " + data.typology + " - " + data.time;
+                " - " + data.site + " - " + data.typology + " - " + data.time;
                 localStorage.setItem('name', data.id +
                     " - " + data.site + " - " + data.typology + " - " + data.time);
                 $("#workspace-rows").append(workspaceNotes);
@@ -195,7 +200,7 @@ function loadSelected() {
                   let row = skill;
                   row = row.replace(/{Skill}/ig, obj.name);
                   $('#skillsNeeded-rows').append(row);
-                });
+              });
                 /* When empty activity */
                 if (data === null) {
                     alert("Error with activity chosen!")
@@ -206,10 +211,12 @@ function loadSelected() {
                 alert("Impossible to load procedures");
             }
         }
-        });
+    });
 
 }
 
+//loadPlanned allows to load ID, Area, Typology and estimated time about planned activities in a certain week form the database, 
+//calling loadPlanned from models package, according to MVC Architecture
 function loadPlanned(week) {
     let json = '{ "week":' + week + ', "type": "planned activity"}';
     jQuery.ajax({
@@ -245,94 +252,98 @@ function loadPlanned(week) {
         }
     });
 }
-    function loadWeeks() {
-        jQuery.ajax({
-            type: "POST",
-            url: '../models/loader.php',
-            dataType: 'json',
-            data: {functionname: "loadWeeks", arguments: []},
 
-            success: function (obj, textstatus) {
-                if( !('error' in obj) ) {
-                    let data = JSON.parse(obj.result);
-                    let staticHtml = $("#week-template").html();
+//loadWeeks allows to load planned activity ordered by week, calling loadWeeks, according to MVC Architecture
+function loadWeeks() {
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadWeeks", arguments: []},
 
-                    $.each(data, function (index, obj) {
-                        let option = staticHtml;
-                        option = option.replace(/{Week}/ig, obj.week);
-                        $('#week-select').append(option);
-                    });
-                    let week = document.getElementById('week-select').options[0].text;
-                    loadPlanned(week);
-                    /* When empty sites */
-                    if (data === null) {
-                        alert("There are no activities planned!");
-                    }
-                }
-                else {
-                    console.log(obj.error);
-                    alert("Impossible to load weeks!");
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                let data = JSON.parse(obj.result);
+                let staticHtml = $("#week-template").html();
+
+                $.each(data, function (index, obj) {
+                    let option = staticHtml;
+                    option = option.replace(/{Week}/ig, obj.week);
+                    $('#week-select').append(option);
+                });
+                let week = document.getElementById('week-select').options[0].text;
+                loadPlanned(week);
+                /* When empty sites */
+                if (data === null) {
+                    alert("There are no activities planned!");
                 }
             }
-        });
-    }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load weeks!");
+            }
+        }
+    });
+}
+//loadUsers allows to load information (Username, Name, Email, Password) about users, 
+//calling loadUsers from models package, according to MVC Architecture
+function loadUsers() {
+    let role = document.getElementById("role").value;
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadUsers", arguments: []},
 
-    function loadUsers() {
-        let role = document.getElementById("role").value;
-        jQuery.ajax({
-            type: "POST",
-            url: '../models/loader.php',
-            dataType: 'json',
-            data: {functionname: "loadUsers", arguments: []},
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                let data = JSON.parse(obj.result);
+                let staticHtml = $("#users-row-template").html();
 
-            success: function (obj, textstatus) {
-                if( !('error' in obj) ) {
-                    let data = JSON.parse(obj.result);
-                    let staticHtml = $("#users-row-template").html();
+                $.each(data, function (index, obj) {
+                    if(obj.role == role) {
+                        let row = staticHtml;
+                        row = row.replace(/{Username}/ig, obj.username);
+                        row = row.replace(/{Name}/ig, obj.name);
+                        row = row.replace(/{Email}/ig, obj.email);
+                        row = row.replace(/{Password}/ig, obj.password);
 
-                    $.each(data, function (index, obj) {
-                        if(obj.role == role) {
-                            let row = staticHtml;
-                            row = row.replace(/{Username}/ig, obj.username);
-                            row = row.replace(/{Name}/ig, obj.name);
-                            row = row.replace(/{Email}/ig, obj.email);
-                            row = row.replace(/{Password}/ig, obj.password);
-
-                            $('#users-rows').append(row);
-                        }
-                    });
-
-                    /* When empty user */
-                    if (data === null) {
-                        alert("There are no users!")
+                        $('#users-rows').append(row);
                     }
-                }
-                else {
-                    console.log(obj.error);
-                    alert("Impossible to load users");
+                });
+
+                /* When empty user */
+                if (data === null) {
+                    alert("There are no users!")
                 }
             }
-        });
-    }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load users");
+            }
+        }
+    });
+}
 
+//loadDailyAvail can load daily availability of the maintainer selected for a planned activity, in a specific day of a specific week,
+//calling loadDaylyAvail from models package, according to MVC Architecture
+function loadDailyAvail() {
+    let week = localStorage.getItem('week');
+    let username = localStorage.getItem('username');
+    let day = localStorage.getItem('day');
+    let json = '{"username":"'+username+'","day":"'+day+'","week":"'+week+'"}';
 
-    function loadDailyAvail() {
-        let week = localStorage.getItem('week');
-        let username = localStorage.getItem('username');
-        let day = localStorage.getItem('day');
-        let json = '{"username":"'+username+'","day":"'+day+'","week":"'+week+'"}';
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadDaylyAvail", arguments: [json]},
 
-        jQuery.ajax({
-            type: "POST",
-            url: '../models/loader.php',
-            dataType: 'json',
-            data: {functionname: "loadDaylyAvail", arguments: [json]},
-
-            success: function (obj, textstatus) {
-                data = JSON.parse(obj);
-                console.log(data);
-                if (!('error' in data)) {
-                    var row = $("#maint-availab-template").html();
+        success: function (obj, textstatus) {
+            data = JSON.parse(obj);
+            console.log(data);
+            if (!('error' in data)) {
+                var row = $("#maint-availab-template").html();
 
                     // When empty availability
                     if (data === null) {
@@ -356,45 +367,48 @@ function loadPlanned(week) {
                 }
             }
         });
-    }
+}
 
-    function loadWeekPercentage() {
-        let id = localStorage.getItem("id");
-        let week = localStorage.getItem('week');
-        let json = '{"week":' + week + ',"id":' + id + "}";
-        console.log(json);
-        jQuery.ajax({
-            type: "POST",
-            url: '../models/loader.php',
-            dataType: 'json',
-            data: {functionname: "loadWeekPercentage", arguments: [json]},
+//loadWeekPercentage allows to show the percentage of daily availability of the maintainers in a specific week,
+//calling loadWeekPercentage from models package, according to MVC Architecture
 
-            success: function (obj, textstatus) {
-                let data = JSON.parse(obj);
-                if(data['error'] == 0) {
-                    let skills = data['skills'];
-                    let maintainerInfo = data['maintainers'];
-                    let skills_template = $("#skillsNeeded-row-template").html();
-                    let maintainerInfo_template = $("#maint-availab-template").html();
+function loadWeekPercentage() {
+    let id = localStorage.getItem("id");
+    let week = localStorage.getItem('week');
+    let json = '{"week":' + week + ',"id":' + id + "}";
+    console.log(json);
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadWeekPercentage", arguments: [json]},
 
-                    $.each(skills, function (index, obj) {
-                        let row = skills_template;
-                        row = row.replace(/{Skill}/ig, obj.skill);
-                        $('#skillsNeeded-rows').append(row);
-                    });
-                    /* When empty skills */
-                    if (skills.length == 0) {
-                        let row = skills_template;
-                        row = row.replace(/{Skill}/ig, "No specific skill needed");
-                        $('#skillsNeeded-rows').append(row);
-                    }
+        success: function (obj, textstatus) {
+            let data = JSON.parse(obj);
+            if(data['error'] == 0) {
+                let skills = data['skills'];
+                let maintainerInfo = data['maintainers'];
+                let skills_template = $("#skillsNeeded-row-template").html();
+                let maintainerInfo_template = $("#maint-availab-template").html();
 
-                    var currUser = "";
-                    var rows = [];
-                    $.each(maintainerInfo, function (index, obj) {
-                        let row = maintainerInfo_template;
+                $.each(skills, function (index, obj) {
+                    let row = skills_template;
+                    row = row.replace(/{Skill}/ig, obj.skill);
+                    $('#skillsNeeded-rows').append(row);
+                });
+                /* When empty skills */
+                if (skills.length == 0) {
+                    let row = skills_template;
+                    row = row.replace(/{Skill}/ig, "No specific skill needed");
+                    $('#skillsNeeded-rows').append(row);
+                }
 
-                        if (currUser != obj.username) {
+                var currUser = "";
+                var rows = [];
+                $.each(maintainerInfo, function (index, obj) {
+                    let row = maintainerInfo_template;
+
+                    if (currUser != obj.username) {
                             // if some days are not present in db
                             if(currUser != ""){
                                 rows[currUser] = rows[currUser].replace(/{Mon}/ig, "0%");
@@ -417,41 +431,41 @@ function loadPlanned(week) {
                         var day = d.getDay();
                         switch (day) {
                             case 1:
-                                rows[currUser] = rows[currUser].replace(/{Mon}/ig, obj.availab);
-                                break;
+                            rows[currUser] = rows[currUser].replace(/{Mon}/ig, obj.availab);
+                            break;
                             case 2:
-                                rows[currUser] = rows[currUser].replace(/{Tue}/ig, obj.availab);
-                                break;
+                            rows[currUser] = rows[currUser].replace(/{Tue}/ig, obj.availab);
+                            break;
                             case 3:
-                                rows[currUser] = rows[currUser].replace(/{Wed}/ig, obj.availab);
-                                break;
+                            rows[currUser] = rows[currUser].replace(/{Wed}/ig, obj.availab);
+                            break;
                             case 4:
-                                rows[currUser] = rows[currUser].replace(/{Thu}/ig, obj.availab);
-                                break;
+                            rows[currUser] = rows[currUser].replace(/{Thu}/ig, obj.availab);
+                            break;
                             case 5:
-                                rows[currUser] = rows[currUser].replace(/{Fri}/ig, obj.availab);
-                                break;
+                            rows[currUser] = rows[currUser].replace(/{Fri}/ig, obj.availab);
+                            break;
                             case 6:
-                                rows[currUser] = rows[currUser].replace(/{Sat}/ig, obj.availab);
-                                break;
+                            rows[currUser] = rows[currUser].replace(/{Sat}/ig, obj.availab);
+                            break;
                             case 0:
-                                rows[currUser] = rows[currUser].replace(/{Sun}/ig, obj.availab);
-                                break;
+                            rows[currUser] = rows[currUser].replace(/{Sun}/ig, obj.availab);
+                            break;
                         }
                     });
-                    $('#maint-availab-rows').append(rows[currUser]);
-                    /* When empty skills */
-                    if (maintainerInfo-length == 0) {
-                        alert("No maintainer avaible on this week!");
-                    }
+                $('#maint-availab-rows').append(rows[currUser]);
+                /* When empty skills */
+                if (maintainerInfo-length == 0) {
+                    alert("No maintainer avaible on this week!");
+                }
 
-                }
-                else {
-                    console.log(obj.error);
-                    alert("Impossible to load maintainer's availability");
-                }
             }
-        });
-    }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load maintainer's availability");
+            }
+        }
+    });
+}
 
 
