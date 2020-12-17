@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Choose Maintainer</title>
-    <!--The system must allow selecting among the days of the week that the Maintainer has  availability and show
-     the following information: week number, date (selected day), activity to assign (activity ID, area, typology,
-      estimated intervention time), workspace  notes, maintainer name, maintainer availability percentage,
-      maintainer competencies  compliance, availability (in minutes for each hour of his workday, e.g. 8:00-9:00,
-      9:00- 10:00).
-      At this point, the system must allow to select the slot of availability time (to assign the schedule in
-      minutes) in which the maintenance activity will be assigned and program the activity. -->
+    <!--When a maintenance activity is assigned, the system must send a notification to the selected
+      Maintainer profile with a copy by e-mail to the Production manager.
+      This page gives a final summary of the maintainer availability   -->
 
       <meta charset="utf-8"/>
       <meta name="author" content="Team 5"/>
@@ -104,12 +100,12 @@
     </tr>
   </thead>
   <tbody>
-  <form id="form">
-    <tr>
-      <td id="maintainer" name="username" style="text-align:center;"></td>
-      <td id="skills" style="text-align:center;"></td>
-    </tr>
-  </form>
+    <form id="form">
+      <tr>
+        <td id="maintainer" name="username" style="text-align:center;"></td>
+        <td id="skills" style="text-align:center;"></td>
+      </tr>
+    </form>
   </tbody>
 </table>
 <table class="tab3" style="float: left;">
@@ -128,10 +124,10 @@
 include 'prova.php';
 ?>
 </div>
-      <a href="mailto:<?php echo $email = getemailmain();?>?cc=<?php echo $email = getemailproman();?>&subject= New Assignment&body= Hello, there is a job for you! According to your availability, I have assigned to you a new planned maintenance activity. Please check your profile to obtain more information. Bye."> 
-      <input  type="submit" onclick="passuser()" value="send" id="send" name="send" style="float:right;width: 100px;
-      height: 50px;">
-      </a>
+<a href="mailto:<?php echo $email = getemailmain();?>?cc=<?php echo $email = getemailproman();?>&subject= New Assignment&body= Hello, there is a job for you! According to your availability, I have assigned to you a new planned maintenance activity. Please check your profile to obtain more information. Bye."> 
+  <input  type="submit" onclick="passuser()" value="send" id="send" name="send" style="float:right;width: 100px;
+  height: 50px;">
+</a>
 
 <div class="footer" >
 	<h2>Team 5</h2>
@@ -210,17 +206,17 @@ include 'prova.php';
     var username = localStorage.getItem("username");
 
     jQuery.ajax({
-        type: "POST",
-        url: 'prova.php',
-        dataType: 'json',
-        data: {user: username},
+      type: "POST",
+      url: 'prova.php',
+      dataType: 'json',
+      data: {user: username},
 
-        success: function (obj, textstatus) {
-            alert ("ok");
-        }
+      success: function (obj, textstatus) {
+        alert ("ok");
+      }
     });
   }
-  </script>
+</script>
 
 </body>
 </html>
