@@ -1,6 +1,10 @@
 <?php
 
-
+//The following test cases are documented in the directory "documenti testing". 
+//PHPUnit is the tool used to test.
+//Function assertEquals verifies if the desired output is equal to the obtained output.
+//Singleton pattern is used.
+//These methods are the corresponding methods of the Procedure class in items package.
 use PHPUnit\Framework\TestCase;
 include_once '..\items\Procedure.php';
 
