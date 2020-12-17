@@ -99,15 +99,17 @@
 <table id="maint-availab" >
   <thead>
     <tr>
-      <th>Maintainer</th>
+      <th>Maintainer </th>
       <th>Skills</th>
     </tr>
   </thead>
   <tbody>
+  <form id="form">
     <tr>
-      <td id="maintainer"style="text-align:center;"></td>
+      <td id="maintainer" name="username" style="text-align:center;"></td>
       <td id="skills" style="text-align:center;"></td>
     </tr>
+  </form>
   </tbody>
 </table>
 <table class="tab3" style="float: left;">
@@ -122,11 +124,14 @@
 <br>
 <br>
 <br>
-<a href="#"a><input type="button" value="send" id="send" name="send" style="float:right;width: 100px;
-height: 50px;">
-</a>
+<?php
+include 'prova.php';
+?>
 </div>
-
+      <a href="mailto:<?php echo $email = getemailmain();?>?cc=<?php echo $email = getemailproman();?>&subject= New Assignment&body= Hello, there is a job for you! According to your availability, I have assigned to you a new planned maintenance activity. Please check your profile to obtain more information. Bye."> 
+      <input  type="submit" onclick="passuser()" value="send" id="send" name="send" style="float:right;width: 100px;
+      height: 50px;">
+      </a>
 
 <div class="footer" >
 	<h2>Team 5</h2>
@@ -200,6 +205,22 @@ height: 50px;">
   document.getElementById("hour").innerHTML = hour;
 })
 </script>
+<script>
+  function passuser(){
+    var username = localStorage.getItem("username");
+
+    jQuery.ajax({
+        type: "POST",
+        url: 'prova.php',
+        dataType: 'json',
+        data: {user: username},
+
+        success: function (obj, textstatus) {
+            alert ("ok");
+        }
+    });
+  }
+  </script>
 
 </body>
 </html>
