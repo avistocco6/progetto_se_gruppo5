@@ -1,6 +1,6 @@
 <?php
 
-
+//This class create the connection with the database and the function get and set allow to read ad write data.
 class PgConnection
 {
     private $host = 'localhost';
