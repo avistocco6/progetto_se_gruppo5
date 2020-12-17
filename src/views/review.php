@@ -125,11 +125,10 @@ include 'email.php';
 ?>
 </div>
 <a href="mailto:<?php echo $email = getemailmain();?>?cc=<?php echo $email = getemailproman();?>&subject= New Assignment&body= Hello, there is a job for you! According to your availability, I have assigned to you a new planned maintenance activity. Please check your profile to obtain more information. Bye."> 
-  <input  type="submit" value="send" id="send" name="send" style="float:right;width: 100px;
-  height: 50px;">
+  <input  type="submit" value="send" id="send" name="send" style="margin-right:50px; margin-bottom:50px;width: 100px;float:right;height: 50px;">
 </a>
 
-<div class="footer" >
+<div class="footer" style="position: absolute;" >
 	<h2>Team 5</h2>
 </div>
 
