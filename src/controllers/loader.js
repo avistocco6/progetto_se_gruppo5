@@ -341,7 +341,6 @@ function loadDailyAvail() {
 
         success: function (obj, textstatus) {
             data = JSON.parse(obj);
-            console.log(data);
             if (!('error' in data)) {
                 var row = $("#maint-availab-template").html();
 
@@ -350,8 +349,9 @@ function loadDailyAvail() {
                         alert("Error with maintainer chosen!");
                         return;
                     }
-
+                    let skills = localStorage.getItem('skills');
                     row = row.replace(/{MainName}/ig, data.username);
+                    row = row.replace(/{Skills}/ig, skills);
                     row = row.replace(/{Availab8}/ig, data.avail8_9);
                     row = row.replace(/{Availab9}/ig, data.avail9_10);
                     row = row.replace(/{Availab10}/ig, data.avail10_11);
@@ -466,6 +466,52 @@ function loadWeekPercentage() {
             }
         }
     });
+}
+
+function loadReview() {
+    let id =localStorage.getItem('id');
+    id = '{"id":' + id + "}";
+    jQuery.ajax({
+        type: "POST",
+        url: '../models/loader.php',
+        dataType: 'json',
+        data: {functionname: "loadSelected", arguments: [id]},
+
+        success: function (obj, textstatus) {
+            if( !('error' in obj) ) {
+                let data = JSON.parse(obj.result);
+
+                let workspaceNotes = $("#workspace-row-template").html();
+                let skill = $("#skillsNeeded-row-template").html();
+
+                workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, data.workspaceNotes);
+
+                document.getElementById("numWeek").innerHTML = data.week;
+                document.getElementById("activityName").innerHTML  = data.id +
+                    " - " + data.site + " - " + data.typology + " - " + data.time;
+                localStorage.setItem('name', data.id +
+                    " - " + data.site + " - " + data.typology + " - " + data.time);
+                $("#workspace-rows").append(workspaceNotes);
+
+                document.getElementById('maintainer').innerHTML = localStorage.getItem('username');
+                document.getElementById('skills').innerHTML = localStorage.getItem('skills');
+                $.each(data.skills, function(index, obj) {
+                    let row = skill;
+                    row = row.replace(/{Skill}/ig, obj.name);
+                    $('#skillsNeeded-rows').append(row);
+                });
+                /* When empty activity */
+                if (data === null) {
+                    alert("Error with activity chosen!")
+                }
+            }
+            else {
+                console.log(obj.error);
+                alert("Impossible to load procedures");
+            }
+        }
+    });
+
 }
 
 

@@ -140,11 +140,7 @@ include 'prova.php';
 <script type="text/javascript" src="../controllers/loader.js"></script>
 <script type="application/javascript">
 	$(document).ready(function () {
-		loadDailyAvail();
-    document.getElementById("numWeek").innerHTML = localStorage.getItem("week");
-    document.getElementById("maintainer").innerHTML = localStorage.getItem("username");
-    document.getElementById("skills").innerHTML = localStorage.getItem("skills");
-    document.getElementById("activityName").innerHTML = localStorage.getItem("name");
+    loadReview();
     var day = localStorage.getItem("day");
     switch (day) {
      case '1':

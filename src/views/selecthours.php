@@ -89,6 +89,7 @@
   					</tr>
   					<tr>
   						<th>Maintainer</th>
+                        <th>Skills</th>
   						<th>Availab. 8:00-9:00</th>
   						<th>Availab. 9:00-10:00</th>
   						<th>Availab. 10:00-11:00</th>
@@ -100,6 +101,7 @@
   					<template id="maint-availab-template">
   						<tr>
   							<td style="text-align:center;">{MainName}</td>
+                            <td style="text-align:center;">{Skills}</td>
   							<td style="text-align:center;">
   								<button type="button" onclick="changeColor(this, '8');">{Availab8}</button>
   							</td>
@@ -156,7 +158,10 @@
 <script type="application/javascript">
 	$(document).ready(function () {
 		loadDailyAvail();
-		loadSelected();
+		let notes = localStorage.getItem('notes');
+        let workspaceNotes = $("#workspace-row-template").html();
+        workspaceNotes = workspaceNotes.replace(/{Workspace Notes}/ig, notes);
+        $("#workspace-rows").append(workspaceNotes);
 		document.getElementById("numWeek").innerHTML = localStorage.getItem("week");
 		document.getElementById("activityName").innerHTML = localStorage.getItem("name");
 		var day = localStorage.getItem("day");
