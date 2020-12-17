@@ -1,7 +1,7 @@
 <?php
 //When one of the following function is called from the controller layer, 
 //it allows to load the required information , using the classes in the items package.
-//Here singleton pattern is used.
+
 foreach (glob("..\items\*.php") as $filename)
 {
     include $filename;

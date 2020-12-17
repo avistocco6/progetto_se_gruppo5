@@ -376,7 +376,7 @@ function loadWeekPercentage() {
     let id = localStorage.getItem("id");
     let week = localStorage.getItem('week');
     let json = '{"week":' + week + ',"id":' + id + "}";
-    console.log(json);
+
     jQuery.ajax({
         type: "POST",
         url: '../models/loader.php',
@@ -495,10 +495,11 @@ function loadReview() {
 
                 document.getElementById('maintainer').innerHTML = localStorage.getItem('username');
                 document.getElementById('skills').innerHTML = localStorage.getItem('skills');
+                console.log(data);
                 $.each(data.skills, function(index, obj) {
                     let row = skill;
                     row = row.replace(/{Skill}/ig, obj.name);
-                    $('#skillsNeeded-rows').append(row);
+                    $('#skills-rows').append(row);
                 });
                 /* When empty activity */
                 if (data === null) {

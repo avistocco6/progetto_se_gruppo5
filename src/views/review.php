@@ -88,7 +88,7 @@
     </template>
   </thead>
 
-  <tbody id="skillsNeeded-rows">
+  <tbody id="skills-rows">
 
   </tbody>
 </table>
@@ -196,8 +196,7 @@ include 'prova.php';
   }
   document.getElementById("hour").innerHTML = hour;
 })
-</script>
-<script>
+
   function passuser(){
     var username = localStorage.getItem("username");
 
