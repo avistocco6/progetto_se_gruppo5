@@ -121,11 +121,11 @@
 <br>
 <br>
 <?php
-include 'prova.php';
+include 'email.php';
 ?>
 </div>
 <a href="mailto:<?php echo $email = getemailmain();?>?cc=<?php echo $email = getemailproman();?>&subject= New Assignment&body= Hello, there is a job for you! According to your availability, I have assigned to you a new planned maintenance activity. Please check your profile to obtain more information. Bye."> 
-  <input  type="submit" onclick="passuser()" value="send" id="send" name="send" style="float:right;width: 100px;
+  <input  type="submit" value="send" id="send" name="send" style="float:right;width: 100px;
   height: 50px;">
 </a>
 
@@ -197,20 +197,6 @@ include 'prova.php';
   document.getElementById("hour").innerHTML = hour;
 })
 
-  function passuser(){
-    var username = localStorage.getItem("username");
-
-    jQuery.ajax({
-      type: "POST",
-      url: 'prova.php',
-      dataType: 'json',
-      data: {user: username},
-
-      success: function (obj, textstatus) {
-        alert ("ok");
-      }
-    });
-  }
 </script>
 
 </body>
